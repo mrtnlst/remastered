@@ -1,0 +1,13 @@
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+**/*.xcodeproj/xcuserdata/
+**/*.xcworkspace/xcuserdata/
+Package.resolved
+
+## Other
+*.xcuserstate

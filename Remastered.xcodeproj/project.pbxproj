@@ -8,17 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEC7273FD771003376CC /* RemasteredApp.swift */; };
-		5B38CECA273FD771003376CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEC9273FD771003376CC /* ContentView.swift */; };
+		5B38CECA273FD771003376CC /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEC9273FD771003376CC /* AppView.swift */; };
 		5B38CECC273FD772003376CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B38CECB273FD772003376CC /* Assets.xcassets */; };
 		5B38CECF273FD772003376CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B38CECE273FD772003376CC /* Preview Assets.xcassets */; };
+		5B38CED7273FD804003376CC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B38CED6273FD804003376CC /* ComposableArchitecture */; };
+		5B38CED9273FD823003376CC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CED8273FD823003376CC /* AppState.swift */; };
+		5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDA273FD959003376CC /* AuthorizationService.swift */; };
+		5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDC273FDE6A003376CC /* AppAction.swift */; };
+		5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDE273FDE71003376CC /* AppEnvironment.swift */; };
+		5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEE0273FDE7A003376CC /* AppReducer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5B38CEC4273FD771003376CC /* Remastered.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remastered.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B38CEC7273FD771003376CC /* RemasteredApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemasteredApp.swift; sourceTree = "<group>"; };
-		5B38CEC9273FD771003376CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5B38CEC9273FD771003376CC /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		5B38CECB273FD772003376CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B38CECE273FD772003376CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5B38CED8273FD823003376CC /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		5B38CEDA273FD959003376CC /* AuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationService.swift; sourceTree = "<group>"; };
+		5B38CEDC273FDE6A003376CC /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
+		5B38CEDE273FDE71003376CC /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		5B38CEE0273FDE7A003376CC /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B38CED7273FD804003376CC /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,7 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
-				5B38CEC9273FD771003376CC /* ContentView.swift */,
+				5B38CEE2273FDE80003376CC /* App */,
+				5B38CEDA273FD959003376CC /* AuthorizationService.swift */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
 			);
@@ -65,6 +78,18 @@
 				5B38CECE273FD772003376CC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5B38CEE2273FDE80003376CC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CED8273FD823003376CC /* AppState.swift */,
+				5B38CEDC273FDE6A003376CC /* AppAction.swift */,
+				5B38CEDE273FDE71003376CC /* AppEnvironment.swift */,
+				5B38CEE0273FDE7A003376CC /* AppReducer.swift */,
+				5B38CEC9273FD771003376CC /* AppView.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +108,9 @@
 			dependencies = (
 			);
 			name = Remastered;
+			packageProductDependencies = (
+				5B38CED6273FD804003376CC /* ComposableArchitecture */,
+			);
 			productName = Remastered;
 			productReference = 5B38CEC4273FD771003376CC /* Remastered.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +139,9 @@
 				Base,
 			);
 			mainGroup = 5B38CEBB273FD771003376CC;
+			packageReferences = (
+				5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 5B38CEC5273FD771003376CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +168,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B38CECA273FD771003376CC /* ContentView.swift in Sources */,
+				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
+				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
+				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
+				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
+				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
+				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +308,7 @@
 				DEVELOPMENT_TEAM = SRTZB38F2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Music library data is used to display and play playlists.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,6 +338,7 @@
 				DEVELOPMENT_TEAM = SRTZB38F2W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Music library data is used to display and play playlists.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -341,6 +379,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5B38CED6273FD804003376CC /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5B38CEBC273FD771003376CC /* Project object */;
 }
