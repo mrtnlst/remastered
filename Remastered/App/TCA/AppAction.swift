@@ -5,10 +5,11 @@
 //  Created by martin on 13.11.21.
 //
 
-import ComposableArchitecture
+import Foundation
 
 enum AppAction: Equatable {
     case authorize
     case authorizationResponse(Result<Bool, AuthorizationError>)
+    case library(LibraryAction)
 }
 

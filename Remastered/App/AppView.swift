@@ -11,16 +11,22 @@ import ComposableArchitecture
 struct AppView: View {
     let store: Store<AppState, AppAction>
     
-    
     var body: some View {
         NavigationView {
             WithViewStore(store) { viewStore in
-                Text("Is authorized: \(String(viewStore.isAuthorized))")
-                    .padding()
-                
-                    .onAppear {
-                        viewStore.send(.authorize)
-                    }
+                if viewStore.isAuthorized {
+                    IfLetStore(
+                        store.scope(
+                            state: { $0.library },
+                            action: AppAction.library),
+                        then: LibraryView.init(store:)
+                    )
+                } else {
+                    Text("Library access not permitted yet.")
+                        .onAppear {
+                            viewStore.send(.authorize)
+                        }
+                }
             }
             .navigationBarTitle("Remastered", displayMode: .large)
         }
@@ -34,7 +40,10 @@ struct ContentView_Previews: PreviewProvider {
             store: Store(
                 initialState: .previewState,
                 reducer: appReducer,
-                environment: .init(authorizationService: AuthorizationService())
+                environment: .init(
+                    authorizationService: AuthorizationService(),
+                    libraryService: LibraryService()
+                )
             )
         )
     }

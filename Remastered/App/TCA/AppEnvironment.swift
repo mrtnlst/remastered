@@ -5,9 +5,10 @@
 //  Created by martin on 13.11.21.
 //
 
-import ComposableArchitecture
+import Foundation
 
 struct AppEnvironment {
     var authorizationService: AuthorizationService
+    var libraryService: LibraryService
 }
 

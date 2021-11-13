@@ -17,6 +17,13 @@
 		5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDC273FDE6A003376CC /* AppAction.swift */; };
 		5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDE273FDE71003376CC /* AppEnvironment.swift */; };
 		5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEE0273FDE7A003376CC /* AppReducer.swift */; };
+		5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEE3274019D5003376CC /* LibraryView.swift */; };
+		5B38CEE72740231C003376CC /* LibraryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEE62740231C003376CC /* LibraryState.swift */; };
+		5B38CEE927402323003376CC /* LibraryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEE827402323003376CC /* LibraryAction.swift */; };
+		5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEA2740232C003376CC /* LibraryEnvironment.swift */; };
+		5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEC27402332003376CC /* LibraryReducer.swift */; };
+		5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEE2740234C003376CC /* LibraryService.swift */; };
+		5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF2274023D9003376CC /* LibraryAlbum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +37,13 @@
 		5B38CEDC273FDE6A003376CC /* AppAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAction.swift; sourceTree = "<group>"; };
 		5B38CEDE273FDE71003376CC /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 		5B38CEE0273FDE7A003376CC /* AppReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReducer.swift; sourceTree = "<group>"; };
+		5B38CEE3274019D5003376CC /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		5B38CEE62740231C003376CC /* LibraryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryState.swift; sourceTree = "<group>"; };
+		5B38CEE827402323003376CC /* LibraryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAction.swift; sourceTree = "<group>"; };
+		5B38CEEA2740232C003376CC /* LibraryEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryEnvironment.swift; sourceTree = "<group>"; };
+		5B38CEEC27402332003376CC /* LibraryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryReducer.swift; sourceTree = "<group>"; };
+		5B38CEEE2740234C003376CC /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
+		5B38CEF2274023D9003376CC /* LibraryAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +79,7 @@
 			children = (
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
-				5B38CEDA273FD959003376CC /* AuthorizationService.swift */,
+				5B38CEE527402309003376CC /* Library */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
 			);
@@ -83,13 +97,52 @@
 		5B38CEE2273FDE80003376CC /* App */ = {
 			isa = PBXGroup;
 			children = (
+				5B38CEF1274023C8003376CC /* TCA */,
+				5B38CEC9273FD771003376CC /* AppView.swift */,
+				5B38CEDA273FD959003376CC /* AuthorizationService.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		5B38CEE527402309003376CC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEF0274023BF003376CC /* TCA */,
+				5B38CEF427402464003376CC /* Models */,
+				5B38CEE3274019D5003376CC /* LibraryView.swift */,
+				5B38CEEE2740234C003376CC /* LibraryService.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		5B38CEF0274023BF003376CC /* TCA */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEE62740231C003376CC /* LibraryState.swift */,
+				5B38CEE827402323003376CC /* LibraryAction.swift */,
+				5B38CEEA2740232C003376CC /* LibraryEnvironment.swift */,
+				5B38CEEC27402332003376CC /* LibraryReducer.swift */,
+			);
+			path = TCA;
+			sourceTree = "<group>";
+		};
+		5B38CEF1274023C8003376CC /* TCA */ = {
+			isa = PBXGroup;
+			children = (
 				5B38CED8273FD823003376CC /* AppState.swift */,
 				5B38CEDC273FDE6A003376CC /* AppAction.swift */,
 				5B38CEDE273FDE71003376CC /* AppEnvironment.swift */,
 				5B38CEE0273FDE7A003376CC /* AppReducer.swift */,
-				5B38CEC9273FD771003376CC /* AppView.swift */,
 			);
-			path = App;
+			path = TCA;
+			sourceTree = "<group>";
+		};
+		5B38CEF427402464003376CC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEF2274023D9003376CC /* LibraryAlbum.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,11 +222,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
+				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
+				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
+				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
+				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
+				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
+				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
+				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
