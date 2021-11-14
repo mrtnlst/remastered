@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import CombineSchedulers
+import ComposableArchitecture
 
 struct AppEnvironment {
-    var authorizationService: AuthorizationService
-    var libraryService: LibraryService
+    var mainQueue: AnySchedulerOf<DispatchQueue> = .main
+    var authorize: () -> Effect<Bool, AuthorizationError>
+    var fetch: () -> Effect<[LibraryAlbum], Never>
     var favoritesService: FavoritesService
 }
 

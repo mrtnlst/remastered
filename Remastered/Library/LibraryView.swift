@@ -50,7 +50,7 @@ struct LibraryView_Previews: PreviewProvider {
                 Store(
                     initialState: LibraryState(albums: LibraryAlbum.exampleAlbums),
                     reducer: libraryReducer,
-                    environment: LibraryEnvironment(libraryService: LibraryService())
+                    environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none })
                 )
         )
     }

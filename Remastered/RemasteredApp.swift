@@ -11,19 +11,21 @@ import ComposableArchitecture
 @main
 struct RemasteredApp: App {
     
-    let store = Store(
+    static var dependencies = Dependencies()
+    
+    static var store = Store(
         initialState: AppState(favorites: FavoritesState()),
         reducer: appReducer,
         environment: AppEnvironment(
-            authorizationService: AuthorizationService(),
-            libraryService: LibraryService(),
+            authorize: Self.dependencies.authorize,
+            fetch: Self.dependencies.fetch,
             favoritesService: FavoritesService()
         )
     )
     
     var body: some Scene {
         WindowGroup {
-            AppView(store: store)
+            AppView(store: Self.store)
         }
     }
 }

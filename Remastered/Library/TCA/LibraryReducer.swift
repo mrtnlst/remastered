@@ -12,11 +12,9 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
     switch action {
     case .fetchAlbums:
         return environment
-            .libraryService
             .fetch()
-            .receive(on: DispatchQueue.main)
-            .catchToEffect()
-            .map(LibraryAction.receiveAlbums)
+            .receive(on: environment.mainQueue)
+            .catchToEffect(LibraryAction.receiveAlbums)
         
     case let .receiveAlbums(.success(albums)):
         state.albums = albums

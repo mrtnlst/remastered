@@ -11,7 +11,6 @@
 		5B38CECA273FD771003376CC /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEC9273FD771003376CC /* AppView.swift */; };
 		5B38CECC273FD772003376CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B38CECB273FD772003376CC /* Assets.xcassets */; };
 		5B38CECF273FD772003376CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B38CECE273FD772003376CC /* Preview Assets.xcassets */; };
-		5B38CED7273FD804003376CC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B38CED6273FD804003376CC /* ComposableArchitecture */; };
 		5B38CED9273FD823003376CC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CED8273FD823003376CC /* AppState.swift */; };
 		5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDA273FD959003376CC /* AuthorizationService.swift */; };
 		5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEDC273FDE6A003376CC /* AppAction.swift */; };
@@ -31,7 +30,21 @@
 		5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */; };
 		5B38CF0227414454003376CC /* FavoritesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF0127414454003376CC /* FavoritesReducer.swift */; };
 		5B38CF042741445E003376CC /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF032741445E003376CC /* FavoritesService.swift */; };
+		5B38CF222741566B003376CC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B38CF212741566B003376CC /* ComposableArchitecture */; };
+		5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF23274156DE003376CC /* LibraryTests.swift */; };
+		5B38CF2627416026003376CC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2527416026003376CC /* AppTests.swift */; };
+		5B38CF2827416E7B003376CC /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2727416E7B003376CC /* Dependencies.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5B38CF1B274155CF003376CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B38CEBC273FD771003376CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B38CEC3273FD771003376CC;
+			remoteInfo = Remastered;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5B38CEC4273FD771003376CC /* Remastered.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remastered.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +71,10 @@
 		5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEnvironment.swift; sourceTree = "<group>"; };
 		5B38CF0127414454003376CC /* FavoritesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesReducer.swift; sourceTree = "<group>"; };
 		5B38CF032741445E003376CC /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
+		5B38CF17274155CF003376CC /* RemasteredTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemasteredTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B38CF23274156DE003376CC /* LibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTests.swift; sourceTree = "<group>"; };
+		5B38CF2527416026003376CC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		5B38CF2727416E7B003376CC /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +82,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B38CED7273FD804003376CC /* ComposableArchitecture in Frameworks */,
+				5B38CF222741566B003376CC /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B38CF14274155CF003376CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEC6273FD771003376CC /* Remastered */,
+				5B38CF18274155CF003376CC /* RemasteredTests */,
 				5B38CEC5273FD771003376CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEC4273FD771003376CC /* Remastered.app */,
+				5B38CF17274155CF003376CC /* RemasteredTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
+				5B38CF2727416E7B003376CC /* Dependencies.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
 				5B38CEE527402309003376CC /* Library */,
 				5B38CEFA27414422003376CC /* Favorites */,
@@ -190,6 +217,15 @@
 			path = TCA;
 			sourceTree = "<group>";
 		};
+		5B38CF18274155CF003376CC /* RemasteredTests */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CF23274156DE003376CC /* LibraryTests.swift */,
+				5B38CF2527416026003376CC /* AppTests.swift */,
+			);
+			path = RemasteredTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,11 +243,29 @@
 			);
 			name = Remastered;
 			packageProductDependencies = (
-				5B38CED6273FD804003376CC /* ComposableArchitecture */,
+				5B38CF212741566B003376CC /* ComposableArchitecture */,
 			);
 			productName = Remastered;
 			productReference = 5B38CEC4273FD771003376CC /* Remastered.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5B38CF16274155CF003376CC /* RemasteredTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B38CF1F274155CF003376CC /* Build configuration list for PBXNativeTarget "RemasteredTests" */;
+			buildPhases = (
+				5B38CF13274155CF003376CC /* Sources */,
+				5B38CF14274155CF003376CC /* Frameworks */,
+				5B38CF15274155CF003376CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B38CF1C274155CF003376CC /* PBXTargetDependency */,
+			);
+			name = RemasteredTests;
+			productName = RemasteredTests;
+			productReference = 5B38CF17274155CF003376CC /* RemasteredTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -226,6 +280,10 @@
 					5B38CEC3273FD771003376CC = {
 						CreatedOnToolsVersion = 13.1;
 					};
+					5B38CF16274155CF003376CC = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 5B38CEC3273FD771003376CC;
+					};
 				};
 			};
 			buildConfigurationList = 5B38CEBF273FD771003376CC /* Build configuration list for PBXProject "Remastered" */;
@@ -238,13 +296,14 @@
 			);
 			mainGroup = 5B38CEBB273FD771003376CC;
 			packageReferences = (
-				5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				5B38CF202741566B003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = 5B38CEC5273FD771003376CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				5B38CEC3273FD771003376CC /* Remastered */,
+				5B38CF16274155CF003376CC /* RemasteredTests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,6 +315,13 @@
 			files = (
 				5B38CECF273FD772003376CC /* Preview Assets.xcassets in Resources */,
 				5B38CECC273FD772003376CC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B38CF15274155CF003376CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +338,7 @@
 				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
+				5B38CF2827416E7B003376CC /* Dependencies.swift in Sources */,
 				5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
@@ -290,7 +357,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5B38CF13274155CF003376CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */,
+				5B38CF2627416026003376CC /* AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B38CF1C274155CF003376CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B38CEC3273FD771003376CC /* Remastered */;
+			targetProxy = 5B38CF1B274155CF003376CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5B38CED0273FD772003376CC /* Debug */ = {
@@ -469,6 +553,52 @@
 			};
 			name = Release;
 		};
+		5B38CF1D274155CF003376CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4853CED358;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.martinlist.RemasteredTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remastered.app/Remastered";
+			};
+			name = Debug;
+		};
+		5B38CF1E274155CF003376CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4853CED358;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.martinlist.RemasteredTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Remastered.app/Remastered";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -490,10 +620,19 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5B38CF1F274155CF003376CC /* Build configuration list for PBXNativeTarget "RemasteredTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B38CF1D274155CF003376CC /* Debug */,
+				5B38CF1E274155CF003376CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+		5B38CF202741566B003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
@@ -504,9 +643,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5B38CED6273FD804003376CC /* ComposableArchitecture */ = {
+		5B38CF212741566B003376CC /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5B38CED5273FD804003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			package = 5B38CF202741566B003376CC /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */

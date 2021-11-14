@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
 struct LibraryEnvironment {
-    var libraryService: LibraryService
+    var mainQueue: AnySchedulerOf<DispatchQueue>
+    var fetch: () -> Effect<[LibraryAlbum], Never>
 }
