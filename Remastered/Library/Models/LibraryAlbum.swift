@@ -6,11 +6,29 @@
 //
 
 import Foundation
+import MediaPlayer
 
 struct LibraryAlbum: Equatable, Identifiable {
     let albumTitle: String
     let artist: String
-    let id: UUID = UUID()
+    let id: String
+    
+    init(albumTitle: String, artist: String, id: String = UUID().uuidString) {
+        self.albumTitle = albumTitle
+        self.artist = artist
+        self.id = id
+    }
+    
+    init?(with collection: MPMediaItemCollection) {
+        guard let albumTitle = collection.albumTitle,
+              let artist = collection.albumArtist,
+              let id = collection.mediaPersistentID
+        else { return nil }
+        
+        self.albumTitle = albumTitle
+        self.artist = artist
+        self.id = id
+    }
 }
 
 extension LibraryAlbum {

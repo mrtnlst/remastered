@@ -7,16 +7,21 @@
 
 import Combine
 import ComposableArchitecture
-
-enum LibraryError: Error {
-    case permissionError
-}
+import MediaPlayer
 
 final class LibraryService {
     
-    func fetch() -> Effect<[LibraryAlbum], LibraryError> {
+    func fetch() -> Effect<[LibraryAlbum], Never> {
         Future { promise in
+            #if targetEnvironment(simulator)
             promise(.success(LibraryAlbum.exampleAlbums))
+            #else
+            let collections = MPMediaQuery.albums().collections
+            let albums = collections?.compactMap {
+                LibraryAlbum(with: $0)
+            }
+            promise(.success(albums ?? []))
+            #endif
         }
         .eraseToAnyPublisher()
         .eraseToEffect()

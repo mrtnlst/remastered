@@ -24,6 +24,7 @@
 		5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEC27402332003376CC /* LibraryReducer.swift */; };
 		5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEE2740234C003376CC /* LibraryService.swift */; };
 		5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF2274023D9003376CC /* LibraryAlbum.swift */; };
+		5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		5B38CEEC27402332003376CC /* LibraryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryReducer.swift; sourceTree = "<group>"; };
 		5B38CEEE2740234C003376CC /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		5B38CEF2274023D9003376CC /* LibraryAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbum.swift; sourceTree = "<group>"; };
+		5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				5B38CEF427402464003376CC /* Models */,
 				5B38CEE3274019D5003376CC /* LibraryView.swift */,
 				5B38CEEE2740234C003376CC /* LibraryService.swift */,
+				5B38CEF727414217003376CC /* Extensions */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -143,6 +146,14 @@
 				5B38CEF2274023D9003376CC /* LibraryAlbum.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		5B38CEF727414217003376CC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +244,7 @@
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
+				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);
@@ -365,7 +377,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
-				DEVELOPMENT_TEAM = SRTZB38F2W;
+				DEVELOPMENT_TEAM = 4853CED358;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Music library data is used to display and play playlists.";
@@ -395,7 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
-				DEVELOPMENT_TEAM = SRTZB38F2W;
+				DEVELOPMENT_TEAM = 4853CED358;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Music library data is used to display and play playlists.";
