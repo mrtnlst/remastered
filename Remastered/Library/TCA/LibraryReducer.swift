@@ -21,5 +21,8 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
     case let .receiveAlbums(.success(albums)):
         state.albums = albums
         return .none
+        
+    case .starTapped:
+        return .none
     }
 }

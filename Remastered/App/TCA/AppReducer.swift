@@ -8,6 +8,12 @@
 import ComposableArchitecture
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
+    favoritesReducer
+        .pullback(
+            state: \.favorites,
+            action: /AppAction.favorites,
+            environment: { FavoritesEnvironment(favoritesService: $0.favoritesService) }
+    ),
     libraryReducer
         .optional()
         .pullback(
@@ -17,14 +23,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     ),
     Reducer { state, action, environment in
         switch action {
-        case .authorize:
+        case .onAppear:
             return environment
                 .authorizationService
                 .authorize()
                 .receive(on: DispatchQueue.main)
                 .catchToEffect()
                 .map(AppAction.authorizationResponse)
-            
+
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
             
@@ -33,6 +39,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.library = nil
             
         case .library(_):
+            return .none
+        
+        case let .setLibrary(isPresenting):
+            state.isLibraryPresenting = isPresenting
+            
+        case .favorites(_):
             return .none
         }
         return .none

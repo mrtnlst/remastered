@@ -25,6 +25,12 @@
 		5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEE2740234C003376CC /* LibraryService.swift */; };
 		5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF2274023D9003376CC /* LibraryAlbum.swift */; };
 		5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */; };
+		5B38CEF92741441C003376CC /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF82741441C003376CC /* FavoritesView.swift */; };
+		5B38CEFC27414435003376CC /* FavoritesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFB27414435003376CC /* FavoritesState.swift */; };
+		5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFD2741443C003376CC /* FavoritesAction.swift */; };
+		5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */; };
+		5B38CF0227414454003376CC /* FavoritesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF0127414454003376CC /* FavoritesReducer.swift */; };
+		5B38CF042741445E003376CC /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF032741445E003376CC /* FavoritesService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +52,12 @@
 		5B38CEEE2740234C003376CC /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		5B38CEF2274023D9003376CC /* LibraryAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbum.swift; sourceTree = "<group>"; };
 		5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+Additions.swift"; sourceTree = "<group>"; };
+		5B38CEF82741441C003376CC /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		5B38CEFB27414435003376CC /* FavoritesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesState.swift; sourceTree = "<group>"; };
+		5B38CEFD2741443C003376CC /* FavoritesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAction.swift; sourceTree = "<group>"; };
+		5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEnvironment.swift; sourceTree = "<group>"; };
+		5B38CF0127414454003376CC /* FavoritesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesReducer.swift; sourceTree = "<group>"; };
+		5B38CF032741445E003376CC /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +94,7 @@
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
 				5B38CEE527402309003376CC /* Library */,
+				5B38CEFA27414422003376CC /* Favorites */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
 			);
@@ -154,6 +167,27 @@
 				5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5B38CEFA27414422003376CC /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CF0527414471003376CC /* TCA */,
+				5B38CEF82741441C003376CC /* FavoritesView.swift */,
+				5B38CF032741445E003376CC /* FavoritesService.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		5B38CF0527414471003376CC /* TCA */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEFB27414435003376CC /* FavoritesState.swift */,
+				5B38CEFD2741443C003376CC /* FavoritesAction.swift */,
+				5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */,
+				5B38CF0127414454003376CC /* FavoritesReducer.swift */,
+			);
+			path = TCA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,18 +266,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B38CF042741445E003376CC /* FavoritesService.swift in Sources */,
 				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
+				5B38CEFC27414435003376CC /* FavoritesState.swift in Sources */,
 				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
+				5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
 				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
+				5B38CF0227414454003376CC /* FavoritesReducer.swift in Sources */,
 				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
+				5B38CEF92741441C003376CC /* FavoritesView.swift in Sources */,
+				5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,

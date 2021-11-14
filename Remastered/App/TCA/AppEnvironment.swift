@@ -10,5 +10,6 @@ import Foundation
 struct AppEnvironment {
     var authorizationService: AuthorizationService
     var libraryService: LibraryService
+    var favoritesService: FavoritesService
 }
 

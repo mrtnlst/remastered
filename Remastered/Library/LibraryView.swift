@@ -13,18 +13,28 @@ struct LibraryView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            List {
-                ForEach(viewStore.albums) { album in
-                    HStack {
-                        Image(systemName: "rectangle.stack.fill")
-                        VStack(alignment: .leading) {
-                            Text(album.albumTitle)
-                            Text(album.artist)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+            NavigationView {
+                List {
+                    ForEach(viewStore.albums) { album in
+                        HStack {
+                            Image(systemName: "rectangle.stack.fill")
+                            VStack(alignment: .leading) {
+                                Text(album.albumTitle)
+                                Text(album.artist)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Button {
+                             
+                            } label: {
+                                Image(systemName: album.isFavorite ? "star.fill" : "star")
+                                    .foregroundColor(.black)
+                            }
                         }
                     }
                 }
+                .navigationBarTitle("Library")
             }
             .onAppear {
                 viewStore.send(.fetchAlbums)
