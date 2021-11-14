@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct RemasteredApp: App {
     
     let store = Store(
-        initialState: AppState(library: LibraryState()),
+        initialState: AppState(),
         reducer: appReducer,
         environment: AppEnvironment(
             authorizationService: AuthorizationService(),

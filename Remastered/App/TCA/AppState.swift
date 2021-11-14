@@ -8,15 +8,13 @@
 import ComposableArchitecture
 
 struct AppState: Equatable {
-    var isAuthorized: Bool = false
-    var library: LibraryState
+    var library: LibraryState?
 }
 
 extension AppState {
     
     static var previewState: Self {
         AppState(
-            isAuthorized: true,
             library: LibraryState(
                 albums: LibraryAlbum.exampleAlbums
             )

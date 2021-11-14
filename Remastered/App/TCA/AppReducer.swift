@@ -8,10 +8,12 @@
 import ComposableArchitecture
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
-    libraryReducer.pullback(
-        state: \.library,
-        action: /AppAction.library,
-        environment: { LibraryEnvironment(libraryService: $0.libraryService) }
+    libraryReducer
+        .optional()
+        .pullback(
+            state: \.library,
+            action: /AppAction.library,
+            environment: { LibraryEnvironment(libraryService: $0.libraryService) }
     ),
     Reducer { state, action, environment in
         switch action {
@@ -24,11 +26,11 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 .map(AppAction.authorizationResponse)
             
         case .authorizationResponse(.success(true)):
-            state.isAuthorized = true
+            state.library = LibraryState()
             
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
-            state.isAuthorized = false
+            state.library = nil
             
         case .library(_):
             return .none

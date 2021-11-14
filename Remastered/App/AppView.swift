@@ -14,19 +14,18 @@ struct AppView: View {
     var body: some View {
         NavigationView {
             WithViewStore(store) { viewStore in
-                if viewStore.isAuthorized {
-                    IfLetStore(
-                        store.scope(
-                            state: { $0.library },
-                            action: AppAction.library),
-                        then: LibraryView.init(store:)
-                    )
-                } else {
-                    Text("Library access not permitted yet.")
-                        .onAppear {
-                            viewStore.send(.authorize)
-                        }
-                }
+                IfLetStore(
+                    store.scope(
+                        state: { $0.library },
+                        action: AppAction.library),
+                    then: LibraryView.init(store:),
+                    else: {
+                        Text("Library access not permitted yet.")
+                            .onAppear {
+                                viewStore.send(.authorize)
+                            }
+                    }
+                )
             }
             .navigationBarTitle("Remastered", displayMode: .large)
         }
