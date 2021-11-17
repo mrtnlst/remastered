@@ -48,8 +48,8 @@ struct ContentView_Previews: PreviewProvider {
                 initialState: .previewState,
                 reducer: appReducer,
                 environment: .init(
-                    authorize: { Effect(value: true) },
-                    fetch: { return .none },
+                    libraryService: DefaultLibraryService(),
+                    authorizationService: DefaultAuthorizationService(),
                     favoritesService: FavoritesService()
                 )
             )

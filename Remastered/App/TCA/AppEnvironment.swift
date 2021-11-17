@@ -11,8 +11,8 @@ import ComposableArchitecture
 
 struct AppEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue> = .main
-    var authorize: () -> Effect<Bool, AuthorizationError>
-    var fetch: () -> Effect<[LibraryAlbum], Never>
+    var libraryService: LibraryService
+    var authorizationService: AuthorizationService
     var favoritesService: FavoritesService
 }
 

@@ -22,7 +22,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 LibraryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.fetch
+                    fetch: $0.libraryService.fetch
                 )
             }
     ),
@@ -30,6 +30,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         switch action {
         case .onAppear:
             return environment
+                .authorizationService
                 .authorize()
                 .receive(on: environment.mainQueue)
                 .catchToEffect(AppAction.authorizationResponse)

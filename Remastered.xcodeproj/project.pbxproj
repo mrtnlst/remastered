@@ -33,7 +33,8 @@
 		5B38CF222741566B003376CC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B38CF212741566B003376CC /* ComposableArchitecture */; };
 		5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF23274156DE003376CC /* LibraryTests.swift */; };
 		5B38CF2627416026003376CC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2527416026003376CC /* AppTests.swift */; };
-		5B38CF2827416E7B003376CC /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2727416E7B003376CC /* Dependencies.swift */; };
+		5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */; };
+		5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +75,8 @@
 		5B38CF17274155CF003376CC /* RemasteredTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemasteredTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B38CF23274156DE003376CC /* LibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTests.swift; sourceTree = "<group>"; };
 		5B38CF2527416026003376CC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
-		5B38CF2727416E7B003376CC /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthorizationService.swift; sourceTree = "<group>"; };
+		5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLibraryService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
-				5B38CF2727416E7B003376CC /* Dependencies.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
 				5B38CEE527402309003376CC /* Library */,
 				5B38CEFA27414422003376CC /* Favorites */,
@@ -220,10 +221,20 @@
 		5B38CF18274155CF003376CC /* RemasteredTests */ = {
 			isa = PBXGroup;
 			children = (
+				5B4AF0232744ED35003E3AD1 /* MockServices */,
 				5B38CF23274156DE003376CC /* LibraryTests.swift */,
 				5B38CF2527416026003376CC /* AppTests.swift */,
 			);
 			path = RemasteredTests;
+			sourceTree = "<group>";
+		};
+		5B4AF0232744ED35003E3AD1 /* MockServices */ = {
+			isa = PBXGroup;
+			children = (
+				5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */,
+				5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */,
+			);
+			path = MockServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,7 +349,6 @@
 				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
-				5B38CF2827416E7B003376CC /* Dependencies.swift in Sources */,
 				5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
@@ -362,7 +372,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */,
+				5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */,
 				5B38CF2627416026003376CC /* AppTests.swift in Sources */,
+				5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

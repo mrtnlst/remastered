@@ -11,14 +11,12 @@ import ComposableArchitecture
 @main
 struct RemasteredApp: App {
     
-    static var dependencies = Dependencies()
-    
     static var store = Store(
         initialState: AppState(favorites: FavoritesState()),
         reducer: appReducer,
         environment: AppEnvironment(
-            authorize: Self.dependencies.authorize,
-            fetch: Self.dependencies.fetch,
+            libraryService: DefaultLibraryService(),
+            authorizationService: DefaultAuthorizationService(),
             favoritesService: FavoritesService()
         )
     )

@@ -13,7 +13,11 @@ enum AuthorizationError: Error {
     case authorizationFailed
 }
 
-final class AuthorizationService {
+protocol AuthorizationService {
+    func authorize() -> Effect<Bool, AuthorizationError>
+}
+
+final class DefaultAuthorizationService: AuthorizationService {
     
     func authorize() -> Effect<Bool, AuthorizationError> {
         Future { promise in

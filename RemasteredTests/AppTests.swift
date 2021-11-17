@@ -18,8 +18,8 @@ class AppTests: XCTestCase {
             reducer: appReducer,
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                authorize: { Effect(value: true) },
-                fetch: { return .none },
+                libraryService: MockLibraryService(mockFetch: { return .none }),
+                authorizationService: MockAuthorizationService(mockAuthorize: { Effect(value: true) }),
                 favoritesService: FavoritesService()
             )
         )
@@ -37,8 +37,8 @@ class AppTests: XCTestCase {
             reducer: appReducer,
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                authorize: { Effect(error: .authorizationFailed) },
-                fetch: { return .none },
+                libraryService: MockLibraryService(mockFetch: { return .none }),
+                authorizationService: MockAuthorizationService(mockAuthorize: { Effect(error: .authorizationFailed) }),
                 favoritesService: FavoritesService()
             )
         )
@@ -56,8 +56,8 @@ class AppTests: XCTestCase {
             reducer: appReducer,
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                authorize: { return .none },
-                fetch: { return .none },
+                libraryService: MockLibraryService(mockFetch: { return .none }),
+                authorizationService: MockAuthorizationService(mockAuthorize: { return .none }),
                 favoritesService: FavoritesService()
             )
         )

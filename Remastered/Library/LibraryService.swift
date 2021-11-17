@@ -9,7 +9,11 @@ import Combine
 import ComposableArchitecture
 import MediaPlayer
 
-final class LibraryService {
+protocol LibraryService {
+    func fetch() -> Effect<[LibraryAlbum], Never>
+}
+
+final class DefaultLibraryService: LibraryService {
     
     func fetch() -> Effect<[LibraryAlbum], Never> {
         Future { promise in
