@@ -24,6 +24,7 @@ struct AppView: View {
                         }
                 )
             }
+            .onAppear { viewStore.send(.onAppear) }
             .sheet(isPresented: viewStore.binding(get: \.isLibraryPresenting, send: .setLibrary(isPresenting: false))) {
                 IfLetStore(
                     store.scope(
@@ -32,7 +33,6 @@ struct AppView: View {
                     then: LibraryView.init(store:),
                     else: {
                         Text("Library access not permitted yet.")
-                            .onAppear { viewStore.send(.onAppear) }
                     }
                 )
             }
@@ -50,7 +50,7 @@ struct ContentView_Previews: PreviewProvider {
                 environment: .init(
                     libraryService: DefaultLibraryService(),
                     authorizationService: DefaultAuthorizationService(),
-                    favoritesService: DefaultFavoritesService()
+                    favoritesRepository: DefaultFavoritesRepository()
                 )
             )
         )

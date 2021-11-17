@@ -20,14 +20,27 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(value: true) }),
-                favoritesService: DefaultFavoritesService()
+                favoritesRepository: MockFavoritesRepository(
+                    mockFetch: { Effect(value: MockFavoritesRepository.mockFavorites) },
+                    mockDelete: { _ in return .none },
+                    mockSave: { _, _ in return .none }
+                )
             )
         )
+        
+        let expectedFavorites = MockFavoritesRepository.mockFavorites
         
         store.send(.onAppear)
         scheduler.advance()
         store.receive(.authorizationResponse(.success(true))) {
             $0.library = LibraryState()
+        }
+        store.receive(.favorites(.fetchFavorites))
+        store.receive(.favorites(.receiveFavorites(.success(expectedFavorites)))) {
+            $0.favorites.favorites = expectedFavorites
+        }
+        store.receive(.library(.receiveFavoriteAlbums(expectedFavorites))) {
+            $0.library?.favorites = expectedFavorites
         }
     }
     
@@ -39,7 +52,7 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(error: .authorizationFailed) }),
-                favoritesService: DefaultFavoritesService()
+                favoritesRepository: DefaultFavoritesRepository()
             )
         )
         
@@ -58,7 +71,7 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { return .none }),
-                favoritesService: DefaultFavoritesService()
+                favoritesRepository: DefaultFavoritesRepository()
             )
         )
         

@@ -27,7 +27,7 @@ struct LibraryView: View {
                             }
                             Spacer()
                             Button {
-                             
+                                viewStore.send(.libraryAlbumSelected(id: album.id))
                             } label: {
                                 Image(systemName: album.isFavorite ? "star.fill" : "star")
                                     .foregroundColor(.black)

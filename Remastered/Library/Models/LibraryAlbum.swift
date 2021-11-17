@@ -41,7 +41,7 @@ struct LibraryAlbum: Equatable, Identifiable {
 extension LibraryAlbum {
     static let exampleAlbums: [LibraryAlbum] = [
         LibraryAlbum(title: "Organ", artist: "Dimension", id: "AABB-CCDD-EEFF-GGHH"),
-        LibraryAlbum(title: "Whenever You Need Somebody", artist: "Rick Astley", id: "AABB-CCDD-EEFF-KKLL", position: 0),
+        LibraryAlbum(title: "Whenever You Need Somebody", artist: "Rick Astley", id: "AABB-CCDD-EEFF-KKLL"),
         LibraryAlbum(title: "Midnight Express", artist: "Giorgio Moroder", id: "AABB-CCDD-EEFF-LLMM"),
         LibraryAlbum(title: "After Hours", artist: "The Weeknd", id: "AABB-CCDD-EEFF-MMNN"),
         LibraryAlbum(title: "Mosaik", artist: "Camo & Krooked", id: "AABB-CCDD-EEFF-NNOO"),

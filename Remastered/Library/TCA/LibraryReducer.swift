@@ -17,10 +17,27 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
             .catchToEffect(LibraryAction.receiveAlbums)
         
     case let .receiveAlbums(.success(albums)):
+        // TODO: Not very good
         state.albums = albums
+        for (index, favorite) in state.favorites.enumerated() {
+            if let albumIndex = state.albums.firstIndex(where: { $0.id == favorite.id }) {
+                state.albums[albumIndex].position = favorite.position
+            }
+        }
         return .none
         
-    case .starTapped:
+    case let .libraryAlbumSelected(id):
+        // TODO: Not very good
+        for (index, favorite) in state.albums.enumerated() {
+            let album = state.albums[index]
+            if album.id == id {
+                state.albums[index].position = album.isFavorite ? nil : 0
+            }
+        }
+        return .none
+        
+    case let .receiveFavoriteAlbums(favorites):
+        state.favorites = favorites
         return .none
     }
 }

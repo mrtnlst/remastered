@@ -9,4 +9,5 @@ import Foundation
 
 struct LibraryState: Equatable {
     var albums: [LibraryAlbum] = []
+    var favorites: [LibraryAlbum] = []
 }

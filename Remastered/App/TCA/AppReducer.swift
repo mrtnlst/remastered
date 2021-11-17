@@ -12,10 +12,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         .pullback(
             state: \.favorites,
             action: /AppAction.favorites,
-            environment: {
+            environment: { environment in
                 FavoritesEnvironment(
-                    mainQueue: $0.mainQueue,
-                    fetch: $0.favoritesService.fetch
+                    mainQueue: environment.mainQueue,
+                    fetch: environment.favoritesRepository.fetch,
+                    delete: { id in environment.favoritesRepository.delete(id: id) },
+                    save: { id, position in environment.favoritesRepository.save(id: id, position: position) }
                 )
             }
     ),
@@ -42,16 +44,23 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
 
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
-            
+            return Effect(value: .favorites(.fetchFavorites))
+
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
             state.library = nil
+            
+        case let .library(.libraryAlbumSelected(id)):
+            return Effect(value: .favorites(.saveFavorite(id: id)))
             
         case .library(_):
             return .none
         
         case let .setLibrary(isPresenting):
             state.isLibraryPresenting = isPresenting
+            
+        case let .favorites(.receiveFavorites(.success(favorites))):
+            return Effect(value: .library(.receiveFavoriteAlbums(favorites)))
             
         case .favorites(_):
             return .none

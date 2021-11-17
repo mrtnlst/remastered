@@ -11,4 +11,6 @@ import CombineSchedulers
 struct FavoritesEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue> = .main
     var fetch: () -> Effect<[LibraryAlbum], Never>
+    var delete: (String) -> Effect<Void, Error>
+    var save: (String, Int) -> Effect<Void, Error>
 }

@@ -36,9 +36,6 @@ struct FavoritesView: View {
                 .padding()
             }
             .navigationBarTitle("Albums")
-            .onAppear {
-                viewStore.send(.fetchFavorites)
-            }
         }
         
     }
@@ -52,7 +49,9 @@ struct FavoritesView_Previews: PreviewProvider {
                     initialState: FavoritesState(favorites: FavoriteAlbum.exampleAlbums),
                     reducer: favoritesReducer,
                     environment: FavoritesEnvironment(
-                        fetch: { return Effect(value: FavoriteAlbum.exampleAlbums) }
+                        fetch: { return Effect(value: FavoriteAlbum.exampleAlbums) },
+                        delete: { _ in return .none },
+                        save: { _, _ in return .none }
                     )
                 )
             )

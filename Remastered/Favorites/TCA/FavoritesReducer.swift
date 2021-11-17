@@ -22,5 +22,19 @@ let favoritesReducer = Reducer<
     case let .receiveFavorites(.success(favorites)):
         state.favorites = favorites.sorted { $0.position ?? Int.max < $1.position ?? Int.max }
         return .none
+        
+    case let .saveFavorite(id):
+        guard !state.favorites.contains(where: { $0.id == id }) else {
+            return environment
+                .delete(id)
+                .receive(on: environment.mainQueue)
+                .catchToEffect()
+                .map { _ in FavoritesAction.fetchFavorites }
+        }
+        return environment
+            .save(id, state.favorites.count)
+            .receive(on: environment.mainQueue)
+            .catchToEffect()
+            .map { _ in FavoritesAction.fetchFavorites }
     }
 }

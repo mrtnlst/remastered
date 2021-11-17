@@ -10,4 +10,5 @@ import Foundation
 enum FavoritesAction: Equatable {
     case fetchFavorites
     case receiveFavorites(Result<[LibraryAlbum], Never>)
+    case saveFavorite(id: String)
 }

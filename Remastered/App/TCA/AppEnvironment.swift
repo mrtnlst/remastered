@@ -13,6 +13,6 @@ struct AppEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue> = .main
     var libraryService: LibraryService
     var authorizationService: AuthorizationService
-    var favoritesService: FavoritesService
+    var favoritesRepository: Repository
 }
 

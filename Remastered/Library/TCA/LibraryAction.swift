@@ -10,5 +10,6 @@ import Foundation
 enum LibraryAction: Equatable {
     case fetchAlbums
     case receiveAlbums(result: Result<[LibraryAlbum], Never>)
-    case starTapped
+    case receiveFavoriteAlbums([LibraryAlbum])
+    case libraryAlbumSelected(id: String)
 }
