@@ -17,7 +17,7 @@ struct RemasteredApp: App {
         environment: AppEnvironment(
             libraryService: DefaultLibraryService(),
             authorizationService: DefaultAuthorizationService(),
-            favoritesService: FavoritesService()
+            favoritesService: DefaultFavoritesService()
         )
     )
     

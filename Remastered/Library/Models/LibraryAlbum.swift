@@ -9,38 +9,42 @@ import Foundation
 import MediaPlayer
 
 struct LibraryAlbum: Equatable, Identifiable {
-    let albumTitle: String
+    let title: String
     let artist: String
     let id: String
-    let isFavorite: Bool
+    var position: Int?
     
-    init(albumTitle: String, artist: String, id: String = UUID().uuidString, isFavorite: Bool = false) {
-        self.albumTitle = albumTitle
-        self.artist = artist
-        self.id = id
-        self.isFavorite = isFavorite
+    var isFavorite: Bool {
+        return position != nil
     }
     
-    init?(with collection: MPMediaItemCollection, isFavorite: Bool = false) {
+    init(title: String, artist: String, id: String = UUID().uuidString, position: Int? = nil) {
+        self.title = title
+        self.artist = artist
+        self.id = id
+        self.position = position
+    }
+    
+    init?(with collection: MPMediaItemCollection, position: Int? = nil) {
         guard let albumTitle = collection.albumTitle,
               let artist = collection.albumArtist,
               let id = collection.mediaPersistentID
         else { return nil }
         
-        self.albumTitle = albumTitle
+        self.title = albumTitle
         self.artist = artist
         self.id = id
-        self.isFavorite = isFavorite
+        self.position = position
     }
 }
 
 extension LibraryAlbum {
     static let exampleAlbums: [LibraryAlbum] = [
-        LibraryAlbum(albumTitle: "Organ", artist: "Dimension"),
-        LibraryAlbum(albumTitle: "Whenever You Need Somebody", artist: "Rick Astley", isFavorite: true),
-        LibraryAlbum(albumTitle: "Midnight Express", artist: "Giorgio Moroder"),
-        LibraryAlbum(albumTitle: "After Hours", artist: "The Weeknd"),
-        LibraryAlbum(albumTitle: "Mosaik", artist: "Camo & Krooked"),
-        LibraryAlbum(albumTitle: "It's Album Time", artist: "Todd Terje")
+        LibraryAlbum(title: "Organ", artist: "Dimension", id: "AABB-CCDD-EEFF-GGHH"),
+        LibraryAlbum(title: "Whenever You Need Somebody", artist: "Rick Astley", id: "AABB-CCDD-EEFF-KKLL", position: 0),
+        LibraryAlbum(title: "Midnight Express", artist: "Giorgio Moroder", id: "AABB-CCDD-EEFF-LLMM"),
+        LibraryAlbum(title: "After Hours", artist: "The Weeknd", id: "AABB-CCDD-EEFF-MMNN"),
+        LibraryAlbum(title: "Mosaik", artist: "Camo & Krooked", id: "AABB-CCDD-EEFF-NNOO"),
+        LibraryAlbum(title: "It's Album Time", artist: "Todd Terje", id: "AABB-CCDD-EEFF-OOPP")
     ]
 }

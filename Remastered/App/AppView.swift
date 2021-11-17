@@ -50,7 +50,7 @@ struct ContentView_Previews: PreviewProvider {
                 environment: .init(
                     libraryService: DefaultLibraryService(),
                     authorizationService: DefaultAuthorizationService(),
-                    favoritesService: FavoritesService()
+                    favoritesService: DefaultFavoritesService()
                 )
             )
         )

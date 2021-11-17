@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CombineSchedulers
 import ComposableArchitecture
 
 struct LibraryView: View {
@@ -19,7 +20,7 @@ struct LibraryView: View {
                         HStack {
                             Image(systemName: "rectangle.stack.fill")
                             VStack(alignment: .leading) {
-                                Text(album.albumTitle)
+                                Text(album.title)
                                 Text(album.artist)
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)

@@ -20,7 +20,7 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(value: true) }),
-                favoritesService: FavoritesService()
+                favoritesService: DefaultFavoritesService()
             )
         )
         
@@ -39,7 +39,7 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(error: .authorizationFailed) }),
-                favoritesService: FavoritesService()
+                favoritesService: DefaultFavoritesService()
             )
         )
         
@@ -58,7 +58,7 @@ class AppTests: XCTestCase {
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(mockFetch: { return .none }),
                 authorizationService: MockAuthorizationService(mockAuthorize: { return .none }),
-                favoritesService: FavoritesService()
+                favoritesService: DefaultFavoritesService()
             )
         )
         

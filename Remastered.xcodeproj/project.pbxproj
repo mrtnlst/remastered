@@ -35,6 +35,7 @@
 		5B38CF2627416026003376CC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2527416026003376CC /* AppTests.swift */; };
 		5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */; };
 		5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */; };
+		5B4AF0252744FCD6003E3AD1 /* FavoriteAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		5B38CF2527416026003376CC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthorizationService.swift; sourceTree = "<group>"; };
 		5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLibraryService.swift; sourceTree = "<group>"; };
+		5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CF0527414471003376CC /* TCA */,
+				5B4AF0262744FCDA003E3AD1 /* Models */,
 				5B38CEF82741441C003376CC /* FavoritesView.swift */,
 				5B38CF032741445E003376CC /* FavoritesService.swift */,
 			);
@@ -235,6 +238,14 @@
 				5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */,
 			);
 			path = MockServices;
+			sourceTree = "<group>";
+		};
+		5B4AF0262744FCDA003E3AD1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,6 +373,7 @@
 				5B38CEF92741441C003376CC /* FavoritesView.swift in Sources */,
 				5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
+				5B4AF0252744FCD6003E3AD1 /* FavoriteAlbum.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);

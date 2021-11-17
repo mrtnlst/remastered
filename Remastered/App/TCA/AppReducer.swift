@@ -12,7 +12,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         .pullback(
             state: \.favorites,
             action: /AppAction.favorites,
-            environment: { FavoritesEnvironment(favoritesService: $0.favoritesService) }
+            environment: {
+                FavoritesEnvironment(
+                    mainQueue: $0.mainQueue,
+                    fetch: $0.favoritesService.fetch
+                )
+            }
     ),
     libraryReducer
         .optional()

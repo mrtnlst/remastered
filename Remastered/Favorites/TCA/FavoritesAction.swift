@@ -8,5 +8,6 @@
 import Foundation
 
 enum FavoritesAction: Equatable {
-    case selected
+    case fetchFavorites
+    case receiveFavorites(Result<[LibraryAlbum], Never>)
 }

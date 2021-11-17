@@ -13,7 +13,14 @@ let favoritesReducer = Reducer<
     FavoritesEnvironment
 > { state, action, environment in
     switch action {
-    case .selected:
+    case .fetchFavorites:
+        return environment
+            .fetch()
+            .receive(on: environment.mainQueue)
+            .catchToEffect(FavoritesAction.receiveFavorites)
+    
+    case let .receiveFavorites(.success(favorites)):
+        state.favorites = favorites.sorted { $0.position ?? Int.max < $1.position ?? Int.max }
         return .none
     }
 }

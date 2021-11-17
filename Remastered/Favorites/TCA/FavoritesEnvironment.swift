@@ -5,8 +5,10 @@
 //  Created by martin on 14.11.21.
 //
 
-import Foundation
+import ComposableArchitecture
+import CombineSchedulers
 
 struct FavoritesEnvironment {
-    var favoritesService: FavoritesService
+    var mainQueue: AnySchedulerOf<DispatchQueue> = .main
+    var fetch: () -> Effect<[LibraryAlbum], Never>
 }
