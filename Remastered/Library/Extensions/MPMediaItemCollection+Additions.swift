@@ -10,14 +10,31 @@ import MediaPlayer
 extension MPMediaItemCollection {
     
     var albumTitle: String? {
-        representativeItem?.value(forProperty: MPMediaItemPropertyAlbumTitle) as? String
+        representativeItem?.albumTitle
     }
     
     var albumArtist: String? {
-        representativeItem?.value(forProperty: MPMediaItemPropertyAlbumArtist) as? String
+        representativeItem?.artist
     }
     
     var mediaPersistentID: String? {
         (representativeItem?.value(forProperty: MPMediaItemPropertyAlbumPersistentID) as? NSNumber)?.stringValue
+    }
+    
+    var dateAdded: Date? {
+        representativeItem?.dateAdded
+    }
+    
+    var lastPlayed: Date? {
+        representativeItem?.lastPlayedDate
+    }
+    
+    var isFavorite: Bool {
+        return items.contains { $0.rating > 3 }
+    }
+    
+    var artwork: UIImage? {
+        let image = representativeItem?.artwork
+        return image?.image(at: CGSize(width: 100, height: 100))
     }
 }

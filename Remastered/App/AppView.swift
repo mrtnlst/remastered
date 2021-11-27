@@ -14,13 +14,10 @@ struct AppView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             TabView {
-                NavigationView {
-                    Text("Gallery View")
-                        .navigationBarTitle("Gallery", displayMode: .large)
-                }
-                .tabItem {
-                    Label("Gallery", systemImage: "rectangle.3.group.fill")
-                }
+                galleryView(with: viewStore)
+                    .tabItem {
+                        Label("Gallery", systemImage: "rectangle.3.group.fill")
+                    }
                 libraryView(with: viewStore)
                     .tabItem {
                         Label("Library", systemImage: "rectangle.stack.fill")
@@ -30,13 +27,27 @@ struct AppView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-    
+}
+
+extension AppView {
     @ViewBuilder func libraryView(with viewStore: ViewStore<AppState, AppAction>) -> some View {
         IfLetStore(
             store.scope(
                 state: { $0.library },
                 action: AppAction.library),
             then: LibraryView.init(store:),
+            else: {
+                Text("Library access not permitted yet.")
+            }
+        )
+    }
+    
+    @ViewBuilder func galleryView(with viewStore: ViewStore<AppState, AppAction>) -> some View {
+        IfLetStore(
+            store.scope(
+                state: { $0.gallery },
+                action: AppAction.gallery),
+            then: GalleryView.init(store:),
             else: {
                 Text("Library access not permitted yet.")
             }
@@ -52,7 +63,8 @@ struct ContentView_Previews: PreviewProvider {
                 reducer: appReducer,
                 environment: .init(
                     libraryService: DefaultLibraryService(),
-                    authorizationService: DefaultAuthorizationService()
+                    authorizationService: DefaultAuthorizationService(),
+                    playbackService: DefaultPlaybackService()
                 )
             )
         )

@@ -29,6 +29,13 @@
 		5B38CF2627416026003376CC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2527416026003376CC /* AppTests.swift */; };
 		5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */; };
 		5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */; };
+		5B5D06C2275255CF00966287 /* GalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C1275255CF00966287 /* GalleryView.swift */; };
+		5B5D06C4275255D900966287 /* GalleryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C3275255D900966287 /* GalleryState.swift */; };
+		5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C5275255DF00966287 /* GalleryAction.swift */; };
+		5B5D06C8275255E500966287 /* GalleryEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C7275255E500966287 /* GalleryEnvironment.swift */; };
+		5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C9275255ED00966287 /* GalleryReducer.swift */; };
+		5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CD2752681700966287 /* GalleryRowModel.swift */; };
+		5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CF275280BE00966287 /* PlaybackService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +72,13 @@
 		5B38CF2527416026003376CC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthorizationService.swift; sourceTree = "<group>"; };
 		5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLibraryService.swift; sourceTree = "<group>"; };
+		5B5D06C1275255CF00966287 /* GalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryView.swift; sourceTree = "<group>"; };
+		5B5D06C3275255D900966287 /* GalleryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryState.swift; sourceTree = "<group>"; };
+		5B5D06C5275255DF00966287 /* GalleryAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryAction.swift; sourceTree = "<group>"; };
+		5B5D06C7275255E500966287 /* GalleryEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryEnvironment.swift; sourceTree = "<group>"; };
+		5B5D06C9275255ED00966287 /* GalleryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryReducer.swift; sourceTree = "<group>"; };
+		5B5D06CD2752681700966287 /* GalleryRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowModel.swift; sourceTree = "<group>"; };
+		5B5D06CF275280BE00966287 /* PlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +123,7 @@
 			children = (
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
+				5B5D06CB275255F500966287 /* Gallery */,
 				5B38CEE527402309003376CC /* Library */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
@@ -130,6 +145,8 @@
 				5B38CEF1274023C8003376CC /* TCA */,
 				5B38CEC9273FD771003376CC /* AppView.swift */,
 				5B38CEDA273FD959003376CC /* AuthorizationService.swift */,
+				5B38CEEE2740234C003376CC /* LibraryService.swift */,
+				5B5D06CF275280BE00966287 /* PlaybackService.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -140,7 +157,6 @@
 				5B38CEF0274023BF003376CC /* TCA */,
 				5B38CEF427402464003376CC /* Models */,
 				5B38CEE3274019D5003376CC /* LibraryView.swift */,
-				5B38CEEE2740234C003376CC /* LibraryService.swift */,
 				5B38CEF727414217003376CC /* Extensions */,
 			);
 			path = Library;
@@ -201,6 +217,27 @@
 				5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */,
 			);
 			path = MockServices;
+			sourceTree = "<group>";
+		};
+		5B5D06CB275255F500966287 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				5B5D06C1275255CF00966287 /* GalleryView.swift */,
+				5B5D06CD2752681700966287 /* GalleryRowModel.swift */,
+				5B5D06CC2752560700966287 /* TCA */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		5B5D06CC2752560700966287 /* TCA */ = {
+			isa = PBXGroup;
+			children = (
+				5B5D06C3275255D900966287 /* GalleryState.swift */,
+				5B5D06C5275255DF00966287 /* GalleryAction.swift */,
+				5B5D06C7275255E500966287 /* GalleryEnvironment.swift */,
+				5B5D06C9275255ED00966287 /* GalleryReducer.swift */,
+			);
+			path = TCA;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,19 +347,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
+				5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */,
 				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
+				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
+				5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */,
+				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
 				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
+				5B5D06C2275255CF00966287 /* GalleryView.swift in Sources */,
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
 				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
+				5B5D06C8275255E500966287 /* GalleryEnvironment.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
+				5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

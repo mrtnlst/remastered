@@ -9,6 +9,7 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
     var library: LibraryState?
+    var gallery: GalleryState?
 }
 
 extension AppState {
@@ -17,6 +18,9 @@ extension AppState {
         AppState(
             library: LibraryState(
                 albums: LibraryAlbum.exampleAlbums
+            ),
+            gallery: GalleryState(
+                galleryRowModels: GalleryRowModel.exampleRowModels
             )
         )
     }

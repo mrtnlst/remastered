@@ -17,21 +17,31 @@ struct LibraryView: View {
             NavigationView {
                 List {
                     ForEach(viewStore.albums) { album in
-                        HStack {
-                            Image(systemName: "rectangle.stack.fill")
-                            VStack(alignment: .leading) {
-                                Text(album.title)
-                                Text(album.artist)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                        Button {
+                            viewStore.send(LibraryAction.didSelectItem(id: album.id))
+                        } label: {
+                            HStack {
+                                if let image = album.artwork {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxHeight: 50)
+                                        .cornerRadius(4)
+                                } else {
+                                    Image(systemName: "rectangle.stack.fill")
+                                }
+                                VStack(alignment: .leading) {
+                                    Text(album.title)
+                                        .foregroundColor(.black)
+                                    Text(album.artist)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
                             }
                         }
                     }
                 }
                 .navigationBarTitle("Library")
-            }
-            .onAppear {
-                viewStore.send(.fetchAlbums)
             }
         }
     }

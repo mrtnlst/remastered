@@ -13,5 +13,6 @@ struct AppEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue> = .main
     var libraryService: LibraryService
     var authorizationService: AuthorizationService
+    var playbackService: PlaybackService
 }
 

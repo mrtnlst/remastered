@@ -1,15 +1,15 @@
 //
-//  LibraryEnvironment.swift
+//  GalleryEnvironment.swift
 //  Remastered
 //
-//  Created by martin on 13.11.21.
+//  Created by martin on 27.11.21.
 //
 
 import Foundation
 import CombineSchedulers
 import ComposableArchitecture
 
-struct LibraryEnvironment {
+struct GalleryEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
     var fetch: () -> Effect<[LibraryAlbum], Never>
 }

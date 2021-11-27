@@ -20,6 +20,18 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 )
             }
     ),
+    galleryReducer
+        .optional()
+        .pullback(
+            state: \.gallery,
+            action: /AppAction.gallery,
+            environment: {
+                GalleryEnvironment(
+                    mainQueue: $0.mainQueue,
+                    fetch: $0.libraryService.fetch
+                )
+            }
+    ),
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
@@ -31,19 +43,36 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
 
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
-            return .none
+            state.gallery = GalleryState()
+            return .merge(
+                Effect(value: .gallery(.fetchAlbums)),
+                Effect(value: .library(.fetchAlbums))
+            )
 
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
             state.library = nil
-            
-        case let .library(.libraryAlbumSelected(id)):
+            state.gallery = nil
             return .none
+            
+        case let .library(.didSelectItem(id)):
+            return environment
+                .playbackService
+                .play(for: id)
+                .fireAndForget()
             
         case .library(_):
             return .none
-         
+    
+        case let .gallery(.didSelectItem(id)):
+            return environment
+                .playbackService
+                .play(for: id)
+                .fireAndForget()
+            
+        case .gallery(_):
+            return .none
+    
         }
-        return .none
     }
 )

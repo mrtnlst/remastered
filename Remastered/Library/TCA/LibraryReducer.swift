@@ -8,7 +8,6 @@
 import ComposableArchitecture
 
 let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { state, action, environment in
-    
     switch action {
     case .fetchAlbums:
         return environment
@@ -20,7 +19,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
         state.albums = albums
         return .none
         
-    case let .libraryAlbumSelected(id):
+    case let .didSelectItem(id):
         return .none
         
     }
