@@ -13,31 +13,34 @@ struct AppView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            NavigationView {
-                FavoritesView(store: store.scope(state: { $0.favorites }, action: AppAction.favorites))
-                .navigationBarTitle("Remastered", displayMode: .large)
-                .navigationBarItems(
-                    trailing:
-                        Button(action: { viewStore.send(.setLibrary(isPresenting: true)) }) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.black)
-                        }
-                )
+            TabView {
+                NavigationView {
+                    Text("Gallery View")
+                        .navigationBarTitle("Gallery", displayMode: .large)
+                }
+                .tabItem {
+                    Label("Gallery", systemImage: "rectangle.3.group.fill")
+                }
+                libraryView(with: viewStore)
+                    .tabItem {
+                        Label("Library", systemImage: "rectangle.stack.fill")
+                    }
             }
             .onAppear { viewStore.send(.onAppear) }
-            .sheet(isPresented: viewStore.binding(get: \.isLibraryPresenting, send: .setLibrary(isPresenting: false))) {
-                IfLetStore(
-                    store.scope(
-                        state: { $0.library },
-                        action: AppAction.library),
-                    then: LibraryView.init(store:),
-                    else: {
-                        Text("Library access not permitted yet.")
-                    }
-                )
-            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    @ViewBuilder func libraryView(with viewStore: ViewStore<AppState, AppAction>) -> some View {
+        IfLetStore(
+            store.scope(
+                state: { $0.library },
+                action: AppAction.library),
+            then: LibraryView.init(store:),
+            else: {
+                Text("Library access not permitted yet.")
+            }
+        )
     }
 }
 
@@ -49,8 +52,7 @@ struct ContentView_Previews: PreviewProvider {
                 reducer: appReducer,
                 environment: .init(
                     libraryService: DefaultLibraryService(),
-                    authorizationService: DefaultAuthorizationService(),
-                    favoritesRepository: DefaultFavoritesRepository()
+                    authorizationService: DefaultAuthorizationService()
                 )
             )
         )

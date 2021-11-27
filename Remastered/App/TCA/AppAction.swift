@@ -11,7 +11,5 @@ enum AppAction: Equatable {
     case onAppear
     case authorizationResponse(Result<Bool, AuthorizationError>)
     case library(LibraryAction)
-    case setLibrary(isPresenting: Bool)
-    case favorites(FavoritesAction)
 }
 

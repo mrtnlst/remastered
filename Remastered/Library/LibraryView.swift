@@ -25,13 +25,6 @@ struct LibraryView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
-                            Spacer()
-                            Button {
-                                viewStore.send(.libraryAlbumSelected(id: album.id))
-                            } label: {
-                                Image(systemName: album.isFavorite ? "star.fill" : "star")
-                                    .foregroundColor(.black)
-                            }
                         }
                     }
                 }

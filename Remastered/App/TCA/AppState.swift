@@ -9,8 +9,6 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
     var library: LibraryState?
-    var isLibraryPresenting: Bool = false
-    var favorites: FavoritesState
 }
 
 extension AppState {
@@ -19,9 +17,6 @@ extension AppState {
         AppState(
             library: LibraryState(
                 albums: LibraryAlbum.exampleAlbums
-            ),
-            favorites: FavoritesState(
-                favorites: LibraryAlbum.exampleAlbums
             )
         )
     }

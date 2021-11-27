@@ -24,20 +24,11 @@
 		5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEEE2740234C003376CC /* LibraryService.swift */; };
 		5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF2274023D9003376CC /* LibraryAlbum.swift */; };
 		5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */; };
-		5B38CEF92741441C003376CC /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEF82741441C003376CC /* FavoritesView.swift */; };
-		5B38CEFC27414435003376CC /* FavoritesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFB27414435003376CC /* FavoritesState.swift */; };
-		5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFD2741443C003376CC /* FavoritesAction.swift */; };
-		5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */; };
-		5B38CF0227414454003376CC /* FavoritesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF0127414454003376CC /* FavoritesReducer.swift */; };
 		5B38CF222741566B003376CC /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 5B38CF212741566B003376CC /* ComposableArchitecture */; };
 		5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF23274156DE003376CC /* LibraryTests.swift */; };
 		5B38CF2627416026003376CC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B38CF2527416026003376CC /* AppTests.swift */; };
 		5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */; };
 		5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */; };
-		5B4AF0252744FCD6003E3AD1 /* FavoriteAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */; };
-		5B4AF02927452DDA003E3AD1 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF02727452DDA003E3AD1 /* Model.xcdatamodeld */; };
-		5B4AF02B27455491003E3AD1 /* DefaultFavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4AF02A27455491003E3AD1 /* DefaultFavoritesRepository.swift */; };
-		5B7D9D122745594600A86831 /* MockFavoritesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7D9D112745594600A86831 /* MockFavoritesRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,20 +60,11 @@
 		5B38CEEE2740234C003376CC /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		5B38CEF2274023D9003376CC /* LibraryAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbum.swift; sourceTree = "<group>"; };
 		5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+Additions.swift"; sourceTree = "<group>"; };
-		5B38CEF82741441C003376CC /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
-		5B38CEFB27414435003376CC /* FavoritesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesState.swift; sourceTree = "<group>"; };
-		5B38CEFD2741443C003376CC /* FavoritesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAction.swift; sourceTree = "<group>"; };
-		5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEnvironment.swift; sourceTree = "<group>"; };
-		5B38CF0127414454003376CC /* FavoritesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesReducer.swift; sourceTree = "<group>"; };
 		5B38CF17274155CF003376CC /* RemasteredTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemasteredTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B38CF23274156DE003376CC /* LibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTests.swift; sourceTree = "<group>"; };
 		5B38CF2527416026003376CC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthorizationService.swift; sourceTree = "<group>"; };
 		5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLibraryService.swift; sourceTree = "<group>"; };
-		5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteAlbum.swift; sourceTree = "<group>"; };
-		5B4AF02827452DDA003E3AD1 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		5B4AF02A27455491003E3AD1 /* DefaultFavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFavoritesRepository.swift; sourceTree = "<group>"; };
-		5B7D9D112745594600A86831 /* MockFavoritesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFavoritesRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +110,6 @@
 				5B38CEC7273FD771003376CC /* RemasteredApp.swift */,
 				5B38CEE2273FDE80003376CC /* App */,
 				5B38CEE527402309003376CC /* Library */,
-				5B38CEFA27414422003376CC /* Favorites */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
 			);
@@ -203,27 +184,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5B38CEFA27414422003376CC /* Favorites */ = {
-			isa = PBXGroup;
-			children = (
-				5B38CF0527414471003376CC /* TCA */,
-				5B4AF0262744FCDA003E3AD1 /* CoreData */,
-				5B38CEF82741441C003376CC /* FavoritesView.swift */,
-			);
-			path = Favorites;
-			sourceTree = "<group>";
-		};
-		5B38CF0527414471003376CC /* TCA */ = {
-			isa = PBXGroup;
-			children = (
-				5B38CEFB27414435003376CC /* FavoritesState.swift */,
-				5B38CEFD2741443C003376CC /* FavoritesAction.swift */,
-				5B38CEFF27414443003376CC /* FavoritesEnvironment.swift */,
-				5B38CF0127414454003376CC /* FavoritesReducer.swift */,
-			);
-			path = TCA;
-			sourceTree = "<group>";
-		};
 		5B38CF18274155CF003376CC /* RemasteredTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,19 +199,8 @@
 			children = (
 				5B4AF01F2744ED1B003E3AD1 /* MockAuthorizationService.swift */,
 				5B4AF0212744ED31003E3AD1 /* MockLibraryService.swift */,
-				5B7D9D112745594600A86831 /* MockFavoritesRepository.swift */,
 			);
 			path = MockServices;
-			sourceTree = "<group>";
-		};
-		5B4AF0262744FCDA003E3AD1 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				5B4AF0242744FCD6003E3AD1 /* FavoriteAlbum.swift */,
-				5B4AF02A27455491003E3AD1 /* DefaultFavoritesRepository.swift */,
-				5B4AF02727452DDA003E3AD1 /* Model.xcdatamodeld */,
-			);
-			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,27 +309,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B4AF02927452DDA003E3AD1 /* Model.xcdatamodeld in Sources */,
 				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
-				5B38CEFC27414435003376CC /* FavoritesState.swift in Sources */,
 				5B38CEF3274023D9003376CC /* LibraryAlbum.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
-				5B4AF02B27455491003E3AD1 /* DefaultFavoritesRepository.swift in Sources */,
-				5B38CEFE2741443C003376CC /* FavoritesAction.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
 				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
-				5B38CF0227414454003376CC /* FavoritesReducer.swift in Sources */,
 				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
-				5B38CEF92741441C003376CC /* FavoritesView.swift in Sources */,
-				5B38CF0027414443003376CC /* FavoritesEnvironment.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
-				5B4AF0252744FCD6003E3AD1 /* FavoriteAlbum.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
 			);
@@ -392,7 +333,6 @@
 			files = (
 				5B38CF24274156DE003376CC /* LibraryTests.swift in Sources */,
 				5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */,
-				5B7D9D122745594600A86831 /* MockFavoritesRepository.swift in Sources */,
 				5B38CF2627416026003376CC /* AppTests.swift in Sources */,
 				5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */,
 			);
@@ -530,6 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
@@ -549,6 +490,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martinlist.Remastered;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -560,6 +502,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
@@ -579,6 +522,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.martinlist.Remastered;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -681,19 +625,6 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
-
-/* Begin XCVersionGroup section */
-		5B4AF02727452DDA003E3AD1 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5B4AF02827452DDA003E3AD1 /* Model.xcdatamodel */,
-			);
-			currentVersion = 5B4AF02827452DDA003E3AD1 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5B38CEBC273FD771003376CC /* Project object */;
 }
