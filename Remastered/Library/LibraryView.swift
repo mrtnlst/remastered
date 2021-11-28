@@ -32,7 +32,7 @@ struct LibraryView: View {
                                 }
                                 VStack(alignment: .leading) {
                                     Text(album.title)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.primary)
                                     Text(album.artist)
                                         .font(.subheadline)
                                         .foregroundColor(.secondary)

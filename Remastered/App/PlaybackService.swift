@@ -16,9 +16,11 @@ protocol PlaybackService {
 final class DefaultPlaybackService: PlaybackService {
     func play(for id: String) -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-        let predicate = MPMediaPropertyPredicate(value: id,
-                                             forProperty: MPMediaItemPropertyAlbumPersistentID,
-                                             comparisonType: MPMediaPredicateComparison.equalTo)
+        let predicate = MPMediaPropertyPredicate(
+            value: id,
+            forProperty: MPMediaItemPropertyAlbumPersistentID,
+            comparisonType: MPMediaPredicateComparison.equalTo
+        )
         
         let filter: Set<MPMediaPropertyPredicate> = [predicate]
         let query = MPMediaQuery(filterPredicates: filter)

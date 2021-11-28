@@ -26,7 +26,10 @@ extension MPMediaItemCollection {
     }
     
     var lastPlayed: Date? {
-        representativeItem?.lastPlayedDate
+        let defaultDate = Date(timeIntervalSince1970: 0)
+        return items
+            .sorted { $0.lastPlayedDate ?? defaultDate > $1.lastPlayedDate ?? defaultDate }
+            .first?.lastPlayedDate
     }
     
     var isFavorite: Bool {

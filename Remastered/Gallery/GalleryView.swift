@@ -45,7 +45,7 @@ extension GalleryView {
                         Image(systemName: "chevron.right")
                             .font(.caption2)
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 }
             }
             ScrollView(.horizontal, showsIndicators: true) {
