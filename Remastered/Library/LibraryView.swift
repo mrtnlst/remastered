@@ -16,13 +16,16 @@ struct LibraryView: View {
         WithViewStore(store) { viewStore in
             NavigationView {
                 List {
-                    ForEach(viewStore.libraryRowModels) { model in
+                    ForEachStore(store.scope(
+                        state: \.categories,
+                        action: LibraryAction.libraryCategory(id:action:))
+                    ) { store in
                         NavigationLink {
-                            listView(with: viewStore, model: model)
+                            LibraryCategoryView(store: store)
                         } label: {
                             HStack {
-                                Image(systemName: model.type.icon)
-                                Text(model.type.rawValue)
+                                Image(systemName: ViewStore(store).type.icon)
+                                Text(ViewStore(store).type.rawValue)
                             }
                         }
                     }
@@ -33,48 +36,14 @@ struct LibraryView: View {
     }
 }
 
-extension LibraryView {
-    @ViewBuilder func listView(with viewStore: ViewStore<LibraryState, LibraryAction>, model: LibraryRowModel) -> some View {
-        List {
-            ForEach(model.items) { item in
-                Button {
-                    viewStore.send(LibraryAction.didSelectItem(id: item.id))
-                } label: {
-                    HStack {
-                        if let image = item.artwork {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(maxHeight: 50)
-                                .cornerRadius(4)
-                        } else {
-                            Image(systemName: "rectangle.stack.fill")
-                        }
-                        VStack(alignment: .leading) {
-                            Text(item.title)
-                                .foregroundColor(.primary)
-                            Text(item.artist)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.init(arrayLiteral: .bottom, .top), 5)
-                }
-            }
-        }
-        .navigationBarTitle(model.type.rawValue)
-    }
-}
-
 struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
-            store:
-                Store(
-                    initialState: LibraryState(libraryRowModels: LibraryRowModel.exampleRowModels),
-                    reducer: libraryReducer,
-                    environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none })
-                )
+            store: Store(
+                initialState: LibraryState(categories: LibraryRowModel.exampleCategories),
+                reducer: libraryReducer,
+                environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none })
+            )
         )
     }
 }

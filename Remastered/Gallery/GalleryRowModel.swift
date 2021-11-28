@@ -16,12 +16,12 @@ struct GalleryRowModel: Equatable, Identifiable {
     }
     
     var id: UUID = UUID()
-    var items: [LibraryAlbum]
+    var items: [LibraryCollection]
     var type: RowType
 }
 
 extension GalleryRowModel.RowType {
-    var sortOrder: (LibraryAlbum, LibraryAlbum) -> Bool {
+    var sortOrder: (LibraryCollection, LibraryCollection) -> Bool {
         switch self {
         case .recentlyAdded:
             return { lhs, rhs in lhs.dateAdded > rhs.dateAdded }
@@ -32,7 +32,7 @@ extension GalleryRowModel.RowType {
         }
     }
     
-    var filterValue: (LibraryAlbum) -> Bool {
+    var filterValue: (LibraryCollection) -> Bool {
         switch self {
         case .favorites:
             return { item in item.isFavorite }
@@ -45,25 +45,25 @@ extension GalleryRowModel.RowType {
 extension GalleryRowModel {
     static let exampleRowModels: [GalleryRowModel] = [
         GalleryRowModel(
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
                 .filter(GalleryRowModel.RowType.recentlyAdded.filterValue)
                 .sorted(by: GalleryRowModel.RowType.recentlyAdded.sortOrder),
             type: .recentlyAdded
         ),
         GalleryRowModel(
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
                 .filter(GalleryRowModel.RowType.recentlyPlayed.filterValue)
                 .sorted(by: GalleryRowModel.RowType.recentlyPlayed.sortOrder),
             type: .recentlyPlayed
         ),
         GalleryRowModel(
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
                 .filter(GalleryRowModel.RowType.favorites.filterValue)
                 .sorted(by: GalleryRowModel.RowType.favorites.sortOrder),
             type: .favorites
         ),
         GalleryRowModel(
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
                 .filter(GalleryRowModel.RowType.discover.filterValue)
                 .sorted(by: GalleryRowModel.RowType.discover.sortOrder),
             type: .discover

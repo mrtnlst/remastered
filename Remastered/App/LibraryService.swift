@@ -64,14 +64,14 @@ final class DefaultLibraryService: LibraryService {
 private extension LibraryService{
     /// Fetches all library media items and returns an effect.
     /// - Returns: Returns an array of media items. When it fails, an empty array is returned.
-    func fetch() -> Effect<[LibraryAlbum], Never> {
+    func fetch() -> Effect<[LibraryCollection], Never> {
         Future { promise in
             #if targetEnvironment(simulator)
-            promise(.success(LibraryAlbum.exampleAlbums))
+            promise(.success(LibraryCollection.exampleAlbums))
             #else
             let collections = MPMediaQuery.albums().collections
             let albums = collections?.compactMap {
-                LibraryAlbum(with: $0)
+                LibraryCollection(with: $0)
             }
             promise(.success(albums ?? []))
             #endif

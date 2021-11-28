@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import IdentifiedCollections
 
 struct LibraryRowModel: Identifiable, Equatable {
     enum RowType: String, CaseIterable {
@@ -17,7 +18,7 @@ struct LibraryRowModel: Identifiable, Equatable {
     }
     
     var type: RowType
-    var items: [LibraryAlbum] = []
+    var items: [LibraryCollection] = []
     var id: UUID = UUID()
 }
 
@@ -43,23 +44,55 @@ extension LibraryRowModel {
     static let exampleRowModels: [LibraryRowModel] = [
         LibraryRowModel(
             type: .playlists,
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
         ),
         LibraryRowModel(
             type: .artists,
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
         ),
         LibraryRowModel(
             type: .albums,
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
         ),
         LibraryRowModel(
             type: .songs,
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
         ),
         LibraryRowModel(
             type: .genres,
-            items: LibraryAlbum.exampleAlbums
+            items: LibraryCollection.exampleAlbums
+        )
+    ]
+    
+    static let exampleCategories: IdentifiedArrayOf<LibraryCategoryState> = [
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .playlists
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .artists
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .albums
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .songs
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .genres
+        ),
+    ]
+    
+    static let exampleItems: IdentifiedArrayOf<LibraryItemState> = [
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums.first!
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums.last!
         )
     ]
 }

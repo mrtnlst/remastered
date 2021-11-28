@@ -55,10 +55,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.gallery = nil
             return .none
             
-        case let .library(.didSelectItem(id)):
+        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id: itemID)))):
             return environment
                 .playbackService
-                .play(for: id)
+                .play(for: itemID)
                 .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             

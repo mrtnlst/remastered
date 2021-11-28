@@ -23,11 +23,11 @@ class LibraryTests: XCTestCase {
         )
 
         let expectedRows = LibraryRowModel.exampleRowModels
-
+        // TODO: Clean Up! 
         store.send(.fetch)
         scheduler.advance()
         store.receive(.receiveLibraryItems(result: .success(expectedRows))) {
-            $0.libraryRowModels = LibraryRowModel.exampleRowModels
+            $0.categories = LibraryRowModel.exampleCategories
         }
     }
     
@@ -46,7 +46,7 @@ class LibraryTests: XCTestCase {
         store.send(.fetch)
         scheduler.advance()
         store.receive(.receiveLibraryItems(result: .success(expectedRows))) {
-            $0.libraryRowModels = []
+            $0.categories = []
         }
     }
 }
