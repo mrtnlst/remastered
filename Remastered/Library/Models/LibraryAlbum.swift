@@ -15,16 +15,36 @@ struct LibraryAlbum: Equatable, Identifiable {
     let dateAdded: Date
     let lastPlayed: Date
     let isFavorite: Bool
-    let artwork: UIImage?
+    let collection: MPMediaItemCollection?
     
-    init(title: String, artist: String, id: String = UUID().uuidString, dateAdded: Date, lastPlayed: Date? = nil, isFavorite: Bool = false, artwork: UIImage? = nil) {
+    /// For simulator, a mocked image `_artwork` is used, otherwise the `MPMediaItemCollection` returns its artwork.
+    var artwork: UIImage? {
+        if let artwork = _artwork {
+            return artwork
+        } else {
+            return collection?.artwork
+        }
+    }
+    /// This is used solely for mocking purposes.
+    let _artwork: UIImage?
+    
+    init(
+        title: String,
+        artist: String,
+        id: String = UUID().uuidString,
+        dateAdded: Date,
+        lastPlayed: Date? = nil,
+        isFavorite: Bool = false,
+        artwork: UIImage? = nil
+    ) {
         self.title = title
         self.artist = artist
         self.id = id
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)
         self.isFavorite = isFavorite
-        self.artwork = artwork
+        self._artwork = artwork
+        self.collection = nil
     }
     
     init?(with collection: MPMediaItemCollection) {
@@ -40,7 +60,8 @@ struct LibraryAlbum: Equatable, Identifiable {
         self.lastPlayed = collection.lastPlayed ?? Date(timeIntervalSince1970: 0)
         self.dateAdded = dateAdded
         self.isFavorite = collection.isFavorite
-        self.artwork = collection.artwork
+        self.collection = collection
+        self._artwork = nil
     }
 }
 
