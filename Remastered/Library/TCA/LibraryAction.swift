@@ -8,7 +8,7 @@
 import Foundation
 
 enum LibraryAction: Equatable {
-    case fetchAlbums
-    case receiveAlbums(result: Result<[LibraryAlbum], Never>)
+    case fetch
+    case receiveLibraryItems(result: Result<[LibraryRowModel], Never>)
     case didSelectItem(id: String)
 }

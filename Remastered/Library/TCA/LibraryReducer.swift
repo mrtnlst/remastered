@@ -9,14 +9,14 @@ import ComposableArchitecture
 
 let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { state, action, environment in
     switch action {
-    case .fetchAlbums:
+    case .fetch:
         return environment
             .fetch()
             .receive(on: environment.mainQueue)
-            .catchToEffect(LibraryAction.receiveAlbums)
+            .catchToEffect(LibraryAction.receiveLibraryItems)
         
-    case let .receiveAlbums(.success(albums)):
-        state.albums = albums
+    case let .receiveLibraryItems(.success(items)):
+        state.libraryRowModels = items
         return .none
         
     case let .didSelectItem(id):

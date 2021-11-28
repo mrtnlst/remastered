@@ -8,7 +8,7 @@
 import Foundation
 
 enum GalleryAction: Equatable {
-    case fetchAlbums
-    case receiveAlbums(result: Result<[LibraryAlbum], Never>)
+    case fetch
+    case receiveGalleryItems(result: Result<[GalleryRowModel], Never>)
     case didSelectItem(id: String)
 }

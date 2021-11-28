@@ -8,5 +8,5 @@
 import Foundation
 
 struct LibraryState: Equatable {
-    var albums: [LibraryAlbum] = []
+    var libraryRowModels: [LibraryRowModel] = []
 }

@@ -18,7 +18,10 @@ class AppTests: XCTestCase {
             reducer: appReducer,
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                libraryService: MockLibraryService(mockFetch: { return .none }),
+                libraryService: MockLibraryService(
+                    mockFetchLibrary: { return .none },
+                    mockFetchGallery: { return .none }
+                ),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(value: true) }),
                 playbackService: DefaultPlaybackService()
             )
@@ -28,7 +31,10 @@ class AppTests: XCTestCase {
         scheduler.advance()
         store.receive(.authorizationResponse(.success(true))) {
             $0.library = LibraryState()
+            $0.gallery = GalleryState()
         }
+        store.receive(.gallery(.fetch))
+        store.receive(.library(.fetch))
     }
     
     func testAuthorizationFailure() {
@@ -37,7 +43,10 @@ class AppTests: XCTestCase {
             reducer: appReducer,
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                libraryService: MockLibraryService(mockFetch: { return .none }),
+                libraryService: MockLibraryService(
+                    mockFetchLibrary: { return .none },
+                    mockFetchGallery: { return .none }
+                ),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(error: .authorizationFailed) }),
                 playbackService: DefaultPlaybackService()
             )
@@ -47,6 +56,7 @@ class AppTests: XCTestCase {
         scheduler.advance()
         store.receive(.authorizationResponse(.failure(.authorizationFailed))) {
             $0.library = nil
+            $0.gallery = nil
         }
     }
 }

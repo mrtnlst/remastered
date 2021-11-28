@@ -17,7 +17,7 @@ extension AppState {
     static var previewState: Self {
         AppState(
             library: LibraryState(
-                albums: LibraryAlbum.exampleAlbums
+                libraryRowModels: LibraryRowModel.exampleRowModels
             ),
             gallery: GalleryState(
                 galleryRowModels: GalleryRowModel.exampleRowModels

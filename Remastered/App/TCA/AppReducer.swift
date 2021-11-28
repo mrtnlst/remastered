@@ -16,7 +16,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 LibraryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetch
+                    fetch: $0.libraryService.fetchLibraryItems
                 )
             }
     ),
@@ -28,7 +28,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 GalleryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetch
+                    fetch: $0.libraryService.fetchGalleryItems
                 )
             }
     ),
@@ -45,8 +45,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.library = LibraryState()
             state.gallery = GalleryState()
             return .merge(
-                Effect(value: .gallery(.fetchAlbums)),
-                Effect(value: .library(.fetchAlbums))
+                Effect(value: .gallery(.fetch)),
+                Effect(value: .library(.fetch))
             )
 
         case .authorizationResponse(.success(false)),
@@ -59,6 +59,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return environment
                 .playbackService
                 .play(for: id)
+                .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             
         case .library(_):
@@ -68,6 +69,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return environment
                 .playbackService
                 .play(for: id)
+                .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             
         case .gallery(_):

@@ -12,26 +12,26 @@ import ComposableArchitecture
 class LibraryTests: XCTestCase {
     let scheduler = DispatchQueue.test
     
-    func testFetchAlbumsSuccess() {
+    func testFetchSuccess() {
         let store = TestStore(
             initialState: LibraryState(),
             reducer: libraryReducer,
             environment: LibraryEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                fetch: { Effect(value: LibraryAlbum.exampleAlbums) }
+                fetch: { Effect(value: LibraryRowModel.exampleRowModels) }
             )
         )
-        
-        let expectedAlbums = LibraryAlbum.exampleAlbums
-  
-        store.send(.fetchAlbums)
+
+        let expectedRows = LibraryRowModel.exampleRowModels
+
+        store.send(.fetch)
         scheduler.advance()
-        store.receive(.receiveAlbums(result: .success(expectedAlbums))) {
-            $0.albums = expectedAlbums
+        store.receive(.receiveLibraryItems(result: .success(expectedRows))) {
+            $0.libraryRowModels = LibraryRowModel.exampleRowModels
         }
     }
     
-    func testFetchAlbumsFailure() {
+    func testFetchFailure() {
         let store = TestStore(
             initialState: LibraryState(),
             reducer: libraryReducer,
@@ -41,12 +41,12 @@ class LibraryTests: XCTestCase {
             )
         )
         
-        let expectedAlbums: [LibraryAlbum] = []
+        let expectedRows: [LibraryRowModel] = []
   
-        store.send(.fetchAlbums)
+        store.send(.fetch)
         scheduler.advance()
-        store.receive(.receiveAlbums(result: .success(expectedAlbums))) {
-            $0.albums = expectedAlbums
+        store.receive(.receiveLibraryItems(result: .success(expectedRows))) {
+            $0.libraryRowModels = []
         }
     }
 }

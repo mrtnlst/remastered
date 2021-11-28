@@ -11,5 +11,5 @@ import ComposableArchitecture
 
 struct GalleryEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var fetch: () -> Effect<[LibraryAlbum], Never>
+    var fetch: () -> Effect<[GalleryRowModel], Never>
 }

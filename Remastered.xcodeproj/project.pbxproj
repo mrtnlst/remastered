@@ -36,6 +36,8 @@
 		5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C9275255ED00966287 /* GalleryReducer.swift */; };
 		5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CD2752681700966287 /* GalleryRowModel.swift */; };
 		5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CF275280BE00966287 /* PlaybackService.swift */; };
+		5B5D06D2275390D500966287 /* LibraryRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D1275390D500966287 /* LibraryRowModel.swift */; };
+		5B5D06D42753A00F00966287 /* GalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D32753A00F00966287 /* GalleryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		5B5D06C9275255ED00966287 /* GalleryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryReducer.swift; sourceTree = "<group>"; };
 		5B5D06CD2752681700966287 /* GalleryRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowModel.swift; sourceTree = "<group>"; };
 		5B5D06CF275280BE00966287 /* PlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackService.swift; sourceTree = "<group>"; };
+		5B5D06D1275390D500966287 /* LibraryRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRowModel.swift; sourceTree = "<group>"; };
+		5B5D06D32753A00F00966287 /* GalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEF2274023D9003376CC /* LibraryAlbum.swift */,
+				5B5D06D1275390D500966287 /* LibraryRowModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 			children = (
 				5B4AF0232744ED35003E3AD1 /* MockServices */,
 				5B38CF23274156DE003376CC /* LibraryTests.swift */,
+				5B5D06D32753A00F00966287 /* GalleryTests.swift */,
 				5B38CF2527416026003376CC /* AppTests.swift */,
 			);
 			path = RemasteredTests;
@@ -352,6 +358,7 @@
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
+				5B5D06D2275390D500966287 /* LibraryRowModel.swift in Sources */,
 				5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
@@ -379,6 +386,7 @@
 				5B4AF0202744ED1B003E3AD1 /* MockAuthorizationService.swift in Sources */,
 				5B38CF2627416026003376CC /* AppTests.swift in Sources */,
 				5B4AF0222744ED31003E3AD1 /* MockLibraryService.swift in Sources */,
+				5B5D06D42753A00F00966287 /* GalleryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

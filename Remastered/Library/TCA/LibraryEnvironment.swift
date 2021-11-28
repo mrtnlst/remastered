@@ -11,5 +11,5 @@ import ComposableArchitecture
 
 struct LibraryEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var fetch: () -> Effect<[LibraryAlbum], Never>
+    var fetch: () -> Effect<[LibraryRowModel], Never>
 }
