@@ -51,7 +51,7 @@ extension GalleryView {
             ScrollView(.horizontal, showsIndicators: true) {
                 LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
                     ForEach(model.items) { item in
-                        if let image = item.artwork {
+                        if let image = item.artwork() {
                             Button {
                                 viewStore.send(.didSelectItem(id: item.id))
                             } label: {

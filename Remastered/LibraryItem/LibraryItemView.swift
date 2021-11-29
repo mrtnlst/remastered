@@ -15,56 +15,70 @@ struct LibraryItemView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                VStack {
-                    if let image = viewStore.item.artwork {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .cornerRadius(8)
-                            .frame(maxHeight: 180)
-                    }
-                    Text(viewStore.item.title)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    Text("by \(viewStore.item.artist)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                Button {
-                    viewStore.send(.didSelectItem(id: viewStore.item.id))
-                } label: {
-                    HStack {
-                        Image(systemName: "play.fill")
-                        Text("Play")
-                            .bold()
-                    }
-                    .foregroundColor(.white)
-                    .padding(.init(arrayLiteral: .top, .bottom), 8)
-                    .padding(.init(arrayLiteral: .leading, .trailing), 16)
-                    .background {
-                        Color.secondary
-                            .opacity(0.4)
-                    }
+                headerView(for: viewStore.item)
+                playButton { viewStore.send(.didSelectItem(id: viewStore.item.id)) }
+                trackList(for: viewStore.item.items())
+            }
+            .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+extension LibraryItemView {
+    @ViewBuilder func playButton(_ action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack {
+                Image(systemName: "play.fill")
+                Text("Play")
+                    .bold()
+            }
+            .foregroundColor(.primary)
+            .padding()
+        }
+    }
+    @ViewBuilder func headerView(for collection: LibraryCollection) -> some View {
+        VStack {
+            if let image = collection.artwork() {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .cornerRadius(8)
-                }
-                Divider()
-                ForEach(viewStore.item.items) { item in
+                    .frame(maxHeight: 180)
+            }
+            Text(collection.title)
+                .font(.headline)
+                .foregroundColor(.primary)
+            Text("by \(collection.artist)")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+    }
+    @ViewBuilder func trackList(for items: [LibraryItem]) -> some View {
+        VStack {
+            Divider()
+            ForEach(items) { item in
+                VStack {
                     HStack {
                         Text("\(item.track)")
                             .font(.body)
                             .foregroundColor(.secondary)
+                            .frame(maxWidth: 20)
                         Text(item.title)
                             .font(.body)
-                        Spacer()
+                            .lineLimit(1)
+                        Spacer(minLength: 16)
+                        Text(item.formattedDuration)
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                            .padding(.trailing, 16)
                     }
                     .padding(.init(arrayLiteral: .top, .bottom), 4)
-                    
                     Divider()
+                        .padding(.leading, 28)
                 }
-                .padding(.leading , 24)
             }
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .padding(.leading , 24)
     }
 }
 

@@ -45,8 +45,10 @@
 		5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06C9275255ED00966287 /* GalleryReducer.swift */; };
 		5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CD2752681700966287 /* GalleryRowModel.swift */; };
 		5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06CF275280BE00966287 /* PlaybackService.swift */; };
-		5B5D06D2275390D500966287 /* LibraryRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D1275390D500966287 /* LibraryRowModel.swift */; };
+		5B5D06D2275390D500966287 /* LibraryCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D1275390D500966287 /* LibraryCategoryModel.swift */; };
 		5B5D06D42753A00F00966287 /* GalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D32753A00F00966287 /* GalleryTests.swift */; };
+		5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */; };
+		5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE42275532BC007FFA24 /* LibraryItem.swift */; };
 		5BBE036F2753D5E400A53E7C /* LibraryItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,8 +102,10 @@
 		5B5D06C9275255ED00966287 /* GalleryReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryReducer.swift; sourceTree = "<group>"; };
 		5B5D06CD2752681700966287 /* GalleryRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowModel.swift; sourceTree = "<group>"; };
 		5B5D06CF275280BE00966287 /* PlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackService.swift; sourceTree = "<group>"; };
-		5B5D06D1275390D500966287 /* LibraryRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryRowModel.swift; sourceTree = "<group>"; };
+		5B5D06D1275390D500966287 /* LibraryCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCategoryModel.swift; sourceTree = "<group>"; };
 		5B5D06D32753A00F00966287 /* GalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTests.swift; sourceTree = "<group>"; };
+		5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+Additions.swift"; sourceTree = "<group>"; };
+		5BBAEE42275532BC007FFA24 /* LibraryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItem.swift; sourceTree = "<group>"; };
 		5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItemState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,7 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEF2274023D9003376CC /* LibraryCollection.swift */,
-				5B5D06D1275390D500966287 /* LibraryRowModel.swift */,
+				5BBAEE42275532BC007FFA24 /* LibraryItem.swift */,
+				5B5D06D1275390D500966287 /* LibraryCategoryModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */,
+				5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -420,7 +426,7 @@
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
-				5B5D06D2275390D500966287 /* LibraryRowModel.swift in Sources */,
+				5B5D06D2275390D500966287 /* LibraryCategoryModel.swift in Sources */,
 				5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */,
 				5B53F5F42753F5070022D57A /* LibraryItemAction.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
@@ -436,8 +442,10 @@
 				5B53F5E92753E4570022D57A /* LibraryCategoryState.swift in Sources */,
 				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
+				5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */,
 				5B5D06C8275255E500966287 /* GalleryEnvironment.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
+				5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */,
 				5B53F5F82753F52D0022D57A /* LibraryItemReducer.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,

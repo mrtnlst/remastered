@@ -9,18 +9,18 @@ import ComposableArchitecture
 @testable import Remastered
 
 final class MockLibraryService: LibraryService {
-    private var mockFetchLibrary: () -> Effect<[LibraryRowModel], Never>
+    private var mockFetchLibrary: () -> Effect<[LibraryCategoryModel], Never>
     private var mockFetchGallery: () -> Effect<[GalleryRowModel], Never>
     
     init(
-        mockFetchLibrary: @escaping () -> Effect<[LibraryRowModel], Never>,
+        mockFetchLibrary: @escaping () -> Effect<[LibraryCategoryModel], Never>,
         mockFetchGallery: @escaping () -> Effect<[GalleryRowModel], Never>
     ) {
         self.mockFetchLibrary = mockFetchLibrary
         self.mockFetchGallery = mockFetchGallery
     }
     
-    func fetchLibraryItems() -> Effect<[LibraryRowModel], Never> {
+    func fetchLibraryItems() -> Effect<[LibraryCategoryModel], Never> {
         return mockFetchLibrary()
     }
     

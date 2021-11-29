@@ -11,5 +11,6 @@ import ComposableArchitecture
 
 struct LibraryEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var fetch: () -> Effect<[LibraryRowModel], Never>
+    var fetch: () -> Effect<[LibraryCategoryModel], Never>
+    var uuid: () -> UUID
 }

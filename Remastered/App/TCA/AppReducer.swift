@@ -16,7 +16,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 LibraryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetchLibraryItems
+                    fetch: $0.libraryService.fetchLibraryItems,
+                    uuid: { UUID.init() }
                 )
             }
     ),

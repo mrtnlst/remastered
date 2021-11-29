@@ -21,25 +21,7 @@ struct LibraryCategoryView: View {
                     NavigationLink {
                         LibraryItemView(store: store)
                     } label: {
-                        HStack {
-                            if let image = ViewStore(store).item.artwork {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxHeight: 50)
-                                    .cornerRadius(4)
-                            } else {
-                                Image(systemName: "rectangle.stack.fill")
-                            }
-                            VStack(alignment: .leading) {
-                                Text(ViewStore(store).item.title)
-                                    .foregroundColor(.primary)
-                                Text(ViewStore(store).item.artist)
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .padding(.init(arrayLiteral: .bottom, .top), 5)
+                        itemRow(from: ViewStore(store).item)
                     }
                 }
             }
@@ -48,12 +30,36 @@ struct LibraryCategoryView: View {
     }
 }
 
+extension LibraryCategoryView {
+    @ViewBuilder func itemRow(from collection: LibraryCollection) -> some View {
+        HStack {
+            if let image = collection.artwork() {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 50)
+                    .cornerRadius(4)
+            } else {
+                Image(systemName: "rectangle.stack.fill")
+            }
+            VStack(alignment: .leading) {
+                Text(collection.title)
+                    .foregroundColor(.primary)
+                Text(collection.artist)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.init(arrayLiteral: .bottom, .top), 5)
+    }
+}
+
 struct LibraryCategoryView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             LibraryCategoryView(
                 store: Store(
-                    initialState: LibraryRowModel.exampleCategories.first!,
+                    initialState: LibraryCategoryState.exampleCategories.first!,
                     reducer: libraryCategoryReducer,
                     environment: LibraryCategoryEnvironment()
                 )

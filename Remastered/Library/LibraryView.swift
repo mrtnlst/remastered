@@ -40,9 +40,11 @@ struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
             store: Store(
-                initialState: LibraryState(categories: LibraryRowModel.exampleCategories),
+                initialState: LibraryState(
+                    categories: LibraryCategoryState.exampleCategories
+                ),
                 reducer: libraryReducer,
-                environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none })
+                environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none }, uuid: { UUID.init() })
             )
         )
     }

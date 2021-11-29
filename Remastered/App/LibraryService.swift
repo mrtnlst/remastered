@@ -10,7 +10,7 @@ import ComposableArchitecture
 import MediaPlayer
 
 protocol LibraryService {
-    func fetchLibraryItems() -> Effect<[LibraryRowModel], Never>
+    func fetchLibraryItems() -> Effect<[LibraryCategoryModel], Never>
     func fetchGalleryItems() -> Effect<[GalleryRowModel], Never>
 }
 
@@ -41,13 +41,13 @@ final class DefaultLibraryService: LibraryService {
         .eraseToEffect()
     }
     
-    func fetchLibraryItems() -> Effect<[LibraryRowModel], Never> {
+    func fetchLibraryItems() -> Effect<[LibraryCategoryModel], Never> {
         Future { promise in
             self.fetch()
                 .sink { items in
-                    var models: [LibraryRowModel] = []
-                    LibraryRowModel.RowType.allCases.forEach { type in
-                        let model = LibraryRowModel(
+                    var models: [LibraryCategoryModel] = []
+                    LibraryCategoryModel.CategoryType.allCases.forEach { type in
+                        let model = LibraryCategoryModel(
                             type: type,
                             items: items
                         )

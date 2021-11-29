@@ -10,6 +10,53 @@ import IdentifiedCollections
 
 struct LibraryCategoryState: Equatable, Identifiable {
     var items: IdentifiedArrayOf<LibraryItemState> = []
-    var type: LibraryRowModel.RowType
+    var type: LibraryCategoryModel.CategoryType
     var id: UUID = UUID()
+}
+
+// MARK: - Simulator
+extension LibraryCategoryState {
+    static let exampleCategories: IdentifiedArrayOf<LibraryCategoryState> = [
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .playlists
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .artists
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .albums
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .songs
+        ),
+        LibraryCategoryState(
+            items: exampleItems,
+            type: .genres
+        ),
+    ]
+    
+    static let exampleItems: IdentifiedArrayOf<LibraryItemState> = [
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[0]
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[1]
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[2]
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[3]
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[4]
+        ),
+        LibraryItemState(
+            item: LibraryCollection.exampleAlbums[5]
+        )
+    ]
 }

@@ -19,17 +19,24 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
               return environment
                   .fetch()
                   .receive(on: environment.mainQueue)
-                  .catchToEffect(LibraryAction.receiveLibraryItems)
+                  .catchToEffect(LibraryAction.receiveCategoryModels)
               
-          case let .receiveLibraryItems(.success(items)):
-              // TODO: Clean Up!
-              items.forEach { model in
-                  state.categories.updateOrAppend(
-                    LibraryCategoryState(
-                        items: .init(uniqueElements: model.items.map { LibraryItemState(item: $0) }),
-                        type: model.type
-                    )
+          case let .receiveCategoryModels(.success(models)):
+              models.forEach { model in
+                  let items = IdentifiedArrayOf<LibraryItemState>(
+                    uniqueElements: model.items.map {
+                        LibraryItemState(
+                            item: $0,
+                            id: environment.uuid()
+                        )
+                    }
                   )
+                  let category = LibraryCategoryState(
+                    items: items,
+                    type: model.type,
+                    id: environment.uuid()
+                  )
+                  state.categories.updateOrAppend(category)
               }
               return .none
               
