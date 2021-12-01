@@ -49,6 +49,10 @@
 		5B5D06D42753A00F00966287 /* GalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5D06D32753A00F00966287 /* GalleryTests.swift */; };
 		5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */; };
 		5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE42275532BC007FFA24 /* LibraryItem.swift */; };
+		5BBAEE49275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE48275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift */; };
+		5BBAEE4B275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4A275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift */; };
+		5BBAEE4D27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4C27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift */; };
+		5BBAEE4F27582093007FFA24 /* MPMediaItemCollection+toGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4E27582093007FFA24 /* MPMediaItemCollection+toGenre.swift */; };
 		5BBE036F2753D5E400A53E7C /* LibraryItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +110,10 @@
 		5B5D06D32753A00F00966287 /* GalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTests.swift; sourceTree = "<group>"; };
 		5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+Additions.swift"; sourceTree = "<group>"; };
 		5BBAEE42275532BC007FFA24 /* LibraryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItem.swift; sourceTree = "<group>"; };
+		5BBAEE48275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toAlbum.swift"; sourceTree = "<group>"; };
+		5BBAEE4A275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toPlaylist.swift"; sourceTree = "<group>"; };
+		5BBAEE4C27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toArtist.swift"; sourceTree = "<group>"; };
+		5BBAEE4E27582093007FFA24 /* MPMediaItemCollection+toGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toGenre.swift"; sourceTree = "<group>"; };
 		5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItemState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,8 +225,8 @@
 		5B38CEF427402464003376CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5B38CEF2274023D9003376CC /* LibraryCollection.swift */,
 				5BBAEE42275532BC007FFA24 /* LibraryItem.swift */,
+				5B38CEF2274023D9003376CC /* LibraryCollection.swift */,
 				5B5D06D1275390D500966287 /* LibraryCategoryModel.swift */,
 			);
 			path = Models;
@@ -228,6 +236,10 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEF527414213003376CC /* MPMediaItemCollection+Additions.swift */,
+				5BBAEE48275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift */,
+				5BBAEE4C27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift */,
+				5BBAEE4E27582093007FFA24 /* MPMediaItemCollection+toGenre.swift */,
+				5BBAEE4A275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift */,
 				5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */,
 			);
 			path = Extensions;
@@ -428,7 +440,10 @@
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
 				5B5D06D2275390D500966287 /* LibraryCategoryModel.swift in Sources */,
 				5B5D06CE2752681700966287 /* GalleryRowModel.swift in Sources */,
+				5BBAEE4B275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift in Sources */,
 				5B53F5F42753F5070022D57A /* LibraryItemAction.swift in Sources */,
+				5BBAEE4F27582093007FFA24 /* MPMediaItemCollection+toGenre.swift in Sources */,
+				5BBAEE49275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
@@ -440,6 +455,7 @@
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
 				5B53F5EB2753E4570022D57A /* LibraryCategoryEnvironment.swift in Sources */,
 				5B53F5E92753E4570022D57A /* LibraryCategoryState.swift in Sources */,
+				5BBAEE4D27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift in Sources */,
 				5B38CEE927402323003376CC /* LibraryAction.swift in Sources */,
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */,

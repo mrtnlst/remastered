@@ -9,21 +9,13 @@ import MediaPlayer
 
 extension MPMediaItemCollection {
     
-    var albumTitle: String? {
-        representativeItem?.albumTitle
-    }
+    var dateAdded: Date? { representativeItem?.dateAdded }
     
-    var albumArtist: String? {
-        representativeItem?.artist
-    }
+    var artist: String? { representativeItem?.artist }
     
-    var mediaPersistentID: String? {
-        (representativeItem?.value(forProperty: MPMediaItemPropertyAlbumPersistentID) as? NSNumber)?.stringValue
-    }
+    var isFavorite: Bool { return items.contains { $0.rating > 3 } }
     
-    var dateAdded: Date? {
-        representativeItem?.dateAdded
-    }
+    var numberOfItems: String { items.count == 1 ? "\(items.count) song" : "\(items.count) songs" }
     
     var lastPlayed: Date? {
         let defaultDate = Date(timeIntervalSince1970: 0)
@@ -32,12 +24,19 @@ extension MPMediaItemCollection {
             .first?.lastPlayedDate
     }
     
-    var isFavorite: Bool {
-        return items.contains { $0.rating > 3 }
-    }
-    
     var artwork: UIImage? {
         let image = representativeItem?.artwork
         return image?.image(at: CGSize(width: 100, height: 100))
+    }
+    
+    var catalogArtwork: UIImage? {
+        // TODO: Obfuscate!
+        let sel = NSSelectorFromString("bestImageFromDisk")
+        guard let catalog = value(forKey: "artworkCatalog") as? NSObject,
+              catalog.responds(to: sel),
+              let value = catalog.perform(sel)?.takeUnretainedValue(),
+              let image = value as? UIImage
+        else { return artwork }
+        return image
     }
 }

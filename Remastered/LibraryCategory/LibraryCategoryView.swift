@@ -45,7 +45,7 @@ extension LibraryCategoryView {
             VStack(alignment: .leading) {
                 Text(collection.title)
                     .foregroundColor(.primary)
-                Text(collection.artist)
+                Text(collection.subtitle)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }

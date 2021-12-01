@@ -10,7 +10,7 @@ import MediaPlayer
 
 struct LibraryCollection: Identifiable {
     let title: String
-    let artist: String
+    let subtitle: String
     let id: String
     let dateAdded: Date
     let lastPlayed: Date
@@ -18,21 +18,24 @@ struct LibraryCollection: Identifiable {
     var artwork: () -> UIImage?
     var items: () -> [LibraryItem]
     
-    init?(with collection: MPMediaItemCollection) {
-        guard let albumTitle = collection.albumTitle,
-              let artist = collection.albumArtist,
-              let id = collection.mediaPersistentID,
-              let dateAdded = collection.dateAdded
-        else { return nil }
-        
-        self.title = albumTitle
-        self.artist = artist
+    init?(
+        id: String,
+        title: String,
+        subtitle: String,
+        dateAdded: Date,
+        lastPlayed: Date,
+        isFavorite: Bool,
+        artwork: @escaping () -> UIImage?,
+        items: @escaping () -> [LibraryItem]
+    ) {
+        self.title = title
+        self.subtitle = subtitle
         self.id = id
-        self.lastPlayed = collection.lastPlayed ?? Date(timeIntervalSince1970: 0)
         self.dateAdded = dateAdded
-        self.isFavorite = collection.isFavorite
-        self.artwork = { collection.artwork }
-        self.items = { collection.items.compactMap { LibraryItem(with: $0) } }
+        self.lastPlayed = lastPlayed
+        self.isFavorite = isFavorite
+        self.artwork = artwork
+        self.items = items
     }
 }
 
@@ -55,7 +58,7 @@ extension LibraryCollection {
         items: [LibraryItem] = []
     ) {
         self.title = title
-        self.artist = artist
+        self.subtitle = artist
         self.id = id
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)

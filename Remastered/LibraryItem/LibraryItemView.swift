@@ -8,7 +8,6 @@
 import SwiftUI
 import ComposableArchitecture
 
-// TODO: Clean Up!
 struct LibraryItemView: View {
     let store: Store<LibraryItemState, LibraryItemAction>
     
@@ -48,7 +47,7 @@ extension LibraryItemView {
             Text(collection.title)
                 .font(.headline)
                 .foregroundColor(.primary)
-            Text("by \(collection.artist)")
+            Text("by \(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -62,7 +61,7 @@ extension LibraryItemView {
                         Text("\(item.track)")
                             .font(.body)
                             .foregroundColor(.secondary)
-                            .frame(maxWidth: 20)
+                            .frame(maxWidth: 30)
                         Text(item.title)
                             .font(.body)
                             .lineLimit(1)
