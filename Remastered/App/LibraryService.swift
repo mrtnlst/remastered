@@ -92,7 +92,7 @@ private extension LibraryService {
             #if targetEnvironment(simulator)
             promise(.success(LibraryCollection.exampleAlbums))
             #else
-            let collections = MPMediaQuery().collections
+            let collections = MPMediaQuery.albums().collections
             let albums = collections?.compactMap { $0.toAlbum() } ?? []
             promise(.success(albums))
             #endif

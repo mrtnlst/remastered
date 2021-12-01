@@ -18,6 +18,7 @@ extension MPMediaItemCollection {
             return nil
         }
         return LibraryCollection(
+            type: .albums,
             id: id.stringValue,
             title: title,
             subtitle: subtitle,

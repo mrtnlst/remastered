@@ -10,17 +10,41 @@ import MediaPlayer
 import Combine
 
 protocol PlaybackService {
-    func play(for id: String) -> Effect<Never, Never>
+    func play(id: String, of category: CategoryType) -> Effect<Never, Never>
 }
 
 final class DefaultPlaybackService: PlaybackService {
-    func play(for id: String) -> Effect<Never, Never> {
+    func play(id: String, of category: CategoryType) -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-        let predicate = MPMediaPropertyPredicate(
-            value: id,
-            forProperty: MPMediaItemPropertyAlbumPersistentID,
-            comparisonType: MPMediaPredicateComparison.equalTo
-        )
+        var predicate: MPMediaPropertyPredicate
+
+        switch category {
+        case .albums:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+            predicate = MPMediaPropertyPredicate(value: id,
+                                                 forProperty: MPMediaItemPropertyAlbumPersistentID,
+                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+        case .playlists:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+            predicate = MPMediaPropertyPredicate(value: UInt64(id),
+                                                 forProperty: MPMediaPlaylistPropertyPersistentID,
+                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+        case .artists:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
+            predicate = MPMediaPropertyPredicate(value: id,
+                                                 forProperty: MPMediaItemPropertyArtistPersistentID,
+                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+        case .genres:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
+            predicate = MPMediaPropertyPredicate(value: id,
+                                                 forProperty: MPMediaItemPropertyGenrePersistentID,
+                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+        case .songs:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+            predicate = MPMediaPropertyPredicate(value: id,
+                                                 forProperty: MPMediaItemPropertyPersistentID,
+                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+        }
         
         let filter: Set<MPMediaPropertyPredicate> = [predicate]
         let query = MPMediaQuery(filterPredicates: filter)

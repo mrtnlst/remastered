@@ -9,6 +9,7 @@ import Foundation
 import MediaPlayer
 
 struct LibraryCollection: Identifiable {
+    let type: CategoryType
     let title: String
     let subtitle: String
     let id: String
@@ -19,6 +20,7 @@ struct LibraryCollection: Identifiable {
     var items: () -> [LibraryItem]
     
     init?(
+        type: CategoryType,
         id: String,
         title: String,
         subtitle: String,
@@ -28,6 +30,7 @@ struct LibraryCollection: Identifiable {
         artwork: @escaping () -> UIImage?,
         items: @escaping () -> [LibraryItem]
     ) {
+        self.type = type
         self.title = title
         self.subtitle = subtitle
         self.id = id
@@ -48,6 +51,7 @@ extension LibraryCollection: Equatable {
 // MARK: - Simulator
 extension LibraryCollection {
     init(
+        type: CategoryType,
         title: String,
         artist: String,
         id: String = UUID().uuidString,
@@ -57,6 +61,7 @@ extension LibraryCollection {
         artwork: UIImage? = nil,
         items: [LibraryItem] = []
     ) {
+        self.type = type
         self.title = title
         self.subtitle = artist
         self.id = id
@@ -71,6 +76,7 @@ extension LibraryCollection {
 extension LibraryCollection {
     static let exampleAlbums: [LibraryCollection] = [
         LibraryCollection(
+            type: .albums,
             title: "Organ",
             artist: "Dimension",
             id: "AABB-CCDD-EEFF-GGHH",
@@ -80,6 +86,7 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .albums,
             title: "Whenever You Need Somebody",
             artist: "Rick Astley",
             id: "AABB-CCDD-EEFF-KKLL",
@@ -88,6 +95,7 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .albums,
             title: "Midnight Express",
             artist: "Giorgio Moroder",
             id: "AABB-CCDD-EEFF-LLMM",
@@ -96,6 +104,7 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .albums,
             title: "After Hours",
             artist: "The Weeknd",
             id: "AABB-CCDD-EEFF-MMNN",
@@ -105,6 +114,7 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .albums,
             title: "Mosaik",
             artist: "Camo & Krooked",
             id: "AABB-CCDD-EEFF-NNOO",
@@ -114,6 +124,7 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .albums,
             title: "It's Album Time",
             artist: "Todd Terje",
             id: "AABB-CCDD-EEFF-OOPP",

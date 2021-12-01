@@ -24,6 +24,7 @@ class LibraryTests: XCTestCase {
     }
     
     let libraryCollection: LibraryCollection = .init(
+        type: .albums,
         title: Constants.title,
         artist: Constants.artist,
         id: Constants.id,
@@ -39,6 +40,7 @@ class LibraryTests: XCTestCase {
             type: .albums,
             items: [
                 LibraryCollection(
+                    type: .albums,
                     title: Constants.title,
                     artist: Constants.artist,
                     id: Constants.id,
@@ -57,6 +59,7 @@ class LibraryTests: XCTestCase {
             items: [
                 LibraryItemState(
                     item: LibraryCollection(
+                        type: .albums,
                         title: Constants.title,
                         artist: Constants.artist,
                         id: Constants.id,

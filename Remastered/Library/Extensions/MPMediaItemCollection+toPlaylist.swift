@@ -19,6 +19,7 @@ extension MPMediaItemCollection {
             return nil
         }
         return LibraryCollection(
+            type: .playlists,
             id: id.stringValue,
             title: title,
             subtitle: numberOfItems,

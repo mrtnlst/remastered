@@ -17,6 +17,7 @@ extension MPMediaItemCollection {
             return nil
         }
         return LibraryCollection(
+            type: .genres,
             id: id.stringValue,
             title: title,
             subtitle: numberOfItems,

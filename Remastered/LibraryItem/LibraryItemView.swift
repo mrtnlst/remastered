@@ -15,7 +15,9 @@ struct LibraryItemView: View {
         WithViewStore(store) { viewStore in
             ScrollView {
                 headerView(for: viewStore.item)
-                playButton { viewStore.send(.didSelectItem(id: viewStore.item.id)) }
+                playButton {
+                    viewStore.send(.didSelectItem(id: viewStore.item.id, type: viewStore.item.type))
+                }
                 trackList(for: viewStore.item.items())
             }
             .navigationBarTitleDisplayMode(.inline)

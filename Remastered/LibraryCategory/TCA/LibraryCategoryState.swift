@@ -10,7 +10,7 @@ import IdentifiedCollections
 
 struct LibraryCategoryState: Equatable, Identifiable {
     var items: IdentifiedArrayOf<LibraryItemState> = []
-    var type: LibraryCategoryModel.CategoryType
+    var type: CategoryType
     var id: UUID = UUID()
 }
 
