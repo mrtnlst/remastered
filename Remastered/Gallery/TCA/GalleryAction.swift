@@ -10,5 +10,5 @@ import Foundation
 enum GalleryAction: Equatable {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
-    case didSelectItem(id: String)
+    case didSelectItem(id: String, type: CategoryType)
 }

@@ -34,7 +34,7 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment> { 
         state.galleryRowModels = models
         return .none
     
-    case let .didSelectItem(id):
+    case let .didSelectItem(id, type):
         return .none
     }
 }

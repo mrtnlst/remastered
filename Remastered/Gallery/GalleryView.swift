@@ -53,7 +53,7 @@ extension GalleryView {
                     ForEach(model.items) { item in
                         if let image = item.artwork() {
                             Button {
-                                viewStore.send(.didSelectItem(id: item.id))
+                                viewStore.send(.didSelectItem(id: item.id, type: item.type))
                             } label: {
                                 Image(uiImage: image)
                                     .resizable()
