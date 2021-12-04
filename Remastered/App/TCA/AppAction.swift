@@ -10,6 +10,8 @@ import Foundation
 enum AppAction: Equatable {
     case onAppear
     case authorizationResponse(Result<Bool, AuthorizationError>)
+    case fetch
+    case fetchResponse(Result<[LibraryCollection], Never>)
     case library(LibraryAction)
     case gallery(GalleryAction)
 }

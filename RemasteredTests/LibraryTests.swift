@@ -35,25 +35,6 @@ class LibraryTests: XCTestCase {
         items: []
     )
     
-    let categoryModels: [LibraryCategoryModel] = [
-        LibraryCategoryModel(
-            type: .albums,
-            items: [
-                LibraryCollection(
-                    type: .albums,
-                    title: Constants.title,
-                    artist: Constants.artist,
-                    id: Constants.id,
-                    dateAdded: Constants.dateAdded,
-                    lastPlayed: Constants.lastPlayed,
-                    isFavorite: Constants.isFavorite,
-                    artwork: Constants.artwork,
-                    items: []
-                )
-            ]
-        )
-    ]
-    
     let categories: [LibraryCategoryState] = [
         LibraryCategoryState(
             items: [
@@ -83,13 +64,13 @@ class LibraryTests: XCTestCase {
             reducer: libraryReducer,
             environment: LibraryEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
-                fetch: { Effect(value: self.categoryModels) },
+                fetch: { Effect(value: [self.libraryCollection]) },
                 uuid: { Constants.uuid }
             )
         )
         store.send(.fetch)
         scheduler.advance()
-        store.receive(.receiveCategoryModels(result: .success(categoryModels))) {
+        store.receive(.receiveCollections(result: .success([self.libraryCollection]))) {
             $0.categories =  .init(uniqueElements: self.categories)
         }
     }
@@ -105,11 +86,11 @@ class LibraryTests: XCTestCase {
             )
         )
         
-        let expectedCategories: [LibraryCategoryModel] = []
+        let expectedCollections: [LibraryCollection] = []
   
         store.send(.fetch)
         scheduler.advance()
-        store.receive(.receiveCategoryModels(result: .success(expectedCategories))) {
+        store.receive(.receiveCollections(result: .success(expectedCollections))) {
             $0.categories = []
         }
     }

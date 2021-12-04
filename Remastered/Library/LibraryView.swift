@@ -44,7 +44,11 @@ struct LibraryView_Previews: PreviewProvider {
                     categories: LibraryCategoryState.exampleCategories
                 ),
                 reducer: libraryReducer,
-                environment: LibraryEnvironment(mainQueue: .main, fetch: { return .none }, uuid: { UUID.init() })
+                environment: LibraryEnvironment(
+                    mainQueue: .main,
+                    fetch: { return .none },
+                    uuid: { UUID.init() }
+                )
             )
         )
     }

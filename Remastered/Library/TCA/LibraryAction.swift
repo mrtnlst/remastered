@@ -9,6 +9,6 @@ import Foundation
 
 enum LibraryAction: Equatable {
     case fetch
-    case receiveCategoryModels(result: Result<[LibraryCategoryModel], Never>)
+    case receiveCollections(result: Result<[LibraryCollection], Never>)
     case libraryCategory(id: UUID, action: LibraryCategoryAction)
 }

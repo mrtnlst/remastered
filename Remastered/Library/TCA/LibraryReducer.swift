@@ -19,21 +19,22 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
               return environment
                   .fetch()
                   .receive(on: environment.mainQueue)
-                  .catchToEffect(LibraryAction.receiveCategoryModels)
+                  .catchToEffect(LibraryAction.receiveCollections)
               
-          case let .receiveCategoryModels(.success(models)):
-              models.forEach { model in
-                  let items = IdentifiedArrayOf<LibraryItemState>(
-                    uniqueElements: model.items.map {
-                        LibraryItemState(
-                            item: $0,
-                            id: environment.uuid()
-                        )
-                    }
-                  )
+          case let .receiveCollections(.success(collections)):
+              CategoryType.allCases.forEach { type in
+                  let filteredCollections = collections.filter { $0.type == type }
+                  guard !filteredCollections.isEmpty else { return }
+                  
+                  let itemStates: [LibraryItemState] = filteredCollections.map { collection in
+                      LibraryItemState(
+                        item: collection,
+                        id: environment.uuid()
+                      )
+                  }
                   let category = LibraryCategoryState(
-                    items: items,
-                    type: model.type,
+                    items: .init(uniqueElements: itemStates),
+                    type: type,
                     id: environment.uuid()
                   )
                   state.categories.updateOrAppend(category)

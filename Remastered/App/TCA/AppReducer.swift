@@ -16,7 +16,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 LibraryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetchLibraryItems,
+                    fetch: $0.libraryService.fetch,
                     uuid: { UUID.init() }
                 )
             }
@@ -29,7 +29,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 GalleryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetchGalleryItems
+                    fetch: $0.libraryService.fetch,
+                    uuid: { UUID.init() }
                 )
             }
     ),
@@ -45,10 +46,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
             state.gallery = GalleryState()
-            return .merge(
-                Effect(value: .gallery(.fetch)),
-                Effect(value: .library(.fetch))
-            )
+            return Effect(value: .fetch)
 
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
@@ -65,7 +63,20 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .library(_):
             return .none
+            
+        case .fetch:
+            return environment
+                .libraryService
+                .fetch()
+                .receive(on: environment.mainQueue)
+                .catchToEffect(AppAction.fetchResponse)
     
+        case let .fetchResponse(.success(collections)):
+            return .merge(
+                Effect(value: .library(.receiveCollections(result: .success(collections)))),
+                Effect(value: .gallery(.receiveCollections(result: .success(collections))))
+            )
+            
         case let .gallery(.didSelectItem(id)):
             return environment
                 .playbackService

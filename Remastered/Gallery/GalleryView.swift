@@ -77,7 +77,11 @@ struct GalleryView_Previews: PreviewProvider {
                 Store(
                     initialState: GalleryState(galleryRowModels: GalleryRowModel.exampleRowModels),
                     reducer: galleryReducer,
-                    environment: GalleryEnvironment(mainQueue: .main, fetch: { return .none } )
+                    environment: GalleryEnvironment(
+                        mainQueue: .main,
+                        fetch: { return .none },
+                        uuid: { UUID.init() }
+                    )
                 )
         )
     }
