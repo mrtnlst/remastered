@@ -22,7 +22,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
                   .catchToEffect(LibraryAction.receiveCollections)
               
           case let .receiveCollections(.success(collections)):
-              CategoryType.allCases.forEach { type in
+              LibraryCategoryType.allCases.forEach { type in
                   let filteredCollections = collections.filter { $0.type == type }
                   guard !filteredCollections.isEmpty else { return }
                   

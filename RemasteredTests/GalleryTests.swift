@@ -35,11 +35,11 @@ class GalleryTests: XCTestCase {
         items: []
     )
     
-    let galleryModels: [GalleryRowModel] = [
-        GalleryRowModel(
-            id: Constants.uuid,
+    let categories: [GalleryCategoryState] = [
+        GalleryCategoryState(
             items: [
-                LibraryCollection(
+                LibraryItemState(
+                    item: LibraryCollection(
                     type: .albums,
                     title: Constants.title,
                     artist: Constants.artist,
@@ -49,9 +49,12 @@ class GalleryTests: XCTestCase {
                     isFavorite: Constants.isFavorite,
                     artwork: Constants.artwork,
                     items: []
-                    )
+                    ),
+                    id: Constants.uuid
+                )
             ],
-            type: .recentlyAdded
+            type: .discover,
+            id: Constants.uuid
         )
     ]
     
@@ -65,33 +68,12 @@ class GalleryTests: XCTestCase {
                 uuid: { Constants.uuid }
             )
         )
-
-        var expectedModels: [GalleryRowModel] = []
-        GalleryRowModel.RowType.allCases.forEach { type in
-            let model = GalleryRowModel(
-                id: Constants.uuid,
-                items: [
-                    LibraryCollection(
-                        type: .albums,
-                        title: Constants.title,
-                        artist: Constants.artist,
-                        id: Constants.id,
-                        dateAdded: Constants.dateAdded,
-                        lastPlayed: Constants.lastPlayed,
-                        isFavorite: Constants.isFavorite,
-                        artwork: Constants.artwork,
-                        items: []
-                        )
-                ],
-                type: type
-            )
-            expectedModels.append(model)
-        }
-        
+        // Right now all categories are replaces because of the same uuid, therefor
+        // the only category in the state is `.discover`.
         store.send(.fetch)
         scheduler.advance()
         store.receive(.receiveCollections(result: .success([self.libraryCollection]))) {
-            $0.galleryRowModels = expectedModels
+            $0.categories = .init(uniqueElements: self.categories)
         }
     }
     
@@ -111,7 +93,7 @@ class GalleryTests: XCTestCase {
         store.send(.fetch)
         scheduler.advance()
         store.receive(.receiveCollections(result: .success(expectedCollections))) {
-            $0.galleryRowModels = []
+            $0.categories = []
         }
     }
 }

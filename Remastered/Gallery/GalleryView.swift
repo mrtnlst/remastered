@@ -20,8 +20,11 @@ struct GalleryView: View {
         WithViewStore(store) { viewStore in
             NavigationView {
                 List {
-                    ForEach(viewStore.galleryRowModels) { model in
-                        galleryRow(with: viewStore, model: model)
+                    ForEachStore(store.scope(
+                        state: \.categories,
+                        action: GalleryAction.galleryCategory(id:action:))
+                    ) { store in
+                        galleryRow(with: store)
                     }
                 }
                 .navigationBarTitle("Gallery")
@@ -32,39 +35,44 @@ struct GalleryView: View {
 
 extension GalleryView {
     
-    @ViewBuilder func galleryRow(with viewStore: ViewStore<GalleryState, GalleryAction>, model: GalleryRowModel) -> some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(model.type.rawValue)
-                    .font(.headline)
-                Spacer()
-                Button { } label: {
-                    HStack(spacing: 4) {
-                        Text("Show all")
-                            .font(.caption2)
-                        Image(systemName: "chevron.right")
-                            .font(.caption2)
+    @ViewBuilder func galleryRow(with store: Store<GalleryCategoryState, GalleryCategoryAction>) -> some View {
+        WithViewStore(store) { viewStore in
+            VStack(alignment: .leading) {
+                HStack {
+                    Text(viewStore.type.rawValue)
+                        .font(.headline)
+                    Spacer()
+                    Button { } label: {
+                        HStack(spacing: 4) {
+                            Text("Show all")
+                                .font(.caption2)
+                            Image(systemName: "chevron.right")
+                                .font(.caption2)
+                        }
+                        .foregroundColor(.primary)
                     }
-                    .foregroundColor(.primary)
                 }
-            }
-            ScrollView(.horizontal, showsIndicators: true) {
-                LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
-                    ForEach(model.items) { item in
-                        if let image = item.artwork() {
-                            Button {
-                                viewStore.send(.didSelectItem(id: item.id, type: item.type))
+                ScrollView(.horizontal, showsIndicators: true) {
+                    LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
+                        ForEachStore(store.scope(
+                            state: \.items,
+                            action: GalleryCategoryAction.libraryItem(id:action:))
+                        ) { libraryStore in
+                            NavigationLink {
+                                LibraryItemView(store: libraryStore)
                             } label: {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(maxHeight: 80)
-                                    .cornerRadius(8)
+                                if let image = ViewStore(libraryStore).item.artwork() {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(maxHeight: 80)
+                                        .cornerRadius(8)
+                                }
                             }
                         }
                     }
+                    .padding(.bottom, 16)
                 }
-                .padding(.bottom, 16)
             }
         }
     }
@@ -73,16 +81,15 @@ extension GalleryView {
 struct GalleryView_Previews: PreviewProvider {
     static var previews: some View {
         GalleryView(
-            store:
-                Store(
-                    initialState: GalleryState(galleryRowModels: GalleryRowModel.exampleRowModels),
-                    reducer: galleryReducer,
-                    environment: GalleryEnvironment(
-                        mainQueue: .main,
-                        fetch: { return .none },
-                        uuid: { UUID.init() }
-                    )
+            store: Store(
+                initialState: GalleryState(categories: GalleryCategoryState.exampleCategories),
+                reducer: galleryReducer,
+                environment: GalleryEnvironment(
+                    mainQueue: .main,
+                    fetch: { return .none },
+                    uuid: { UUID.init() }
                 )
+            )
         )
     }
 }

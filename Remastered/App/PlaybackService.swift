@@ -10,11 +10,11 @@ import MediaPlayer
 import Combine
 
 protocol PlaybackService {
-    func play(id: String, of category: CategoryType) -> Effect<Never, Never>
+    func play(id: String, of category: LibraryCategoryType) -> Effect<Never, Never>
 }
 
 final class DefaultPlaybackService: PlaybackService {
-    func play(id: String, of category: CategoryType) -> Effect<Never, Never> {
+    func play(id: String, of category: LibraryCategoryType) -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
         var predicate: MPMediaPropertyPredicate
 

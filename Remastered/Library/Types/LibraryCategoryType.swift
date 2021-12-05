@@ -1,5 +1,5 @@
 //
-//  CategoryType.swift
+//  LibraryCategoryType.swift
 //  Remastered
 //
 //  Created by martin on 01.12.21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CategoryType: String, CaseIterable {
+enum LibraryCategoryType: String, CaseIterable {
     case playlists = "Playlists"
     case artists = "Artists"
     case albums = "Albums"
@@ -15,7 +15,7 @@ enum CategoryType: String, CaseIterable {
     case genres = "Genres"
 }
 
-extension CategoryType {
+extension LibraryCategoryType {
     var icon: String {
         switch self {
         case .playlists:

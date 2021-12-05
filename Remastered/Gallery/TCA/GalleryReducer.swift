@@ -7,34 +7,43 @@
 
 import ComposableArchitecture
 
-let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment> { state, action, environment in
-    switch action {
-    case .fetch:
-        return environment
-            .fetch()
-            .receive(on: environment.mainQueue)
-            .catchToEffect(GalleryAction.receiveCollections)
-        
-    case let .receiveCollections(.success(collections)):
-        var models: [GalleryRowModel] = []
-        
-        GalleryRowModel.RowType.allCases.forEach { type in
-            let items = collections
-                .filter(type.filterValue)
-                .sorted(by: type.sortOrder)
-            guard !items.isEmpty else { return }
+let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.combine (
+    galleryCategoryReducer.forEach(
+        state: \.categories,
+        action: /GalleryAction.galleryCategory(id:action:),
+        environment: { _ in GalleryCategoryEnvironment() }
+    ),
+    Reducer { state, action, environment in
+        switch action {
+        case .fetch:
+            return environment
+                .fetch()
+                .receive(on: environment.mainQueue)
+                .catchToEffect(GalleryAction.receiveCollections)
             
-            let model = GalleryRowModel(
-                id: environment.uuid(),
-                items: Array(items.prefix(10)),
-                type: type
-            )
-            models.append(model)
+        case let .receiveCollections(.success(collections)):
+            GalleryCategoryType.allCases.forEach { type in
+                let items = collections
+                    .filter(type.filterValue)
+                    .filter { $0.type == .albums || $0.type == .playlists }
+                    .sorted(by: type.sortOrder)
+                guard !items.isEmpty else { return }
+                
+                let category = GalleryCategoryState(
+                    items: .init(
+                        uniqueElements: items.map {
+                            LibraryItemState(item: $0, id: environment.uuid())
+                        }.prefix(30)
+                    ),
+                    type: type,
+                    id: environment.uuid()
+                )
+                state.categories.updateOrAppend(category)
+            }
+            return .none
+        
+        case .galleryCategory(_, _):
+            return .none
         }
-        state.galleryRowModels = models
-        return .none
-    
-    case let .didSelectItem(id, type):
-        return .none
     }
-}
+)

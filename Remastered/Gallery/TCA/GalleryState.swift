@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import IdentifiedCollections
 
 struct GalleryState: Equatable {
-    var galleryRowModels: [GalleryRowModel] = []
+    var categories: IdentifiedArrayOf<GalleryCategoryState> = []
 }

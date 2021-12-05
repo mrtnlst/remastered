@@ -77,7 +77,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .gallery(.receiveCollections(result: .success(collections))))
             )
             
-        case let .gallery(.didSelectItem(id, type)):
+        case let .gallery(.galleryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type)))):
             return environment
                 .playbackService
                 .play(id: id, of: type)

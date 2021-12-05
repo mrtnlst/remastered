@@ -20,7 +20,7 @@ extension AppState {
                 categories: LibraryCategoryState.exampleCategories
             ),
             gallery: GalleryState(
-                galleryRowModels: GalleryRowModel.exampleRowModels
+                categories: GalleryCategoryState.exampleCategories
             )
         )
     }

@@ -9,7 +9,7 @@ import Foundation
 import MediaPlayer
 
 struct LibraryCollection: Identifiable {
-    let type: CategoryType
+    let type: LibraryCategoryType
     let title: String
     let subtitle: String
     let id: String
@@ -20,7 +20,7 @@ struct LibraryCollection: Identifiable {
     var items: () -> [LibraryItem]
     
     init?(
-        type: CategoryType,
+        type: LibraryCategoryType,
         id: String,
         title: String,
         subtitle: String,
@@ -51,7 +51,7 @@ extension LibraryCollection: Equatable {
 // MARK: - Simulator
 extension LibraryCollection {
     init(
-        type: CategoryType,
+        type: LibraryCategoryType,
         title: String,
         artist: String,
         id: String = UUID().uuidString,
