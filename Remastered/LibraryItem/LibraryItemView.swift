@@ -39,19 +39,20 @@ extension LibraryItemView {
     }
     @ViewBuilder func headerView(for collection: LibraryCollection) -> some View {
         VStack {
-            if let image = collection.artwork() {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(8)
-                    .frame(maxHeight: 180)
-            }
             Text(collection.title)
                 .font(.headline)
                 .foregroundColor(.primary)
             Text("by \(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
+            if let image = collection.artwork() {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(8)
+                    .frame(maxHeight: 180)
+                    .reflection(offsetY: 10)
+            }
         }
     }
     @ViewBuilder func trackList(for items: [LibraryItem]) -> some View {
