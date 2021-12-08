@@ -12,15 +12,6 @@ struct LibraryItem: Equatable, Identifiable {
     let title: String
     let id: String
     let duration: TimeInterval
-    
-    init?(with item: MPMediaItem) {
-        guard let id = item.mediaPersistentID
-        else { return nil }
-        self.id = id
-        self.track = item.albumTrackNumber
-        self.title = item.title ?? ""
-        self.duration = item.playbackDuration
-    }
 }
 
 extension LibraryItem {
@@ -34,19 +25,6 @@ extension LibraryItem {
 }
 
 // MARK: - Simulator
-extension LibraryItem {
-    init(
-        track: Int,
-        title: String,
-        id: String,
-        duration: TimeInterval
-    ) {
-        self.track = track
-        self.title = title
-        self.id = id
-        self.duration = duration
-    }
-}
 
 extension LibraryItem {
     static let exampleItems: [LibraryItem] = [

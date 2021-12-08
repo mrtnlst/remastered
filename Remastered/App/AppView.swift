@@ -37,7 +37,9 @@ extension AppView {
                 action: AppAction.library),
             then: LibraryView.init(store:),
             else: {
-                Text("Library access not permitted yet.")
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.primary)
             }
         )
     }
@@ -49,7 +51,9 @@ extension AppView {
                 action: AppAction.gallery),
             then: GalleryView.init(store:),
             else: {
-                Text("Library access not permitted yet.")
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .foregroundColor(.primary)
             }
         )
     }

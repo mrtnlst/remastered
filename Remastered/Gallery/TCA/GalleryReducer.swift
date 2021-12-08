@@ -23,17 +23,21 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
             
         case let .receiveCollections(.success(collections)):
             GalleryCategoryType.allCases.forEach { type in
-                let items = collections
-                    .filter(type.filterValue)
-                    .filter { $0.type == .albums || $0.type == .playlists }
-                    .sorted(by: type.sortOrder)
+                var items = Array(
+                    collections
+                        .filter(type.filterValue)
+                        .filter { $0.type == .albums || $0.type == .playlists }
+                        .sorted(by: type.sortOrder)
+                        .prefix(30)
+                )
                 guard !items.isEmpty else { return }
+                items = type == .discover ? items.shuffled() : items
                 
                 let category = GalleryCategoryState(
                     items: .init(
                         uniqueElements: items.map {
                             LibraryItemState(item: $0, id: environment.uuid())
-                        }.prefix(30)
+                        }
                     ),
                     type: type,
                     id: environment.uuid()
