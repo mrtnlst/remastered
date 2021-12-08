@@ -54,10 +54,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.gallery = nil
             return .none
             
-        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type)))):
+        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))):
             return environment
                 .playbackService
-                .play(id: id, of: type)
+                .play(id: id, of: type, from: position)
                 .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             
@@ -77,10 +77,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .gallery(.receiveCollections(result: .success(collections))))
             )
             
-        case let .gallery(.galleryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type)))):
+        case let .gallery(.galleryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))):
             return environment
                 .playbackService
-                .play(id: id, of: type)
+                .play(id: id, of: type, from: position)
                 .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             

@@ -18,7 +18,7 @@ struct LibraryItemView: View {
                 playButton {
                     viewStore.send(.didSelectItem(id: viewStore.item.id, type: viewStore.item.type))
                 }
-                trackList(for: viewStore.item.items())
+                trackList(for: viewStore.item.items(), in: viewStore.item)
             }
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -55,24 +55,29 @@ extension LibraryItemView {
             }
         }
     }
-    @ViewBuilder func trackList(for items: [LibraryItem]) -> some View {
+    @ViewBuilder func trackList(for items: [LibraryItem], in collection: LibraryCollection) -> some View {
         VStack {
             Divider()
             ForEach(items) { item in
                 VStack {
-                    HStack {
-                        Text("\(item.track)")
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .frame(maxWidth: 30)
-                        Text(item.title)
-                            .font(.body)
-                            .lineLimit(1)
-                        Spacer(minLength: 16)
-                        Text(item.formattedDuration)
-                            .font(.body)
-                            .foregroundColor(.secondary)
-                            .padding(.trailing, 16)
+                    Button {
+                        ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, position: item.track))
+                    } label: {
+                        HStack {
+                            Text("\(item.track)")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .frame(maxWidth: 30)
+                            Text(item.title)
+                                .font(.body)
+                                .lineLimit(1)
+                                .foregroundColor(.primary)
+                            Spacer(minLength: 16)
+                            Text(item.formattedDuration)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .padding(.trailing, 16)
+                        }
                     }
                     .padding(.init(arrayLiteral: .top, .bottom), 4)
                     Divider()

@@ -10,11 +10,11 @@ import MediaPlayer
 import Combine
 
 protocol PlaybackService {
-    func play(id: String, of category: LibraryCategoryType) -> Effect<Never, Never>
+    func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never>
 }
 
 final class DefaultPlaybackService: PlaybackService {
-    func play(id: String, of category: LibraryCategoryType) -> Effect<Never, Never> {
+    func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
         var predicate: MPMediaPropertyPredicate
 
@@ -48,8 +48,11 @@ final class DefaultPlaybackService: PlaybackService {
         
         let filter: Set<MPMediaPropertyPredicate> = [predicate]
         let query = MPMediaQuery(filterPredicates: filter)
-        
-        MPMusicPlayerController.systemMusicPlayer.setQueue(with: query)
+        var items: [MPMediaItem] = query.items ?? []
+        if let position = position {
+            items.removeFirst(position - 1)
+        }
+        MPMusicPlayerController.systemMusicPlayer.setQueue(with: MPMediaItemCollection(items: items))
         MPMusicPlayerController.systemMusicPlayer.prepareToPlay()
         MPMusicPlayerController.systemMusicPlayer.play()
         return Empty().eraseToAnyPublisher().eraseToEffect()
