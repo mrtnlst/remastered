@@ -46,12 +46,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
             state.gallery = GalleryState()
+            state.isAuthorized = true
             return Effect(value: .fetch)
 
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
             state.library = nil
             state.gallery = nil
+            state.isAuthorized = false
             return .none
             
         case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))):

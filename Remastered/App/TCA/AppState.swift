@@ -10,6 +10,7 @@ import ComposableArchitecture
 struct AppState: Equatable {
     var library: LibraryState?
     var gallery: GalleryState?
+    var isAuthorized: Bool?
 }
 
 extension AppState {

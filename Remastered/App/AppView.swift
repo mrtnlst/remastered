@@ -37,9 +37,13 @@ extension AppView {
                 action: AppAction.library),
             then: LibraryView.init(store:),
             else: {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .foregroundColor(.primary)
+                if let isAuthorized = viewStore.isAuthorized, !isAuthorized {
+                    Text("Library access not permitted yet.")
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .foregroundColor(.primary)
+                }
             }
         )
     }
@@ -51,9 +55,13 @@ extension AppView {
                 action: AppAction.gallery),
             then: GalleryView.init(store:),
             else: {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .foregroundColor(.primary)
+                if let isAuthorized = viewStore.isAuthorized, !isAuthorized {
+                    Text("Library access not permitted yet.")
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .foregroundColor(.primary)
+                }
             }
         )
     }
