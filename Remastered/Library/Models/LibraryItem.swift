@@ -13,14 +13,16 @@ struct LibraryItem: Identifiable {
     let id: String
     let albumID: String?
     let duration: TimeInterval
+    let isCloudItem: Bool
     var artwork: () -> UIImage?
 
-    init(track: Int, title: String, id: String, albumID: String? = nil, duration: TimeInterval, artwork: @escaping () -> UIImage?) {
+    init(track: Int, title: String, id: String, albumID: String? = nil, duration: TimeInterval, isCloudItem: Bool = false, artwork: @escaping () -> UIImage?) {
         self.track = track
         self.title = title
         self.id = id
         self.albumID = albumID
         self.duration = duration
+        self.isCloudItem = isCloudItem
         self.artwork = artwork
     }
 }
@@ -44,18 +46,19 @@ extension LibraryItem {
 // MARK: - Simulator
 
 extension LibraryItem {
-    init(track: Int, title: String, id: String, albumID: String? = nil, duration: TimeInterval, artwork: UIImage? = nil) {
+    init(track: Int, title: String, id: String, albumID: String? = nil, duration: TimeInterval, isCloudItem: Bool = false, artwork: UIImage? = nil) {
         self.track = track
         self.title = title
         self.id = id
         self.albumID = albumID
         self.duration = duration
+        self.isCloudItem = isCloudItem
         self.artwork = { artwork }
     }
     
     static let exampleItems: [LibraryItem] = [
         LibraryItem(track: 1, title: "Very long Song that needs a line break 1", id: "ddfea1b9-918c-4674-8b84-60729fdb7ac3", duration: 178),
-        LibraryItem(track: 2, title: "Song 2", id: "40fff5a3-26d7-446f-9bbb-498babaaaa91", duration: 278),
+        LibraryItem(track: 2, title: "Song 2", id: "40fff5a3-26d7-446f-9bbb-498babaaaa91", duration: 278, isCloudItem: true),
         LibraryItem(track: 3, title: "Song 3", id: "a9ff9b84-a649-47d2-bb8f-795f86f935ee", duration: 239),
         LibraryItem(track: 4, title: "Song 4", id: "6d71466c-8dc7-4cad-a79f-fee4d197aaae", duration: 800),
         LibraryItem(track: 5, title: "Song 5", id: "942f3da1-f808-4f1c-8ec7-279fc5b56c1e", duration: 234),
@@ -63,7 +66,7 @@ extension LibraryItem {
     ]
     
     static let playlistItems: [LibraryItem] = [
-        LibraryItem(track: 1, title: "Song 1", id: "ddfea1b9-918c-4674-8b84-60729fdb7ac3", albumID: "AABB-CCDD-EEFF-QQR1", duration: 178, artwork: UIImage(named: "Organ")),
+        LibraryItem(track: 1, title: "Song 1", id: "ddfea1b9-918c-4674-8b84-60729fdb7ac3", albumID: "AABB-CCDD-EEFF-QQR1", duration: 178, isCloudItem: true, artwork: UIImage(named: "Organ")),
         LibraryItem(track: 2, title: "Song 2", id: "40fff5a3-26d7-446f-9bbb-498babaaaa91", albumID: "AABB-CCDD-EEFF-QQR2", duration: 278, artwork: UIImage(named: "After Hours")),
         LibraryItem(track: 3, title: "Song 3", id: "a9ff9b84-a649-47d2-bb8f-795f86f935ee", albumID: "AABB-CCDD-EEFF-QQR3", duration: 239, artwork: UIImage(named: "It's Album Time")),
         LibraryItem(track: 4, title: "Song 4", id: "6d71466c-8dc7-4cad-a79f-fee4d197aaae", albumID: "AABB-CCDD-EEFF-QQR4", duration: 800, artwork: UIImage(named: "Mosaik")),

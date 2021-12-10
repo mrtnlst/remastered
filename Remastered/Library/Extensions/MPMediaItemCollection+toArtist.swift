@@ -24,6 +24,7 @@ extension MPMediaItemCollection {
             dateAdded: dateAdded,
             lastPlayed: lastPlayed ?? Date(timeIntervalSince1970: 0),
             isFavorite: isFavorite,
+            isCloudItem: items.first(where: { $0.isCloudItem })?.isCloudItem ?? false,
             artwork: { self.catalogArtwork },
             items: {
                 self.items.enumerated().compactMap { index, item in
@@ -33,7 +34,8 @@ extension MPMediaItemCollection {
                         title: item.title ?? "",
                         id: id,
                         albumID: item.albumPersistentID,
-                        duration: item.playbackDuration
+                        duration: item.playbackDuration,
+                        isCloudItem: item.isCloudItem
                     )
                 }
             }

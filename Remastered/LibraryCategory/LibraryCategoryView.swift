@@ -41,6 +41,9 @@ extension LibraryCategoryView {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
+            Spacer()
+            Image(systemName: "cloud")
+                .foregroundColor(collection.isCloudItem ? .secondary : .clear)
         }
         .padding(.init(arrayLiteral: .bottom, .top), 5)
     }

@@ -16,6 +16,7 @@ struct LibraryCollection: Identifiable {
     let dateAdded: Date
     let lastPlayed: Date
     let isFavorite: Bool
+    let isCloudItem: Bool
     var artwork: () -> UIImage?
     var items: () -> [LibraryItem]
     
@@ -27,6 +28,7 @@ struct LibraryCollection: Identifiable {
         dateAdded: Date,
         lastPlayed: Date,
         isFavorite: Bool,
+        isCloudItem: Bool = false,
         artwork: @escaping () -> UIImage?,
         items: @escaping () -> [LibraryItem]
     ) {
@@ -37,6 +39,7 @@ struct LibraryCollection: Identifiable {
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed
         self.isFavorite = isFavorite
+        self.isCloudItem = isCloudItem
         self.artwork = artwork
         self.items = items
     }
@@ -86,6 +89,7 @@ extension LibraryCollection {
         dateAdded: Date,
         lastPlayed: Date? = nil,
         isFavorite: Bool = false,
+        isCloudItem: Bool = false,
         artwork: UIImage? = nil,
         items: [LibraryItem] = []
     ) {
@@ -96,6 +100,7 @@ extension LibraryCollection {
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)
         self.isFavorite = isFavorite
+        self.isCloudItem = isCloudItem
         self.artwork = { artwork }
         self.items = { items }
     }
@@ -121,6 +126,7 @@ extension LibraryCollection {
             dateAdded: Date(timeIntervalSince1970: 1615037320),
             lastPlayed: Date(timeIntervalSince1970: 1616678920),
             isFavorite: false,
+            isCloudItem: true,
             artwork: UIImage(named: "After Hours"),
             items: LibraryItem.exampleItems
         ),
@@ -179,6 +185,7 @@ extension LibraryCollection {
             id: "AABB-CCDD-EEFF-QQRR",
             dateAdded: Date(timeIntervalSince1970: 1633609912),
             lastPlayed: Date(timeIntervalSince1970: 1610026199),
+            isCloudItem: true,
             artwork: nil,
             items: LibraryItem.playlistItems
         )

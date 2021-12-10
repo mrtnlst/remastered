@@ -42,15 +42,17 @@ extension LibraryItemView {
             Text(collection.title)
                 .font(.headline)
                 .foregroundColor(.primary)
-            Text("by \(collection.subtitle)")
+            Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
             ArtworkView(collection: collection, height: 180, cornerRadius: 8)
                 .reflection(offsetY: 10)
         }
     }
+    
     @ViewBuilder func trackList(for items: [LibraryItem], in collection: LibraryCollection) -> some View {
         VStack {
+            cloudItemRow(collection.isCloudItem)
             Divider()
             ForEach(items) { item in
                 VStack {
@@ -67,6 +69,7 @@ extension LibraryItemView {
                                 .lineLimit(1)
                                 .foregroundColor(.primary)
                             Spacer(minLength: 16)
+                            Spacer()
                             Text(item.formattedDuration)
                                 .font(.body)
                                 .foregroundColor(.secondary)
@@ -81,6 +84,18 @@ extension LibraryItemView {
         }
         .padding(.leading , 24)
     }
+    
+    @ViewBuilder func cloudItemRow(_ isCloudItem: Bool) -> some View {
+        if isCloudItem {
+            HStack {
+                Spacer()
+                Image(systemName: "cloud")
+                    .foregroundColor(.secondary)
+                    .padding(.trailing, 16)
+                    .padding(.bottom, 8)
+            }
+        }
+    }
 }
 
 struct LibraryItemView_Previews: PreviewProvider {
@@ -88,7 +103,7 @@ struct LibraryItemView_Previews: PreviewProvider {
         NavigationView {
             LibraryItemView(
                 store: Store(
-                    initialState: LibraryItemState(item: LibraryCollection.exampleAlbums.first!),
+                    initialState: LibraryItemState(item: LibraryCollection.exampleAlbums.last!),
                     reducer: libraryItemReducer,
                     environment: LibraryItemEnvironment()
                 )
