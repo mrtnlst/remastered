@@ -31,6 +31,7 @@ class AppTests: XCTestCase {
         store.receive(.authorizationResponse(.success(true))) {
             $0.library = LibraryState()
             $0.gallery = GalleryState()
+            $0.isAuthorized = true
         }
         store.receive(.fetch)
     }
@@ -54,6 +55,7 @@ class AppTests: XCTestCase {
         store.receive(.authorizationResponse(.failure(.authorizationFailed))) {
             $0.library = nil
             $0.gallery = nil
+            $0.isAuthorized = false
         }
     }
 }
