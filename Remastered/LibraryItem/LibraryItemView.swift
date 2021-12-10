@@ -45,14 +45,8 @@ extension LibraryItemView {
             Text("by \(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            if let image = collection.artwork() {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(8)
-                    .frame(maxHeight: 180)
-                    .reflection(offsetY: 10)
-            }
+            ArtworkView(collection: collection, height: 180, cornerRadius: 8)
+                .reflection(offsetY: 10)
         }
     }
     @ViewBuilder func trackList(for items: [LibraryItem], in collection: LibraryCollection) -> some View {

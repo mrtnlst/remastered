@@ -48,6 +48,34 @@ extension LibraryCollection: Equatable {
     }
 }
 
+extension LibraryCollection {
+    
+    // TODO: Refactor!
+    func tiledArtworks() -> [UIImage] {
+        let libraryItems = items()
+        var artworks: [UIImage] = []
+        guard !libraryItems.isEmpty else { return [] }
+        
+        var uniqueElements: [LibraryItem] = []
+        for element in libraryItems {
+            guard uniqueElements.count < 4 else { break }
+            if !uniqueElements.contains(where: { $0.albumID == element.albumID }),
+               let artwork = element.artwork() {
+                uniqueElements.append(element)
+                artworks.append(artwork)
+            }
+        }
+        if artworks.isEmpty {
+            return []
+        }
+        if artworks.count < 4,
+           let artwork = artworks.first {
+            return [artwork]
+        }
+        return Array(artworks.prefix(4))
+    }
+}
+
 // MARK: - Simulator
 extension LibraryCollection {
     init(
@@ -132,6 +160,16 @@ extension LibraryCollection {
             lastPlayed: Date(timeIntervalSince1970: 1610026120),
             artwork: UIImage(named: "It's Album Time"),
             items: LibraryItem.exampleItems
+        ),
+        LibraryCollection(
+            type: .playlists,
+            title: "Disco Hits",
+            artist: "\(LibraryItem.playlistItems.count) songs",
+            id: "AABB-CCDD-EEFF-QQRR",
+            dateAdded: Date(timeIntervalSince1970: 1633609912),
+            lastPlayed: Date(timeIntervalSince1970: 1610026199),
+            artwork: nil,
+            items: LibraryItem.playlistItems
         )
     ]
 }

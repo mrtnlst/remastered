@@ -18,7 +18,7 @@ struct LibraryCategoryState: Equatable, Identifiable {
 extension LibraryCategoryState {
     static let exampleCategories: IdentifiedArrayOf<LibraryCategoryState> = [
         LibraryCategoryState(
-            items: exampleItems,
+            items: .init(uniqueElements: [LibraryItemState(item: LibraryCollection.exampleAlbums[6])]),
             type: .playlists
         ),
         LibraryCategoryState(

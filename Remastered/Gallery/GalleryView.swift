@@ -61,13 +61,11 @@ extension GalleryView {
                             NavigationLink {
                                 LibraryItemView(store: libraryStore)
                             } label: {
-                                if let image = ViewStore(libraryStore).item.artwork() {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(maxHeight: 80)
-                                        .cornerRadius(8)
-                                }
+                                ArtworkView(
+                                    collection: ViewStore(libraryStore).item,
+                                    height: 80,
+                                    cornerRadius: 8
+                                )
                             }
                         }
                     }

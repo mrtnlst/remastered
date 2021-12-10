@@ -9,7 +9,14 @@ import MediaPlayer
 
 extension MPMediaItem {
     
-    var mediaPersistentID: String? {
+    var localItemID: String? {
         (value(forProperty: MPMediaItemPropertyPersistentID) as? NSNumber)?.stringValue
+    }
+    var albumPersistentID: String? {
+        let idProperty = MPMediaItemPropertyAlbumPersistentID
+        return (value(forProperty: idProperty) as? NSNumber)?.stringValue
+    }
+    var itemArtwork: UIImage? {
+        return artwork?.image(at: CGSize(width: 100, height: 100))
     }
 }

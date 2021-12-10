@@ -36,7 +36,7 @@ extension MPMediaItemCollection {
               catalog.responds(to: sel),
               let value = catalog.perform(sel)?.takeUnretainedValue(),
               let image = value as? UIImage
-        else { return artwork }
+        else { return nil }
         return image
     }
 }

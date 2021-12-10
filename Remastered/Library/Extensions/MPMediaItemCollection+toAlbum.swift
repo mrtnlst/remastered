@@ -28,11 +28,12 @@ extension MPMediaItemCollection {
             artwork: { self.artwork },
             items: {
                 self.items.compactMap {
-                    guard let id = $0.mediaPersistentID else { return nil }
+                    guard let id = $0.localItemID else { return nil }
                     return LibraryItem(
                         track: $0.albumTrackNumber,
                         title: $0.title ?? "",
                         id: id,
+                        albumID: $0.albumPersistentID,
                         duration: $0.playbackDuration
                     )
                 }

@@ -33,15 +33,7 @@ struct LibraryCategoryView: View {
 extension LibraryCategoryView {
     @ViewBuilder func itemRow(from collection: LibraryCollection) -> some View {
         HStack {
-            if let image = collection.artwork() {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxHeight: 50)
-                    .cornerRadius(4)
-            } else {
-                Image(systemName: "rectangle.stack.fill")
-            }
+            ArtworkView(collection: collection, height: 50, cornerRadius: 4)
             VStack(alignment: .leading) {
                 Text(collection.title)
                     .foregroundColor(.primary)
