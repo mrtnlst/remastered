@@ -10,59 +10,64 @@ import simd
 
 struct ArtworkView: View {
     let collection: LibraryCollection
-    let height: CGFloat
     let cornerRadius: CGFloat
   
     var body: some View {
         if let artwork = collection.artwork() {
-            singleArtworkView(for: artwork, of: height, with: cornerRadius)
+            singleArtworkView(for: artwork, with: cornerRadius)
                 .clipShape(artworkShape())
         } else if collection.type == .playlists {
             let artworks = collection.tiledArtworks()
             switch artworks.count {
             case 0:
-                placeholderArtworkView(of: height, with: cornerRadius)
+                placeholderArtworkView(with: cornerRadius)
             case 1:
-                singleArtworkView(for: artworks[0], of: height, with: cornerRadius)
+                singleArtworkView(for: artworks[0], with: cornerRadius)
             default:
-                tiledArtworkView(for: artworks, of: height, with: cornerRadius)
+                tiledArtworkView(for: artworks, with: cornerRadius)
             }
         } else {
-            placeholderArtworkView(of: height, with: cornerRadius)
+            placeholderArtworkView(with: cornerRadius)
         }
     }
     
     @ViewBuilder func singleArtworkView(
         for artwork: UIImage,
-        of height: CGFloat,
         with cornerRadius: CGFloat
     ) -> some View {
         Image(uiImage: artwork)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(cornerRadius)
-            .frame(maxHeight: height)
     }
     
     @ViewBuilder func tiledArtworkView(
         for artworks: [UIImage],
-        of height: CGFloat,
         with cornerRadius: CGFloat
     ) -> some View {
-        let item: GridItem = .init(.adaptive(minimum: 50), spacing: 0)
-        LazyHGrid(rows: [item, item], spacing: 0) {
-            ForEach(artworks, id: \.self) { image in
-                Image(uiImage: image)
+        // TODO: This is not optimal, but a LazyGridView added layout issues.
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                Image(uiImage: artworks[0])
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Image(uiImage: artworks[1])
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
+            HStack(spacing: 0) {
+                Image(uiImage: artworks[2])
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                Image(uiImage: artworks[3])
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
         }
         .cornerRadius(cornerRadius)
-        .frame(maxHeight: height)
     }
     
     @ViewBuilder func placeholderArtworkView(
-        of height: CGFloat,
         with cornerRadius: CGFloat
     ) -> some View {
         Image(systemName: "questionmark.square.dashed")
@@ -70,7 +75,6 @@ struct ArtworkView: View {
             .aspectRatio(contentMode: .fit)
             .cornerRadius(cornerRadius)
             .foregroundColor(.primary)
-            .frame(maxHeight: height)
     }
 }
 
@@ -79,17 +83,14 @@ struct ArtworkView_Previews: PreviewProvider {
         VStack {
             ArtworkView(
                 collection: LibraryCollection.exampleAlbums.first!,
-                height: 180,
                 cornerRadius: 8
             )
             ArtworkView(
                 collection: LibraryCollection.exampleAlbums.last!,
-                height: 180,
                 cornerRadius: 8
             )
             ArtworkView(
                 collection: LibraryCollection.exampleAlbums[1],
-                height: 180,
                 cornerRadius: 8
             )
             ArtworkView(
@@ -99,7 +100,6 @@ struct ArtworkView_Previews: PreviewProvider {
                     artist: "",
                     dateAdded: Date()
                 ),
-                height: 180,
                 cornerRadius: 8
             )
         }

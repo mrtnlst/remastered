@@ -47,7 +47,8 @@ extension LibraryItemView {
             Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            ArtworkView(collection: collection, height: 180, cornerRadius: 8)
+            ArtworkView(collection: collection, cornerRadius: 8)
+                .frame(maxHeight: 180)
                 .reflection(offsetY: 10)
         }
     }

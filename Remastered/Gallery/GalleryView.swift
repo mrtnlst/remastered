@@ -38,19 +38,11 @@ extension GalleryView {
     @ViewBuilder func galleryRow(with store: Store<GalleryCategoryState, GalleryCategoryAction>) -> some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading) {
-                HStack {
+                NavigationLink {
+                    GalleryCategoryView(store: store)
+                } label: {
                     Text(viewStore.type.rawValue)
                         .font(.headline)
-                    Spacer()
-                    Button { } label: {
-                        HStack(spacing: 4) {
-                            Text("Show all")
-                                .font(.caption2)
-                            Image(systemName: "chevron.right")
-                                .font(.caption2)
-                        }
-                        .foregroundColor(.primary)
-                    }
                 }
                 ScrollView(.horizontal, showsIndicators: true) {
                     LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
@@ -63,9 +55,9 @@ extension GalleryView {
                             } label: {
                                 ArtworkView(
                                     collection: ViewStore(libraryStore).item,
-                                    height: 80,
                                     cornerRadius: 8
                                 )
+                                    .frame(maxHeight: 80)
                             }
                         }
                     }

@@ -33,7 +33,8 @@ struct LibraryCategoryView: View {
 extension LibraryCategoryView {
     @ViewBuilder func itemRow(from collection: LibraryCollection) -> some View {
         HStack {
-            ArtworkView(collection: collection, height: 50, cornerRadius: 4)
+            ArtworkView(collection: collection, cornerRadius: 4)
+                .frame(maxHeight: 50)
             VStack(alignment: .leading) {
                 Text(collection.title)
                     .font(.body)
