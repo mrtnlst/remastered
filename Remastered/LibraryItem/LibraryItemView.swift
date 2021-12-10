@@ -42,6 +42,8 @@ extension LibraryItemView {
             Text(collection.title)
                 .font(.headline)
                 .foregroundColor(.primary)
+                .padding(.init(arrayLiteral: .leading, .trailing), 16)
+                .multilineTextAlignment(.center)
             Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
