@@ -36,10 +36,13 @@ extension LibraryCategoryView {
             ArtworkView(collection: collection, height: 50, cornerRadius: 4)
             VStack(alignment: .leading) {
                 Text(collection.title)
+                    .font(.body)
                     .foregroundColor(.primary)
+                    .lineLimit(1)
                 Text(collection.subtitle)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
+                    .lineLimit(1)
             }
             Spacer()
             Image(systemName: "cloud")

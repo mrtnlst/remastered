@@ -180,7 +180,7 @@ extension LibraryCollection {
         ),
         LibraryCollection(
             type: .playlists,
-            title: "Disco Hits",
+            title: "Disco Hits with an ultra long title that creates a line break",
             artist: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQRR",
             dateAdded: Date(timeIntervalSince1970: 1633609912),
