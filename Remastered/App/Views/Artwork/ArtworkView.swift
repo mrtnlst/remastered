@@ -16,6 +16,7 @@ struct ArtworkView: View {
     var body: some View {
         if let artwork = collection.artwork() {
             singleArtworkView(for: artwork, of: height, with: cornerRadius)
+                .clipShape(artworkShape())
         } else if collection.type == .playlists {
             let artworks = collection.tiledArtworks()
             switch artworks.count {
@@ -83,6 +84,11 @@ struct ArtworkView_Previews: PreviewProvider {
             )
             ArtworkView(
                 collection: LibraryCollection.exampleAlbums.last!,
+                height: 180,
+                cornerRadius: 8
+            )
+            ArtworkView(
+                collection: LibraryCollection.exampleAlbums[1],
                 height: 180,
                 cornerRadius: 8
             )

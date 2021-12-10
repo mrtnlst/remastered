@@ -25,6 +25,7 @@ struct LibraryView: View {
                         } label: {
                             HStack {
                                 Image(systemName: ViewStore(store).type.icon)
+                                    .foregroundColor(.accentColor)
                                 Text(ViewStore(store).type.rawValue)
                             }
                         }

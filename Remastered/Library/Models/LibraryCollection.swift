@@ -114,6 +114,17 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
+            type: .artists,
+            title: "The Weeknd",
+            artist: "\(LibraryItem.playlistItems.count) songs",
+            id: "AABB-CCDD-EEFF-QQBDG",
+            dateAdded: Date(timeIntervalSince1970: 1615037320),
+            lastPlayed: Date(timeIntervalSince1970: 1616678920),
+            isFavorite: false,
+            artwork: UIImage(named: "After Hours"),
+            items: LibraryItem.exampleItems
+        ),
+        LibraryCollection(
             type: .albums,
             title: "Whenever You Need Somebody",
             artist: "Rick Astley",
