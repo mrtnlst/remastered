@@ -12,14 +12,11 @@ import ComposableArchitecture
 
 struct GalleryView: View {
     let store: Store<GalleryState, GalleryAction>
-    let rows = [
-        GridItem(.adaptive(minimum: 50))
-    ]
-    
+
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                List {
+                ScrollView(.vertical, showsIndicators: true) {
                     ForEachStore(store.scope(
                         state: \.categories,
                         action: GalleryAction.libraryCategory(id:action:))
@@ -27,6 +24,7 @@ struct GalleryView: View {
                         galleryRow(with: store)
                     }
                 }
+                .padding(.horizontal)
                 .navigationBarTitle("Gallery")
             }
         }
@@ -34,18 +32,27 @@ struct GalleryView: View {
 }
 
 extension GalleryView {
-    
     @ViewBuilder func galleryRow(with store: Store<LibraryCategoryState, LibraryCategoryAction>) -> some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .leading) {
-                NavigationLink {
-                    LibraryCategoryView(store: store)
-                } label: {
+            VStack(alignment: .center) {
+                HStack(alignment: .firstTextBaseline) {
                     Text(viewStore.name)
                         .font(.headline)
+                    Spacer()
+                    NavigationLink {
+                        LibraryCategoryView(store: store)
+                    } label: {
+                        HStack(spacing: 4) {
+                             Text("Show all")
+                                 .font(.caption)
+                             Image(systemName: "chevron.right")
+                                 .font(.caption)
+                         }
+                         .foregroundColor(.primary)
+                    }
                 }
                 ScrollView(.horizontal, showsIndicators: true) {
-                    LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
+                    LazyHGrid(rows: [GridItem(.adaptive(minimum: 50))], alignment: .center, spacing: 16) {
                         ForEachStore(store.scope(
                             state: \.items,
                             action: LibraryCategoryAction.libraryItem(id:action:))
@@ -58,6 +65,7 @@ extension GalleryView {
                                     cornerRadius: 8
                                 )
                                     .frame(maxHeight: 90)
+                                    .reflection(offsetY: 5)
                             }
                         }
                     }

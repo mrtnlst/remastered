@@ -42,7 +42,7 @@ extension LibraryItemView {
             Text(collection.title)
                 .font(.headline)
                 .foregroundColor(.primary)
-                .padding(.init(arrayLiteral: .leading, .trailing), 16)
+                .padding(.horizontal, 16)
                 .multilineTextAlignment(.center)
             Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
@@ -79,7 +79,7 @@ extension LibraryItemView {
                                 .padding(.trailing, 16)
                         }
                     }
-                    .padding(.init(arrayLiteral: .top, .bottom), 4)
+                    .padding(.vertical, 4)
                     Divider()
                         .padding(.leading, 28)
                 }

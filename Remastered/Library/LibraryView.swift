@@ -32,6 +32,7 @@ struct LibraryView: View {
                         }
                     }
                 }
+                .listStyle(PlainListStyle())
                 .navigationBarTitle("Library")
             }
         }

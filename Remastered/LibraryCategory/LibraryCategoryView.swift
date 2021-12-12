@@ -22,7 +22,7 @@ struct LibraryCategoryView: View {
                     gridView()
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal)
             .navigationBarTitle(viewStore.name)
             .toolbar { CategoryToolbar(displayStyle: $displayStyle) }
         }
@@ -77,7 +77,7 @@ extension LibraryCategoryView {
                         }
                         Spacer(minLength: 8)
                     }
-                    .padding(.init(arrayLiteral: .bottom, .top), 5)
+                    .padding(.vertical, 5)
                 }
             }
         }
