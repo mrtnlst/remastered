@@ -8,10 +8,10 @@
 import Foundation
 
 enum GalleryCategoryType: String, CaseIterable {
-    case recentlyAdded = "Recently Added"
-    case recentlyPlayed = "Recently Played"
-    case favorites = "Greatest Hits"
     case discover = "Discover"
+    case favorites = "Greatest Hits"
+    case recentlyAdded = "Recently Added"
+    case recentlyPlayed = "Recently Played"    
 }
 
 extension GalleryCategoryType {

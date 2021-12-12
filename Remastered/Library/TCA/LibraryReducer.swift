@@ -33,9 +33,11 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
                       )
                   }
                   let category = LibraryCategoryState(
+                    id: environment.uuid(),
                     items: .init(uniqueElements: itemStates),
-                    type: type,
-                    id: environment.uuid()
+                    name: type.rawValue,
+                    icon: type.icon
+                    
                   )
                   state.categories.updateOrAppend(category)
               }

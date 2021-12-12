@@ -10,5 +10,5 @@ import Foundation
 enum GalleryAction: Equatable {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
-    case galleryCategory(id: UUID, action: GalleryCategoryAction)
+    case libraryCategory(id: UUID, action: LibraryCategoryAction)
 }

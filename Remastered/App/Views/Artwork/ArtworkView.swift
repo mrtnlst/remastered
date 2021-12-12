@@ -15,7 +15,6 @@ struct ArtworkView: View {
     var body: some View {
         if let artwork = collection.artwork() {
             singleArtworkView(for: artwork, with: cornerRadius)
-                .clipShape(artworkShape())
         } else if collection.type == .playlists {
             let artworks = collection.tiledArtworks()
             switch artworks.count {

@@ -18,10 +18,10 @@ extension AppState {
     static var previewState: Self {
         AppState(
             library: LibraryState(
-                categories: LibraryCategoryState.exampleCategories
+                categories: LibraryCategoryState.exampleLibraryCategories
             ),
             gallery: GalleryState(
-                categories: GalleryCategoryState.exampleCategories
+                categories: LibraryCategoryState.exampleGalleryCategories
             )
         )
     }

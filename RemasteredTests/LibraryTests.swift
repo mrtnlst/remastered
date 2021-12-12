@@ -37,6 +37,7 @@ class LibraryTests: XCTestCase {
     
     let categories: [LibraryCategoryState] = [
         LibraryCategoryState(
+            id: Constants.uuid,
             items: [
                 LibraryItemState(
                     item: LibraryCollection(
@@ -53,8 +54,8 @@ class LibraryTests: XCTestCase {
                     id: Constants.uuid
                 )
             ],
-            type: .albums,
-            id: Constants.uuid
+            name: LibraryCategoryType.albums.rawValue,
+            icon: LibraryCategoryType.albums.icon
         )
     ]
     

@@ -23,10 +23,11 @@ struct LibraryView: View {
                         NavigationLink {
                             LibraryCategoryView(store: store)
                         } label: {
-                            HStack {
-                                Image(systemName: ViewStore(store).type.icon)
-                                    .foregroundColor(.accentColor)
-                                Text(ViewStore(store).type.rawValue)
+                            if let icon = ViewStore(store).icon {
+                                HStack {
+                                    Image(systemName: icon)
+                                    Text(ViewStore(store).name)
+                                }
                             }
                         }
                     }
@@ -42,7 +43,7 @@ struct LibraryView_Previews: PreviewProvider {
         LibraryView(
             store: Store(
                 initialState: LibraryState(
-                    categories: LibraryCategoryState.exampleCategories
+                    categories: LibraryCategoryState.exampleLibraryCategories
                 ),
                 reducer: libraryReducer,
                 environment: LibraryEnvironment(

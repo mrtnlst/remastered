@@ -35,26 +35,26 @@ class GalleryTests: XCTestCase {
         items: []
     )
     
-    let categories: [GalleryCategoryState] = [
-        GalleryCategoryState(
+    let categories: [LibraryCategoryState] = [
+        LibraryCategoryState(
+            id: Constants.uuid,
             items: [
                 LibraryItemState(
                     item: LibraryCollection(
-                    type: .albums,
-                    title: Constants.title,
-                    artist: Constants.artist,
-                    id: Constants.id,
-                    dateAdded: Constants.dateAdded,
-                    lastPlayed: Constants.lastPlayed,
-                    isFavorite: Constants.isFavorite,
-                    artwork: Constants.artwork,
-                    items: []
+                        type: .albums,
+                        title: Constants.title,
+                        artist: Constants.artist,
+                        id: Constants.id,
+                        dateAdded: Constants.dateAdded,
+                        lastPlayed: Constants.lastPlayed,
+                        isFavorite: Constants.isFavorite,
+                        artwork: Constants.artwork,
+                        items: []
                     ),
                     id: Constants.uuid
                 )
             ],
-            type: .discover,
-            id: Constants.uuid
+            name: GalleryCategoryType.recentlyPlayed.rawValue
         )
     ]
     

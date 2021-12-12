@@ -9,5 +9,5 @@ import Foundation
 import IdentifiedCollections
 
 struct GalleryState: Equatable {
-    var categories: IdentifiedArrayOf<GalleryCategoryState> = []
+    var categories: IdentifiedArrayOf<LibraryCategoryState> = []
 }

@@ -52,7 +52,6 @@ extension LibraryCollection: Equatable {
 }
 
 extension LibraryCollection {
-    
     // TODO: Refactor!
     func tiledArtworks() -> [UIImage] {
         let libraryItems = items()
@@ -107,17 +106,21 @@ extension LibraryCollection {
 }
 
 extension LibraryCollection {
-    static let exampleAlbums: [LibraryCollection] = [
+    static let examplePlaylists: [LibraryCollection] = [
         LibraryCollection(
-            type: .albums,
-            title: "Organ",
-            artist: "Dimension",
-            id: "AABB-CCDD-EEFF-GGHH",
-            dateAdded: Date(timeIntervalSince1970: 1615037320),
-            lastPlayed: Date(timeIntervalSince1970: 1616678920),
-            isFavorite: true, artwork: UIImage(named: "Organ"),
-            items: LibraryItem.exampleItems
-        ),
+            type: .playlists,
+            title: "Disco Hits with an ultra long title that creates a line break",
+            artist: "\(LibraryItem.playlistItems.count) songs",
+            id: "AABB-CCDD-EEFF-QQRR",
+            dateAdded: Date(timeIntervalSince1970: 1633609912),
+            lastPlayed: Date(timeIntervalSince1970: 1610026199),
+            isCloudItem: true,
+            artwork: nil,
+            items: LibraryItem.playlistItems
+        )
+    ]
+    
+    static let exampleArtists: [LibraryCollection] = [
         LibraryCollection(
             type: .artists,
             title: "The Weeknd",
@@ -128,6 +131,19 @@ extension LibraryCollection {
             isFavorite: false,
             isCloudItem: true,
             artwork: UIImage(named: "After Hours"),
+            items: LibraryItem.exampleItems
+        )
+    ]
+    
+    static let exampleAlbums: [LibraryCollection] = [
+        LibraryCollection(
+            type: .albums,
+            title: "Organ",
+            artist: "Dimension",
+            id: "AABB-CCDD-EEFF-GGHH",
+            dateAdded: Date(timeIntervalSince1970: 1615037320),
+            lastPlayed: Date(timeIntervalSince1970: 1616678920),
+            isFavorite: true, artwork: UIImage(named: "Organ"),
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
@@ -177,17 +193,6 @@ extension LibraryCollection {
             lastPlayed: Date(timeIntervalSince1970: 1610026120),
             artwork: UIImage(named: "It's Album Time"),
             items: LibraryItem.exampleItems
-        ),
-        LibraryCollection(
-            type: .playlists,
-            title: "Disco Hits with an ultra long title that creates a line break",
-            artist: "\(LibraryItem.playlistItems.count) songs",
-            id: "AABB-CCDD-EEFF-QQRR",
-            dateAdded: Date(timeIntervalSince1970: 1633609912),
-            lastPlayed: Date(timeIntervalSince1970: 1610026199),
-            isCloudItem: true,
-            artwork: nil,
-            items: LibraryItem.playlistItems
         )
     ]
 }

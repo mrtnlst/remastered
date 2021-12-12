@@ -22,7 +22,7 @@ struct GalleryView: View {
                 List {
                     ForEachStore(store.scope(
                         state: \.categories,
-                        action: GalleryAction.galleryCategory(id:action:))
+                        action: GalleryAction.libraryCategory(id:action:))
                     ) { store in
                         galleryRow(with: store)
                     }
@@ -35,20 +35,20 @@ struct GalleryView: View {
 
 extension GalleryView {
     
-    @ViewBuilder func galleryRow(with store: Store<GalleryCategoryState, GalleryCategoryAction>) -> some View {
+    @ViewBuilder func galleryRow(with store: Store<LibraryCategoryState, LibraryCategoryAction>) -> some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading) {
                 NavigationLink {
-                    GalleryCategoryView(store: store)
+                    LibraryCategoryView(store: store)
                 } label: {
-                    Text(viewStore.type.rawValue)
+                    Text(viewStore.name)
                         .font(.headline)
                 }
                 ScrollView(.horizontal, showsIndicators: true) {
                     LazyHGrid(rows: rows, alignment: .center, spacing: 16) {
                         ForEachStore(store.scope(
                             state: \.items,
-                            action: GalleryCategoryAction.libraryItem(id:action:))
+                            action: LibraryCategoryAction.libraryItem(id:action:))
                         ) { libraryStore in
                             NavigationLink {
                                 LibraryItemView(store: libraryStore)
@@ -57,7 +57,7 @@ extension GalleryView {
                                     collection: ViewStore(libraryStore).item,
                                     cornerRadius: 8
                                 )
-                                    .frame(maxHeight: 80)
+                                    .frame(maxHeight: 90)
                             }
                         }
                     }
@@ -72,7 +72,7 @@ struct GalleryView_Previews: PreviewProvider {
     static var previews: some View {
         GalleryView(
             store: Store(
-                initialState: GalleryState(categories: GalleryCategoryState.exampleCategories),
+                initialState: GalleryState(categories: LibraryCategoryState.exampleGalleryCategories),
                 reducer: galleryReducer,
                 environment: GalleryEnvironment(
                     mainQueue: .main,

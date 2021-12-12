@@ -9,42 +9,82 @@ import Foundation
 import IdentifiedCollections
 
 struct LibraryCategoryState: Equatable, Identifiable {
-    var items: IdentifiedArrayOf<LibraryItemState> = []
-    var type: LibraryCategoryType
     var id: UUID = UUID()
+    var items: IdentifiedArrayOf<LibraryItemState> = []
+    var name: String
+    var icon: String?
 }
 
 // MARK: - Simulator
 extension LibraryCategoryState {
-    static let exampleCategories: IdentifiedArrayOf<LibraryCategoryState> = [
+    static let exampleLibraryCategories: IdentifiedArrayOf<LibraryCategoryState> = [
         LibraryCategoryState(
-            items: .init(
-                uniqueElements: [
-                    LibraryItemState(item: LibraryCollection.exampleAlbums.last!),
-                    LibraryItemState(item: LibraryCollection.exampleAlbums.first!)
-                ]
-            ),
-            type: .playlists
+            items: exampleLibraryPlaylists,
+            name: LibraryCategoryType.playlists.rawValue,
+            icon: LibraryCategoryType.playlists.icon
         ),
         LibraryCategoryState(
-            items: exampleItems,
-            type: .artists
+            items: exampleLibraryArtists,
+            name: LibraryCategoryType.artists.rawValue,
+            icon: LibraryCategoryType.artists.icon
         ),
         LibraryCategoryState(
-            items: exampleItems,
-            type: .albums
+            items: exampleLibraryAlbums,
+            name: LibraryCategoryType.albums.rawValue,
+            icon: LibraryCategoryType.albums.icon
         ),
         LibraryCategoryState(
-            items: exampleItems,
-            type: .songs
+            items: exampleLibraryAlbums,
+            name: LibraryCategoryType.songs.rawValue,
+            icon: LibraryCategoryType.songs.icon
         ),
         LibraryCategoryState(
-            items: exampleItems,
-            type: .genres
+            items: exampleLibraryAlbums,
+            name: LibraryCategoryType.genres.rawValue,
+            icon: LibraryCategoryType.genres.icon
         ),
     ]
     
-    static let exampleItems: IdentifiedArrayOf<LibraryItemState> = [
+    static let exampleGalleryCategories: IdentifiedArrayOf<LibraryCategoryState> = [
+        LibraryCategoryState(
+            items: .init(
+                uniqueElements: LibraryCollection.exampleAlbums
+                    .filter(GalleryCategoryType.discover.filterValue)
+                    .sorted(by: GalleryCategoryType.discover.sortOrder)
+                    .map { LibraryItemState(item: $0) }
+            ),
+            name: GalleryCategoryType.discover.rawValue
+        ),
+        LibraryCategoryState(
+            items: .init(
+                uniqueElements: LibraryCollection.exampleAlbums
+                    .filter(GalleryCategoryType.favorites.filterValue)
+                    .sorted(by: GalleryCategoryType.favorites.sortOrder)
+                    .map { LibraryItemState(item: $0) }
+            ),
+            name: GalleryCategoryType.favorites.rawValue
+        ),
+        LibraryCategoryState(
+            items: .init(
+                uniqueElements: LibraryCollection.exampleAlbums
+                    .filter(GalleryCategoryType.recentlyAdded.filterValue)
+                    .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
+                    .map { LibraryItemState(item: $0) }
+            ),
+            name: GalleryCategoryType.recentlyAdded.rawValue
+        ),
+        LibraryCategoryState(
+            items: .init(
+                uniqueElements: LibraryCollection.exampleAlbums
+                    .filter(GalleryCategoryType.recentlyAdded.filterValue)
+                    .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
+                    .map { LibraryItemState(item: $0) }
+            ),
+            name: GalleryCategoryType.recentlyAdded.rawValue
+        )
+    ]
+    
+    static let exampleLibraryAlbums: IdentifiedArrayOf<LibraryItemState> = [
         LibraryItemState(
             item: LibraryCollection.exampleAlbums[0]
         ),
@@ -62,6 +102,18 @@ extension LibraryCategoryState {
         ),
         LibraryItemState(
             item: LibraryCollection.exampleAlbums[5]
+        )
+    ]
+    
+    static let exampleLibraryPlaylists: IdentifiedArrayOf<LibraryItemState> = [
+        LibraryItemState(
+            item: LibraryCollection.examplePlaylists[0]
+        )
+    ]
+    
+    static let exampleLibraryArtists: IdentifiedArrayOf<LibraryItemState> = [
+        LibraryItemState(
+            item: LibraryCollection.exampleArtists[0]
         )
     ]
 }
