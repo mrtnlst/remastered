@@ -13,6 +13,11 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
         action: /LibraryAction.libraryCategory(id:action:),
         environment: { _ in LibraryCategoryEnvironment() }
       ),
+      libraryItemReducer.forEach(
+        state: \.searchResults,
+        action: /LibraryAction.libraryItem(id:action:),
+        environment: { _ in LibraryItemEnvironment() }
+      ),
       Reducer { state, action, environment in
           switch action {
           case .fetch:
@@ -45,6 +50,26 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
               
           case .libraryCategory(_, _):
               return .none
+          
+          case .binding(\.$searchText):
+              guard !state.searchText.isEmpty else {
+                  state.searchResults = []
+                  return .none
+              }
+              let items = state.categories.map( { $0.items }).reduce([], +)
+              let result = items.filter {
+                  $0.item.title.lowercased().contains(state.searchText.lowercased()) ||
+                  $0.item.subtitle.lowercased().contains(state.searchText.lowercased())
+              }
+              state.searchResults = IdentifiedArrayOf<LibraryItemState>(uniqueElements: result)
+              return .none
+              
+          case .binding:
+              return .none
+              
+          case .libraryItem(_, _):
+              return .none
           }
-      }
+      }.binding()
+        
 )

@@ -57,27 +57,7 @@ extension LibraryCategoryView {
                 NavigationLink {
                     LibraryItemView(store: store)
                 } label: {
-                    HStack {
-                        ArtworkView(collection: ViewStore(store).item, cornerRadius: 4)
-                            .frame(maxHeight: 50)
-                        VStack(alignment: .leading) {
-                            Text(ViewStore(store).item.title)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .lineLimit(1)
-                            Text(ViewStore(store).item.subtitle)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                                .lineLimit(1)
-                            if ViewStore(store).item.isCloudItem {
-                                Image(systemName: "cloud")
-                                    .foregroundColor(.secondary)
-                                    .font(.subheadline)
-                            }
-                        }
-                        Spacer(minLength: 8)
-                    }
-                    .padding(.vertical, 5)
+                    LibraryCategoryItemRow(store: store)
                 }
             }
         }

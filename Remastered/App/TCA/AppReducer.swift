@@ -56,7 +56,9 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.isAuthorized = false
             return .none
             
-        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))):
+        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
+            let .gallery(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
+            let .library(.libraryItem(id: _, action: .didSelectItem(id, type, position))):
             return environment
                 .playbackService
                 .play(id: id, of: type, from: position)
@@ -78,14 +80,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .library(.receiveCollections(result: .success(collections)))),
                 Effect(value: .gallery(.receiveCollections(result: .success(collections))))
             )
-            
-        case let .gallery(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))):
-            return environment
-                .playbackService
-                .play(id: id, of: type, from: position)
-                .subscribe(on: environment.mainQueue)
-                .fireAndForget()
-            
+                
         case .gallery(_):
             return .none
     

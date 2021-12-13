@@ -11,30 +11,24 @@ import ComposableArchitecture
 
 struct LibraryView: View {
     let store: Store<LibraryState, LibraryAction>
+    @State private var searchText = ""
+    
+    init(store: Store<LibraryState, LibraryAction>) {
+        self.store = store
+    }
     
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                List {
-                    ForEachStore(store.scope(
-                        state: \.categories,
-                        action: LibraryAction.libraryCategory(id:action:))
-                    ) { store in
-                        NavigationLink {
-                            LibraryCategoryView(store: store)
-                        } label: {
-                            if let icon = ViewStore(store).icon {
-                                HStack {
-                                    Image(systemName: icon)
-                                    Text(ViewStore(store).name)
-                                }
-                            }
-                        }
-                    }
-                }
-                .listStyle(PlainListStyle())
-                .navigationBarTitle("Library")
+                LibraryListView(store: store)
+                    .listStyle(PlainListStyle())
+                    .navigationBarTitle("Library")
+                
             }
+            .searchable(
+                text: viewStore.binding(\.$searchText),
+                placement: .automatic
+            )
         }
     }
 }

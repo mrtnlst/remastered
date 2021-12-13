@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
-enum LibraryAction: Equatable {
+enum LibraryAction: Equatable, BindableAction {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
     case libraryCategory(id: UUID, action: LibraryCategoryAction)
+    case libraryItem(id: UUID, action: LibraryItemAction)
+    case binding(BindingAction<LibraryState>)
 }
