@@ -13,6 +13,11 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
         action: /GalleryAction.libraryCategory(id:action:),
         environment: { _ in LibraryCategoryEnvironment() }
     ),
+    libraryItemReducer.forEach(
+      state: \.searchResults,
+      action: /GalleryAction.libraryItem(id:action:),
+      environment: { _ in LibraryItemEnvironment() }
+    ),
     Reducer { state, action, environment in
         switch action {
         case .fetch:
@@ -44,9 +49,29 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
                 state.categories.updateOrAppend(category)
             }
             return .none
+            
+        case .binding(\.$searchText):
+            guard !state.searchText.isEmpty else {
+                state.searchResults = []
+                return .none
+            }
+            let items = state.categories.map( { $0.items }).reduce([], +)
+            let result = items.filter {
+                $0.item.title.lowercased().contains(state.searchText.lowercased()) ||
+                $0.item.subtitle.lowercased().contains(state.searchText.lowercased())
+            }
+            state.searchResults = IdentifiedArrayOf<LibraryItemState>(uniqueElements: result)
+            return .none
+            
+        case .binding:
+            return .none
         
         case .libraryCategory(_, _):
             return .none
+        
+        case .libraryItem(_, _):
+            return .none
         }
     }
+        .binding()
 )
