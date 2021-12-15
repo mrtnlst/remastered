@@ -47,10 +47,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
                   state.categories.updateOrAppend(category)
               }
               return .none
-              
-          case .libraryCategory(_, _):
-              return .none
-          
+
           case .binding(\.$searchText):
               guard !state.searchText.isEmpty else {
                   state.searchResults = []
@@ -67,6 +64,9 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
           case .binding:
               return .none
               
+          case .libraryCategory(_, _):
+              return .none
+          
           case .libraryItem(_, _):
               return .none
           }

@@ -21,14 +21,9 @@ struct LibraryView: View {
         WithViewStore(store) { viewStore in
             NavigationView {
                 LibraryListView(store: store)
-                    .listStyle(PlainListStyle())
                     .navigationBarTitle("Library")
-                
             }
-            .searchable(
-                text: viewStore.binding(\.$searchText),
-                placement: .automatic
-            )
+            .searchable(text: viewStore.binding(\.$searchText))
         }
     }
 }
