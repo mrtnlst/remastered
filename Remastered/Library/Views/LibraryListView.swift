@@ -34,7 +34,7 @@ extension LibraryListView {
             state: \.searchResults,
             action: LibraryAction.libraryItem(id:action:))
         ) { libraryStore in
-            NavigationLink(isActive: ViewStore(store).binding(\.$isActive)) {
+            NavigationLink(isActive: ViewStore(libraryStore).binding(\.$isActive)) {
                 LibraryItemView(store: libraryStore)
             } label: {
                 LibraryCategoryItemRow(store: libraryStore)
@@ -47,7 +47,7 @@ extension LibraryListView {
             state: \.categories,
             action: LibraryAction.libraryCategory(id:action:))
         ) { libraryStore in
-            NavigationLink(isActive: ViewStore(store).binding(\.$isActive)) {
+            NavigationLink(isActive: ViewStore(libraryStore).binding(\.$isActive)) {
                 LibraryCategoryView(store: libraryStore)
             } label: {
                 VStack {

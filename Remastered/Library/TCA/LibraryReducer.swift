@@ -70,6 +70,6 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
           case .libraryItem(_, _):
               return .none
           }
-      }.binding()
-        
+      }
+        .binding()
 )

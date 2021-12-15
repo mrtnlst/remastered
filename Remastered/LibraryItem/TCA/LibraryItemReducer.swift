@@ -8,5 +8,16 @@
 import ComposableArchitecture
 
 let libraryItemReducer = Reducer<LibraryItemState, LibraryItemAction, LibraryItemEnvironment> { state, action, environment in
-    return .none
+    switch action {
+    case .binding:
+        return .none
+        
+    case .didSelectItem(_, _, _):
+        return .none
+        
+    case let .setIsActive(isActive):
+        state.isActive = isActive
+        return .none
+    }
 }
+    .binding()

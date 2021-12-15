@@ -7,12 +7,14 @@
 
 import Foundation
 import IdentifiedCollections
+import ComposableArchitecture
 
 struct LibraryCategoryState: Equatable, Identifiable {
     var id: UUID = UUID()
     var items: IdentifiedArrayOf<LibraryItemState> = []
     var name: String
     var icon: String?
+    @BindableState var isActive: Bool = false
 }
 
 // MARK: - Simulator

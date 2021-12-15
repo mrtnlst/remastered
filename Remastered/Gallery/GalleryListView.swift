@@ -33,7 +33,7 @@ extension GalleryListView {
                 state: \.searchResults,
                 action: GalleryAction.libraryItem(id:action:))
             ) { libraryStore in
-                NavigationLink(isActive: ViewStore(store).binding(\.$isActive)) {
+                NavigationLink(isActive: ViewStore(libraryStore).binding(\.$isActive)) {
                     LibraryItemView(store: libraryStore)
                 } label: {
                     LibraryCategoryItemRow(store: libraryStore)
@@ -58,7 +58,7 @@ extension GalleryListView {
                     Text(viewStore.name)
                         .font(.headline)
                     Spacer()
-                    NavigationLink(isActive: ViewStore(self.store).binding(\.$isActive)) {
+                    NavigationLink(isActive: viewStore.binding(\.$isActive)) {
                         LibraryCategoryView(store: store)
                     } label: {
                         HStack(spacing: 4) {
@@ -76,7 +76,7 @@ extension GalleryListView {
                             state: \.items,
                             action: LibraryCategoryAction.libraryItem(id:action:))
                         ) { libraryStore in
-                            NavigationLink(isActive: ViewStore(self.store).binding(\.$isActive)) {
+                            NavigationLink(isActive: ViewStore(libraryStore).binding(\.$isActive)) {
                                 LibraryItemView(store: libraryStore)
                             } label: {
                                 ArtworkView(

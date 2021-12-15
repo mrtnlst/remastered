@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
-enum LibraryCategoryAction: Equatable {
+enum LibraryCategoryAction: Equatable, BindableAction {
     case libraryItem(id: UUID, action: LibraryItemAction)
+    case binding(BindingAction<LibraryCategoryState>)
+    case setIsActive(_ isActive: Bool)
 }

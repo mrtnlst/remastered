@@ -65,10 +65,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 .play(id: id, of: type, from: position)
                 .subscribe(on: environment.mainQueue)
                 .fireAndForget()
-            
-        case .library(_):
-            return .none
-            
+         
         case .fetch:
             return environment
                 .libraryService
@@ -85,9 +82,37 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .didSelectTab(tag):
             switch (state.selectedTab, tag) {
             case (0, 0):
-                state.gallery?.isActive = false
+                if let id = state.gallery?.categories.first(where: { $0.isActive })?.id {
+                    return .init(
+                        value: .gallery(.libraryCategory(id: id, action: .setIsActive(false)))
+                    )
+                }
+                var effect: Effect<AppAction, Never>?
+                for categoryState in state.gallery?.categories ?? [] {
+                    if let item = categoryState.items.first(where: { $0.isActive }) {
+                        effect = Effect(value: .gallery(.libraryCategory(id: categoryState.id, action: .libraryItem(id: item.id, action: .setIsActive(false)))))
+                    }
+                }
+                if let effect = effect {
+                    return effect
+                }
+                
+                if let id = state.gallery?.searchResults.first(where: { $0.isActive })?.id {
+                    return .init(
+                        value: .gallery(.libraryItem(id: id, action: .setIsActive(false)))
+                    )
+                }
             case (1, 1):
-                state.library?.isActive = false
+                if let id = state.library?.categories.first(where: { $0.isActive })?.id {
+                    return .init(
+                        value: .library(.libraryCategory(id: id, action: .setIsActive(false)))
+                    )
+                }
+                if let id = state.library?.searchResults.first(where: { $0.isActive })?.id {
+                    return .init(
+                        value: .library(.libraryItem(id: id, action: .setIsActive(false)))
+                    )
+                }
             default:
                 break
             }
@@ -97,6 +122,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .gallery(_):
             return .none
     
+        case .library(_):
+            return .none
         }
     }
 )
