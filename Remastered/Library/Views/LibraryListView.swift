@@ -34,7 +34,7 @@ extension LibraryListView {
             state: \.searchResults,
             action: LibraryAction.libraryItem(id:action:))
         ) { libraryStore in
-            NavigationLink {
+            NavigationLink(isActive: ViewStore(store).binding(\.$isActive)) {
                 LibraryItemView(store: libraryStore)
             } label: {
                 LibraryCategoryItemRow(store: libraryStore)
@@ -46,16 +46,16 @@ extension LibraryListView {
         ForEachStore(store.scope(
             state: \.categories,
             action: LibraryAction.libraryCategory(id:action:))
-        ) { store in
-            NavigationLink {
-                LibraryCategoryView(store: store)
+        ) { libraryStore in
+            NavigationLink(isActive: ViewStore(store).binding(\.$isActive)) {
+                LibraryCategoryView(store: libraryStore)
             } label: {
                 VStack {
                     HStack {
-                        Image(systemName: ViewStore(store).icon ?? "questionmark")
+                        Image(systemName: ViewStore(libraryStore).icon ?? "questionmark")
                             .frame(width: 32)
                             .font(.title3)
-                        Text(ViewStore(store).name)
+                        Text(ViewStore(libraryStore).name)
                             .font(.title3)
                         Spacer()
                         Image(systemName: "chevron.right")

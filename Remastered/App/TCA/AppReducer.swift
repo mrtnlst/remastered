@@ -81,7 +81,19 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .library(.receiveCollections(result: .success(collections)))),
                 Effect(value: .gallery(.receiveCollections(result: .success(collections))))
             )
-                
+            
+        case let .didSelectTab(tag):
+            switch (state.selectedTab, tag) {
+            case (0, 0):
+                state.gallery?.isActive = false
+            case (1, 1):
+                state.library?.isActive = false
+            default:
+                break
+            }
+            state.selectedTab = tag
+            return .none
+            
         case .gallery(_):
             return .none
     

@@ -13,4 +13,5 @@ struct LibraryState: Equatable {
     var categories: IdentifiedArrayOf<LibraryCategoryState> = []
     var searchResults: IdentifiedArrayOf<LibraryItemState> = []
     @BindableState var searchText: String = ""
+    @BindableState var isActive: Bool = false
 }
