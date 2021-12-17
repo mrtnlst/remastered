@@ -30,39 +30,59 @@ struct LibraryListView: View {
 
 extension LibraryListView {
     @ViewBuilder func librarySearchResultsList() -> some View {
-        ForEachStore(store.scope(
-            state: \.searchResults,
-            action: LibraryAction.libraryItem(id:action:))
-        ) { libraryStore in
-            NavigationLink {
-                LibraryItemView(store: libraryStore)
-            } label: {
-                LibraryCategoryItemRow(store: libraryStore)
+        WithViewStore(store) { viewStore in
+            ForEach(viewStore.searchResults) { item in
+                NavigationLink(
+                    destination: IfLetStore(
+                        store.scope(
+                            state: { $0.selectedSearchResult?.value },
+                            action: LibraryAction.libraryItem
+                        ),
+                        then: LibraryItemView.init(store:)
+                    ),
+                    tag: item.id,
+                    selection: viewStore.binding(
+                        get: { $0.selectedSearchResult?.id },
+                        send: LibraryAction.setSearchResultNavigation(selection:)
+                    )
+                ) {
+                    LibraryCategoryItemRow(collection: item.item)
+                }
             }
         }
     }
     
     @ViewBuilder func libraryCategoryList() -> some View {
-        ForEachStore(store.scope(
-            state: \.categories,
-            action: LibraryAction.libraryCategory(id:action:))
-        ) { store in
-            NavigationLink {
-                LibraryCategoryView(store: store)
-            } label: {
-                VStack {
-                    HStack {
-                        Image(systemName: ViewStore(store).icon ?? "questionmark")
-                            .frame(width: 32)
-                            .font(.title3)
-                        Text(ViewStore(store).name)
-                            .font(.title3)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
+        WithViewStore(store) { viewStore in
+            ForEach(viewStore.categories) { category in
+                NavigationLink(
+                    destination: IfLetStore(
+                        store.scope(
+                            state: { $0.selectedCategory?.value },
+                            action: LibraryAction.libraryCategory
+                        ),
+                        then: LibraryCategoryView.init(store:)
+                    ),
+                    tag: category.id,
+                    selection: viewStore.binding(
+                        get: { $0.selectedCategory?.id },
+                        send: LibraryAction.setCategoryNavigation(selection:)
+                    )
+                ) {
+                    VStack {
+                        HStack {
+                            Image(systemName: category.icon ?? "questionmark")
+                                .frame(width: 32)
+                                .font(.title3)
+                            Text(category.name)
+                                .font(.title3)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 4)
+                        Divider()
                     }
-                    .padding(.vertical, 4)
-                    Divider()
                 }
             }
         }

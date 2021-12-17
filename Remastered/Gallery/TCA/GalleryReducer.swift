@@ -8,16 +8,28 @@
 import ComposableArchitecture
 
 let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.combine (
-    libraryCategoryReducer.forEach(
-        state: \.categories,
-        action: /GalleryAction.libraryCategory(id:action:),
-        environment: { _ in LibraryCategoryEnvironment() }
-    ),
-    libraryItemReducer.forEach(
-      state: \.searchResults,
-      action: /GalleryAction.libraryItem(id:action:),
-      environment: { _ in LibraryItemEnvironment() }
-    ),
+    libraryCategoryReducer.pullback(
+        state: \Identified.value,
+        action: .self,
+        environment: { $0 }
+    )
+        .optional()
+        .pullback(
+            state: \GalleryState.selectedCategory,
+            action: /GalleryAction.libraryCategory,
+            environment:  { _ in LibraryCategoryEnvironment() }
+        ),
+    libraryItemReducer.pullback(
+        state: \Identified.value,
+        action: .self,
+        environment: { $0 }
+    )
+        .optional()
+        .pullback(
+            state: \GalleryState.selectedSearchResult,
+            action: /GalleryAction.libraryItem,
+            environment:  { _ in LibraryItemEnvironment() }
+        ),
     Reducer { state, action, environment in
         switch action {
         case .fetch:
@@ -66,10 +78,45 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
         case .binding:
             return .none
         
-        case .libraryCategory(_, _):
+        case let .setSearchResultNavigation(id):
+            guard let id = id else {
+                state.selectedSearchResult = nil
+                return .none
+            }
+            if let item = state.searchResults.first(where: { $0.id == id }) {
+                state.selectedSearchResult = Identified(item, id: id)
+            }
             return .none
-        
-        case .libraryItem(_, _):
+            
+        case let .setCategoryNavigation(id):
+            guard let id = id else {
+                state.selectedCategory = nil
+                return .none
+            }
+            if let category = state.categories.first(where: { $0.id == id }) {
+                state.selectedCategory = Identified(category, id: id)
+            }
+            return .none
+            
+        case let .setItemNavigation(id):
+            guard let id = id else {
+                state.selectedItem = nil
+                return .none
+            }
+            var items: [LibraryItemState] = []
+            for category in state.categories {
+                items.append(contentsOf: category.items)
+            }
+            
+            if let item = items.first(where: { $0.id == id }) {
+                state.selectedItem = Identified(item, id: id)
+            }
+            return .none
+            
+        case let .libraryCategory(action):
+            return .none
+            
+        case let .libraryItem(action):
             return .none
         }
     }

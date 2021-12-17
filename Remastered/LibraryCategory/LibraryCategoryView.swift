@@ -12,6 +12,10 @@ struct LibraryCategoryView: View {
     let store: Store<LibraryCategoryState, LibraryCategoryAction>
     @AppStorage("category-display-style") var displayStyle: CategoryDisplayStyle = .list
     
+    init(store: Store<LibraryCategoryState, LibraryCategoryAction>) {
+        self.store = store
+    }
+    
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView(.vertical, showsIndicators: true) {
@@ -57,7 +61,9 @@ extension LibraryCategoryView {
                 NavigationLink {
                     LibraryItemView(store: store)
                 } label: {
-                    LibraryCategoryItemRow(store: store)
+                    WithViewStore(store) { viewStore in
+                        LibraryCategoryItemRow(collection: viewStore.item)
+                    }
                 }
             }
         }

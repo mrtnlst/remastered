@@ -11,6 +11,7 @@ struct AppState: Equatable {
     var library: LibraryState?
     var gallery: GalleryState?
     var isAuthorized: Bool?
+    var selectedTab: Int = 0
 }
 
 extension AppState {

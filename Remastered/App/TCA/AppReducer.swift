@@ -56,10 +56,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.isAuthorized = false
             return .none
             
-        case let .library(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
-            let .gallery(.libraryCategory(id: _, action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
-            let .library(.libraryItem(id: _, action: .didSelectItem(id, type, position))),
-            let .gallery(.libraryItem(id: _, action: .didSelectItem(id, type, position))):
+        case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
+            let .gallery(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
+            let .library(.libraryItem(action: .didSelectItem(id, type, position))),
+            let .gallery(.libraryItem(action: .didSelectItem(id, type, position))):
             return environment
                 .playbackService
                 .play(id: id, of: type, from: position)
@@ -81,7 +81,22 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 Effect(value: .library(.receiveCollections(result: .success(collections)))),
                 Effect(value: .gallery(.receiveCollections(result: .success(collections))))
             )
-                
+            
+        case let .didSelectTab(tag):
+            switch (state.selectedTab, tag) {
+            case (0, 0):
+                state.gallery?.selectedCategory = nil
+                state.gallery?.selectedSearchResult = nil
+                state.gallery?.selectedItem = nil
+            case (1, 1):
+                state.library?.selectedCategory = nil
+                state.library?.selectedSearchResult = nil
+            default:
+                break
+            }
+            state.selectedTab = tag
+            return .none
+            
         case .gallery(_):
             return .none
     

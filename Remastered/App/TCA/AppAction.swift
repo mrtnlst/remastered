@@ -14,5 +14,6 @@ enum AppAction: Equatable {
     case fetchResponse(Result<[LibraryCollection], Never>)
     case library(LibraryAction)
     case gallery(GalleryAction)
+    case didSelectTab(_ tag: Int)
 }
 

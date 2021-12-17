@@ -29,58 +29,94 @@ struct GalleryListView: View {
 extension GalleryListView {
     @ViewBuilder func librarySearchResultsList() -> some View {
         LazyVStack {
-            ForEachStore(store.scope(
-                state: \.searchResults,
-                action: GalleryAction.libraryItem(id:action:))
-            ) { libraryStore in
-                NavigationLink {
-                    LibraryItemView(store: libraryStore)
-                } label: {
-                    LibraryCategoryItemRow(store: libraryStore)
+            WithViewStore(store) { viewStore in
+                ForEach(viewStore.searchResults) { item in
+                    NavigationLink(
+                        destination: IfLetStore(
+                            store.scope(
+                                state: { $0.selectedSearchResult?.value },
+                                action: GalleryAction.libraryItem
+                            ),
+                            then: LibraryItemView.init(store:)
+                        ),
+                        tag: item.id,
+                        selection: viewStore.binding(
+                            get: { $0.selectedSearchResult?.id },
+                            send: GalleryAction.setSearchResultNavigation(selection:)
+                        )
+                    ) {
+                        LibraryCategoryItemRow(collection: item.item)
+                    }
                 }
             }
         }
     }
     
     @ViewBuilder func galleryView() -> some View {
-        ForEachStore(store.scope(
-            state: \.categories,
-            action: GalleryAction.libraryCategory(id:action:))
-        ) { store in
-            galleryRow(with: store)
+        WithViewStore(store) { viewStore in
+            ForEach(viewStore.categories) { category in
+                VStack(alignment: .center) {
+                    galleryRowHeader(for: category)
+                    galleryRowBody(for: category)
+                }
+            }
         }
     }
     
-    @ViewBuilder func galleryRow(with store: Store<LibraryCategoryState, LibraryCategoryAction>) -> some View {
+    @ViewBuilder func galleryRowHeader(for category: LibraryCategoryState) -> some View {
+        WithViewStore(store) { viewStore in
+            HStack(alignment: .firstTextBaseline) {
+                Text(category.name)
+                    .font(.headline)
+                Spacer()
+                NavigationLink(
+                    destination: IfLetStore(
+                        store.scope(
+                            state: { $0.selectedCategory?.value },
+                            action: GalleryAction.libraryCategory
+                        ),
+                        then: LibraryCategoryView.init(store:)
+                    ),
+                    tag: category.id,
+                    selection: viewStore.binding(
+                        get: { $0.selectedCategory?.id },
+                        send: GalleryAction.setCategoryNavigation(selection:)
+                    )
+                ) {
+                    HStack(spacing: 4) {
+                        Text("Show all")
+                            .font(.caption)
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                    }
+                    .foregroundColor(.primary)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder func galleryRowBody(for category: LibraryCategoryState) -> some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(viewStore.name)
-                        .font(.headline)
-                    Spacer()
-                    NavigationLink {
-                        LibraryCategoryView(store: store)
-                    } label: {
-                        HStack(spacing: 4) {
-                             Text("Show all")
-                                 .font(.caption)
-                             Image(systemName: "chevron.right")
-                                 .font(.caption)
-                         }
-                         .foregroundColor(.primary)
-                    }
-                }
                 ScrollView(.horizontal, showsIndicators: true) {
                     LazyHGrid(rows: [GridItem(.adaptive(minimum: 50))], alignment: .center, spacing: 16) {
-                        ForEachStore(store.scope(
-                            state: \.items,
-                            action: LibraryCategoryAction.libraryItem(id:action:))
-                        ) { libraryStore in
-                            NavigationLink {
-                                LibraryItemView(store: libraryStore)
-                            } label: {
+                        ForEach(category.items) { item in
+                            NavigationLink(
+                                destination: IfLetStore(
+                                    store.scope(
+                                        state: { $0.selectedItem?.value },
+                                        action: GalleryAction.libraryItem
+                                    ),
+                                    then: LibraryItemView.init(store:)
+                                ),
+                                tag: item.id,
+                                selection: viewStore.binding(
+                                    get: { $0.selectedItem?.id },
+                                    send: GalleryAction.setItemNavigation(selection:)
+                                )
+                            ) {
                                 ArtworkView(
-                                    collection: ViewStore(libraryStore).item,
+                                    collection: item.item,
                                     cornerRadius: 8
                                 )
                                     .frame(maxHeight: 80)

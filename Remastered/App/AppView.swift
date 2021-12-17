@@ -13,15 +13,17 @@ struct AppView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            TabView {
+            TabView(selection: viewStore.binding(get: \.selectedTab, send: AppAction.didSelectTab)) {
                 galleryView(with: viewStore)
                     .tabItem {
                         Label("Gallery", systemImage: "rectangle.3.group.fill")
                     }
+                    .tag(0)
                 libraryView(with: viewStore)
                     .tabItem {
                         Label("Library", systemImage: "rectangle.stack.fill")
                     }
+                    .tag(1)
             }
             .onAppear { viewStore.send(.onAppear) }
         }
