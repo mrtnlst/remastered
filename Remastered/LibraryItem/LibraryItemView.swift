@@ -13,7 +13,7 @@ struct LibraryItemView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: true) {
                 headerView(for: viewStore.item)
                 playButton {
                     viewStore.send(.didSelectItem(id: viewStore.item.id, type: viewStore.item.type))
@@ -57,31 +57,33 @@ extension LibraryItemView {
         VStack {
             cloudItemRow(collection.isCloudItem)
             Divider()
-            ForEach(items) { item in
-                VStack {
-                    Button {
-                        ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, position: item.track))
-                    } label: {
-                        HStack {
-                            Text("\(item.track)")
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .frame(maxWidth: 30)
-                            Text(item.title)
-                                .font(.body)
-                                .lineLimit(1)
-                                .foregroundColor(.primary)
-                            Spacer(minLength: 16)
-                            Spacer()
-                            Text(item.formattedDuration)
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                                .padding(.trailing, 16)
+            LazyVStack {
+                ForEach(items) { item in
+                    VStack {
+                        Button {
+                            ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, position: item.track))
+                        } label: {
+                            HStack {
+                                Text("\(item.track)")
+                                    .font(.body)
+                                    .foregroundColor(.secondary)
+                                    .frame(maxWidth: 30)
+                                Text(item.title)
+                                    .font(.body)
+                                    .lineLimit(1)
+                                    .foregroundColor(.primary)
+                                Spacer(minLength: 16)
+                                Spacer()
+                                Text(item.formattedDuration)
+                                    .font(.body)
+                                    .foregroundColor(.secondary)
+                                    .padding(.trailing, 16)
+                            }
                         }
+                        .padding(.vertical, 4)
+                        Divider()
+                            .padding(.leading, 28)
                     }
-                    .padding(.vertical, 4)
-                    Divider()
-                        .padding(.leading, 28)
                 }
             }
         }

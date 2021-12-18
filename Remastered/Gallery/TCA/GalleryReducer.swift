@@ -55,11 +55,7 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment> { 
             return .none
         }
         // TODO: That's not great
-        var items: [LibraryItemState] = []
-        for category in state.categories {
-            items.append(contentsOf: category.items)
-        }
-        
+        let items = state.categories.map( { $0.items }).reduce([], +)        
         if let item = items.first(where: { $0.id == id }) {
             state.selectedItem = Identified(item, id: id)
         }
