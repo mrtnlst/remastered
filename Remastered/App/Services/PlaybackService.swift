@@ -17,7 +17,7 @@ final class DefaultPlaybackService: PlaybackService {
     func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
         var predicate: MPMediaPropertyPredicate
-
+        
         switch category {
         case .albums:
             MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
@@ -49,9 +49,19 @@ final class DefaultPlaybackService: PlaybackService {
         let filter: Set<MPMediaPropertyPredicate> = [predicate]
         let query = MPMediaQuery(filterPredicates: filter)
         var items: [MPMediaItem] = query.items ?? []
-        if let position = position {
-            items.removeFirst(position - 1)
+        
+        switch category {
+        case .albums:
+            if let position = position {
+                items.removeAll { $0.albumTrackNumber < position }
+            }
+            
+        default:
+            if let position = position {
+                items.removeFirst(position - 1)
+            }
         }
+        
         MPMusicPlayerController.systemMusicPlayer.setQueue(with: MPMediaItemCollection(items: items))
         MPMusicPlayerController.systemMusicPlayer.prepareToPlay()
         MPMusicPlayerController.systemMusicPlayer.play()

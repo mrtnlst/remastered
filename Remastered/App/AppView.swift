@@ -24,6 +24,11 @@ struct AppView: View {
                         Label("Library", systemImage: "rectangle.stack.fill")
                     }
                     .tag(1)
+                searchView(with: viewStore)
+                    .tabItem {
+                        Label("Search", systemImage: "magnifyingglass")
+                    }
+                    .tag(2)
             }
             .onAppear { viewStore.send(.onAppear) }
         }
@@ -56,6 +61,23 @@ extension AppView {
                 state: { $0.gallery },
                 action: AppAction.gallery),
             then: GalleryView.init(store:),
+            else: {
+                if let isAuthorized = viewStore.isAuthorized, !isAuthorized {
+                    Text("Library access not permitted yet.")
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .foregroundColor(.primary)
+                }
+            }
+        )
+    }
+    @ViewBuilder func searchView(with viewStore: ViewStore<AppState, AppAction>) -> some View {
+        IfLetStore(
+            store.scope(
+                state: { $0.search },
+                action: AppAction.search),
+            then: SearchView.init(store:),
             else: {
                 if let isAuthorized = viewStore.isAuthorized, !isAuthorized {
                     Text("Library access not permitted yet.")

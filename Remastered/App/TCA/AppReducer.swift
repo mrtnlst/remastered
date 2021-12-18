@@ -34,6 +34,19 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 )
             }
     ),
+    searchReducer
+        .optional()
+        .pullback(
+            state: \.search,
+            action: /AppAction.search,
+            environment: {
+                SearchEnvironment(
+                    mainQueue: $0.mainQueue,
+                    fetch: $0.libraryService.fetch,
+                    uuid: { UUID.init() }
+                )
+            }
+    ),
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
@@ -46,6 +59,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .authorizationResponse(.success(true)):
             state.library = LibraryState()
             state.gallery = GalleryState()
+            state.search = SearchState()
             state.isAuthorized = true
             return Effect(value: .fetch)
 
@@ -53,13 +67,15 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 .authorizationResponse(.failure(_)):
             state.library = nil
             state.gallery = nil
+            state.search = nil
             state.isAuthorized = false
             return .none
             
         case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
             let .gallery(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
             let .library(.libraryItem(action: .didSelectItem(id, type, position))),
-            let .gallery(.libraryItem(action: .didSelectItem(id, type, position))):
+            let .gallery(.libraryItem(action: .didSelectItem(id, type, position))),
+            let .search(.libraryItem(action: .didSelectItem(id, type, position))):
             return environment
                 .playbackService
                 .play(id: id, of: type, from: position)
@@ -79,18 +95,19 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .fetchResponse(.success(collections)):
             return .merge(
                 Effect(value: .library(.receiveCollections(result: .success(collections)))),
-                Effect(value: .gallery(.receiveCollections(result: .success(collections))))
+                Effect(value: .gallery(.receiveCollections(result: .success(collections)))),
+                Effect(value: .search(.receiveCollections(result: .success(collections))))
             )
             
         case let .didSelectTab(tag):
             switch (state.selectedTab, tag) {
             case (0, 0):
                 state.gallery?.selectedCategory = nil
-                state.gallery?.selectedSearchResult = nil
                 state.gallery?.selectedItem = nil
             case (1, 1):
                 state.library?.selectedCategory = nil
-                state.library?.selectedSearchResult = nil
+            case (2, 2):
+                state.search?.selectedItem = nil
             default:
                 break
             }
@@ -99,7 +116,9 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .gallery(_):
             return .none
-    
+        
+        case .search(_):
+            return .none
         }
     }
 )

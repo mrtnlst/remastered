@@ -6,14 +6,11 @@
 //
 
 import Foundation
-import ComposableArchitecture
 
-enum LibraryAction: Equatable, BindableAction {
+enum LibraryAction: Equatable {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
     case libraryCategory(LibraryCategoryAction)
     case libraryItem(LibraryItemAction)
-    case binding(BindingAction<LibraryState>)
     case setCategoryNavigation(selection: UUID?)
-    case setSearchResultNavigation(selection: UUID?)
 }

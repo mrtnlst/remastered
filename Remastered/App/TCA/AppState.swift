@@ -10,6 +10,7 @@ import ComposableArchitecture
 struct AppState: Equatable {
     var library: LibraryState?
     var gallery: GalleryState?
+    var search: SearchState?
     var isAuthorized: Bool?
     var selectedTab: Int = 0
 }
@@ -23,6 +24,9 @@ extension AppState {
             ),
             gallery: GalleryState(
                 categories: LibraryCategoryState.exampleGalleryCategories
+            ),
+            search: SearchState(
+                collections: LibraryCollection.exampleAlbums
             )
         )
     }

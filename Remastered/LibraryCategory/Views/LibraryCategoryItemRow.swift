@@ -29,7 +29,9 @@ struct LibraryCategoryItemRow: View {
                         .font(.subheadline)
                 }
             }
-            Spacer(minLength: 8)
+            Spacer(minLength: 10)
+            Image(systemName: "chevron.right")
+                .foregroundColor(.secondary)
         }
         .padding(.vertical, 5)
     }
@@ -40,5 +42,6 @@ struct LibraryCategoryRow_Previews: PreviewProvider {
         LibraryCategoryItemRow(
             collection: LibraryCollection.examplePlaylists[0]
         )
+            .padding(.horizontal)
     }
 }
