@@ -59,10 +59,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
                 state.categories.updateOrAppend(category)
             }
             return .none
-            
-        case .binding:
-            return .none
-            
+             
         case .binding(\.$searchText):
             guard !state.searchText.isEmpty else {
                 state.searchResults = []
@@ -74,6 +71,9 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment>.co
                 $0.item.subtitle.lowercased().contains(state.searchText.lowercased())
             }
             state.searchResults = IdentifiedArrayOf<LibraryItemState>(uniqueElements: result)
+            return .none
+           
+        case .binding:
             return .none
            
         case let .setSearchResultNavigation(id):
