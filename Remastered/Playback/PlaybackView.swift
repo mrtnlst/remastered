@@ -29,6 +29,7 @@ struct PlaybackView: View {
                     Text(viewStore.songTitle ?? "None")
                         .foregroundColor(.secondary)
                         .font(Font.caption)
+                        .lineLimit(2)
                     Spacer()
                     Button {
                         viewStore.send(.togglePlayback)

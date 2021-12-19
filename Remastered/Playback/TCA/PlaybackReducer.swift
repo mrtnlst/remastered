@@ -12,7 +12,6 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
     switch action {
     case .onAppear:
         return .merge(
-            Effect(value: .didBecomeActive),
             NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)
                 .map { _ in .playbackStateDidChange }
                 .eraseToEffect(),
