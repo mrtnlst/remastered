@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import ComposableArchitecture
 
-enum AppAction: Equatable {
+enum AppAction: Equatable, BindableAction {
     case onAppear
     case authorizationResponse(Result<Bool, AuthorizationError>)
     case fetch
@@ -15,6 +16,8 @@ enum AppAction: Equatable {
     case library(LibraryAction)
     case gallery(GalleryAction)
     case search(SearchAction)
+    case playback(PlaybackAction)
     case didSelectTab(_ tag: Int)
+    case binding(BindingAction<AppState>)
 }
 

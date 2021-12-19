@@ -11,6 +11,10 @@ import Combine
 
 protocol PlaybackService {
     func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never>
+    func nowPlayingItem() -> Effect<LibraryItem?, Never>
+    func playbackProperties() -> Effect<PlaybackProperties, Never>
+    func togglePlayback() -> Effect<Never, Never>
+    func forward() -> Effect<Never, Never>
 }
 
 final class DefaultPlaybackService: PlaybackService {
@@ -50,12 +54,13 @@ final class DefaultPlaybackService: PlaybackService {
         let query = MPMediaQuery(filterPredicates: filter)
         var items: [MPMediaItem] = query.items ?? []
         
+        // TODO: When backwarding, the first songs are not found, perhaps there is a better way?
+        // MPMusicPlayerMediaItemQueueDescriptor with start item
         switch category {
         case .albums:
             if let position = position {
                 items.removeAll { $0.albumTrackNumber < position }
             }
-            
         default:
             if let position = position {
                 items.removeFirst(position - 1)
@@ -66,6 +71,53 @@ final class DefaultPlaybackService: PlaybackService {
         MPMusicPlayerController.systemMusicPlayer.prepareToPlay()
         MPMusicPlayerController.systemMusicPlayer.play()
         return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func nowPlayingItem() -> Effect<LibraryItem?, Never> {
+        #if targetEnvironment(simulator)
+        return Just(LibraryItem.playlistItems.first!).eraseToAnyPublisher().eraseToEffect()
+        #else
+        if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem,
+           let id = item.localItemID {
+            let libraryItem = LibraryItem(
+                track: item.albumTrackNumber,
+                title: item.title ?? "",
+                id: id,
+                albumID: item.albumPersistentID,
+                duration: item.playbackDuration,
+                isCloudItem: item.isCloudItem,
+                artwork: { item.itemArtwork }
+            )
+            return Just(libraryItem).eraseToAnyPublisher().eraseToEffect()
+        }
+        return Just(nil).eraseToAnyPublisher().eraseToEffect()
+        #endif
+    }
+    
+    func togglePlayback() -> Effect<Never, Never> {
+        switch MPMusicPlayerController.systemMusicPlayer.playbackState {
+        case .stopped, .paused:
+            MPMusicPlayerController.systemMusicPlayer.play()
+        case .playing:
+            MPMusicPlayerController.systemMusicPlayer.pause()
+        default:
+            break
+        }
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func forward() -> Effect<Never, Never> {
+        MPMusicPlayerController.systemMusicPlayer.skipToNextItem()
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func playbackProperties() -> Effect<PlaybackProperties, Never> {
+        let properties = PlaybackProperties(
+            playbackState: MPMusicPlayerController.systemMusicPlayer.playbackState,
+            repeatMode: MPMusicPlayerController.systemMusicPlayer.repeatMode,
+            shuffleMode: MPMusicPlayerController.systemMusicPlayer.shuffleMode
+        )
+        return Just(properties).eraseToAnyPublisher().eraseToEffect()
     }
 }
 

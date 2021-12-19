@@ -65,6 +65,14 @@
 		5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */; };
 		5BEA05BF276E4D5F0058E3CE /* SearchReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */; };
 		5BEA05C1276E4D660058E3CE /* SearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05C0276E4D660058E3CE /* SearchListView.swift */; };
+		5BEA05C5276F5E920058E3CE /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05C4276F5E920058E3CE /* PlaybackState.swift */; };
+		5BEA05C7276F5EA10058E3CE /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05C6276F5EA10058E3CE /* PlaybackView.swift */; };
+		5BEA05CA276F5EB50058E3CE /* TabBarProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05C9276F5EB50058E3CE /* TabBarProxy.swift */; };
+		5BEA05CC276F6B640058E3CE /* PlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05CB276F6B640058E3CE /* PlaybackAction.swift */; };
+		5BEA05CE276F6B6C0058E3CE /* PlaybackEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05CD276F6B6C0058E3CE /* PlaybackEnvironment.swift */; };
+		5BEA05D0276F6B760058E3CE /* PlaybackReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05CF276F6B760058E3CE /* PlaybackReducer.swift */; };
+		5BEA05D4276F6BEE0058E3CE /* PlayBackViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05D3276F6BEE0058E3CE /* PlayBackViewModifier.swift */; };
+		5BF34E03276FA582005A79D7 /* PlaybackProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF34E02276FA582005A79D7 /* PlaybackProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +145,14 @@
 		5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEnvironment.swift; sourceTree = "<group>"; };
 		5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReducer.swift; sourceTree = "<group>"; };
 		5BEA05C0276E4D660058E3CE /* SearchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListView.swift; sourceTree = "<group>"; };
+		5BEA05C4276F5E920058E3CE /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
+		5BEA05C6276F5EA10058E3CE /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
+		5BEA05C9276F5EB50058E3CE /* TabBarProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarProxy.swift; sourceTree = "<group>"; };
+		5BEA05CB276F6B640058E3CE /* PlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackAction.swift; sourceTree = "<group>"; };
+		5BEA05CD276F6B6C0058E3CE /* PlaybackEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackEnvironment.swift; sourceTree = "<group>"; };
+		5BEA05CF276F6B760058E3CE /* PlaybackReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackReducer.swift; sourceTree = "<group>"; };
+		5BEA05D3276F6BEE0058E3CE /* PlayBackViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayBackViewModifier.swift; sourceTree = "<group>"; };
+		5BF34E02276FA582005A79D7 /* PlaybackProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +212,7 @@
 				5B53F5EE2753E4680022D57A /* LibraryCategory */,
 				5B53F5F02753E87E0022D57A /* LibraryItem */,
 				5B2757AF276E3FC5004381E3 /* Search */,
+				5BEA05C8276F5EA70058E3CE /* Playback */,
 				5B38CECB273FD772003376CC /* Assets.xcassets */,
 				5B38CECD273FD772003376CC /* Preview Content */,
 			);
@@ -213,8 +230,8 @@
 		5B38CEE2273FDE80003376CC /* App */ = {
 			isa = PBXGroup;
 			children = (
-				5B38CEF1274023C8003376CC /* TCA */,
 				5B38CEC9273FD771003376CC /* AppView.swift */,
+				5B38CEF1274023C8003376CC /* TCA */,
 				5B96A7272763788F007B961C /* Services */,
 				5B96A7282763789B007B961C /* Views */,
 			);
@@ -447,6 +464,53 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5BEA05C8276F5EA70058E3CE /* Playback */ = {
+			isa = PBXGroup;
+			children = (
+				5BEA05C6276F5EA10058E3CE /* PlaybackView.swift */,
+				5BEA05D1276F6BBC0058E3CE /* TCA */,
+				5BF34E04276FA59D005A79D7 /* Models */,
+				5BEA05D5276F6BF30058E3CE /* ViewModifier */,
+				5BEA05D2276F6BCA0058E3CE /* Helper */,
+			);
+			path = Playback;
+			sourceTree = "<group>";
+		};
+		5BEA05D1276F6BBC0058E3CE /* TCA */ = {
+			isa = PBXGroup;
+			children = (
+				5BEA05C4276F5E920058E3CE /* PlaybackState.swift */,
+				5BEA05CB276F6B640058E3CE /* PlaybackAction.swift */,
+				5BEA05CD276F6B6C0058E3CE /* PlaybackEnvironment.swift */,
+				5BEA05CF276F6B760058E3CE /* PlaybackReducer.swift */,
+			);
+			path = TCA;
+			sourceTree = "<group>";
+		};
+		5BEA05D2276F6BCA0058E3CE /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5BEA05C9276F5EB50058E3CE /* TabBarProxy.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		5BEA05D5276F6BF30058E3CE /* ViewModifier */ = {
+			isa = PBXGroup;
+			children = (
+				5BEA05D3276F6BEE0058E3CE /* PlayBackViewModifier.swift */,
+			);
+			path = ViewModifier;
+			sourceTree = "<group>";
+		};
+		5BF34E04276FA59D005A79D7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5BF34E02276FA582005A79D7 /* PlaybackProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -556,14 +620,18 @@
 				5B38CED9273FD823003376CC /* AppState.swift in Sources */,
 				5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */,
 				5B38CEF3274023D9003376CC /* LibraryCollection.swift in Sources */,
+				5BEA05D4276F6BEE0058E3CE /* PlayBackViewModifier.swift in Sources */,
 				5B38CEE72740231C003376CC /* LibraryState.swift in Sources */,
 				5BEA05C1276E4D660058E3CE /* SearchListView.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
 				5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */,
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
 				5BBAEE4B275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift in Sources */,
+				5BEA05C5276F5E920058E3CE /* PlaybackState.swift in Sources */,
 				5B53F5F42753F5070022D57A /* LibraryItemAction.swift in Sources */,
+				5BEA05CA276F5EB50058E3CE /* TabBarProxy.swift in Sources */,
 				5BBAEE4F27582093007FFA24 /* MPMediaItemCollection+toGenre.swift in Sources */,
+				5BEA05CE276F6B6C0058E3CE /* PlaybackEnvironment.swift in Sources */,
 				5BBAEE49275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift in Sources */,
 				5B97D27D2767BCC300260593 /* LibraryCategoryItemRow.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
@@ -571,10 +639,12 @@
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
 				5B2757AA276E3D82004381E3 /* SearchState.swift in Sources */,
+				5BEA05CC276F6B640058E3CE /* PlaybackAction.swift in Sources */,
 				5B96A71F275E744C007B961C /* ReflectionViewModifier.swift in Sources */,
 				5BEA05BB276E4D530058E3CE /* SearchAction.swift in Sources */,
 				5B96A7222760FBA5007B961C /* ArtworkView.swift in Sources */,
 				5B53F5F22753E88F0022D57A /* LibraryItemView.swift in Sources */,
+				5BF34E03276FA582005A79D7 /* PlaybackProperties.swift in Sources */,
 				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
 				5B5E7C8C275D44BB0033E664 /* GalleryCategoryType.swift in Sources */,
 				5B53F5EC2753E4570022D57A /* LibraryCategoryReducer.swift in Sources */,
@@ -598,11 +668,13 @@
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B97D277276648D100260593 /* CategoryDisplayStyle.swift in Sources */,
+				5BEA05D0276F6B760058E3CE /* PlaybackReducer.swift in Sources */,
 				5B53F5ED2753E4570022D57A /* LibraryCategoryView.swift in Sources */,
 				5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */,
 				5B53F5EA2753E4570022D57A /* LibraryCategoryAction.swift in Sources */,
 				5BBE036F2753D5E400A53E7C /* LibraryItemState.swift in Sources */,
 				5B38CEDF273FDE71003376CC /* AppEnvironment.swift in Sources */,
+				5BEA05C7276F5EA10058E3CE /* PlaybackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,8 +833,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -793,8 +866,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

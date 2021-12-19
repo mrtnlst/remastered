@@ -22,7 +22,9 @@ struct SearchListView: View {
         } else {
             HStack {
                 Image(systemName: "magnifyingglass")
+                    .foregroundColor(.secondary)
                 Text("Search your library")
+                    .foregroundColor(.secondary)
             }
         }
     }

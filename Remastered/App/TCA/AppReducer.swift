@@ -47,6 +47,21 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 )
             }
     ),
+    playbackReducer
+        .optional()
+        .pullback(
+            state: \.playback,
+            action: /AppAction.playback,
+            environment: {
+                PlaybackEnvironment(
+                    mainQueue: $0.mainQueue,
+                    nowPlayingItem: $0.playbackService.nowPlayingItem,
+                    playbackProperties: $0.playbackService.playbackProperties,
+                    togglePlayback: $0.playbackService.togglePlayback,
+                    forward: $0.playbackService.forward
+                )
+            }
+    ),
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
@@ -60,6 +75,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.library = LibraryState()
             state.gallery = GalleryState()
             state.search = SearchState()
+            state.playback = PlaybackState()
             state.isAuthorized = true
             return Effect(value: .fetch)
 
@@ -68,6 +84,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.library = nil
             state.gallery = nil
             state.search = nil
+            state.playback = nil
             state.isAuthorized = false
             return .none
             
@@ -114,11 +131,26 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.selectedTab = tag
             return .none
             
+        case .binding(\.$tabBarOffset),
+             .binding(\.$tabBarHeight):
+            let offset = state.tabBarOffset
+            let height = state.tabBarHeight
+            state.playback?.tabBarOffset = offset
+            state.playback?.tabBarHeight = height
+            return .none
+            
+        case .playback(_):
+            return .none
+            
         case .gallery(_):
             return .none
         
         case .search(_):
             return .none
+            
+        case .binding:
+            return .none
         }
     }
+        .binding()
 )

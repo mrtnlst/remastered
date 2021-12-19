@@ -15,6 +15,12 @@ struct AppView: View {
         WithViewStore(store) { viewStore in
             TabView(selection: viewStore.binding(get: \.selectedTab, send: AppAction.didSelectTab)) {
                 galleryView(with: viewStore)
+                    .background(
+                        TabBarProxy(
+                            height: viewStore.binding(\.$tabBarHeight),
+                            offset: viewStore.binding(\.$tabBarOffset)
+                        )
+                    )
                     .tabItem {
                         Label("Gallery", systemImage: "rectangle.3.group.fill")
                     }
@@ -30,7 +36,9 @@ struct AppView: View {
                     }
                     .tag(2)
             }
+            .edgesIgnoringSafeArea(.bottom)
             .onAppear { viewStore.send(.onAppear) }
+            .playBackView(store: store)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
