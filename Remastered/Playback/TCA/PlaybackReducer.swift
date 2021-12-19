@@ -11,6 +11,9 @@ import UIKit
 let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment> { state, action, environment in
     switch action {
     case .onAppear:
+        #if targetEnvironment(simulator)
+        return Effect(value: .nowPlayingItemDidChange)
+        #else
         return .merge(
             NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)
                 .map { _ in .playbackStateDidChange }
@@ -22,6 +25,7 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
                 .map { _ in .didBecomeActive }
                 .eraseToEffect()
         )
+        #endif
         
     case .didBecomeActive:
         return .merge(

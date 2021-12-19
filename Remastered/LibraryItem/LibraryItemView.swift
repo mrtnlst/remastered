@@ -40,7 +40,8 @@ extension LibraryItemView {
     @ViewBuilder func headerView(for collection: LibraryCollection) -> some View {
         VStack {
             Text(collection.title)
-                .font(.headline)
+                .font(.title3)
+                .bold()
                 .foregroundColor(.primary)
                 .padding(.horizontal, 16)
                 .multilineTextAlignment(.center)
@@ -64,6 +65,7 @@ extension LibraryItemView {
                             ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, position: item.track))
                         } label: {
                             HStack {
+                                // TODO: The width should be calculated
                                 Text("\(item.track)")
                                     .font(.body)
                                     .foregroundColor(.secondary)
@@ -88,6 +90,7 @@ extension LibraryItemView {
             }
         }
         .padding(.leading , 24)
+        .padding(.bottom, 80)
     }
     
     @ViewBuilder func cloudItemRow(_ isCloudItem: Bool) -> some View {

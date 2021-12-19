@@ -21,7 +21,7 @@ struct PlaybackView: View {
                             .resizable()
                             .cornerRadius(4)
                             .aspectRatio(contentMode: .fit)
-                            .padding(4)
+                            .padding(.vertical, 8)
                             
                     } else {
                         Image(systemName: "square.fill")
@@ -44,7 +44,7 @@ struct PlaybackView: View {
                 }
                 .padding(.horizontal)
                 .frame(height: viewStore.tabBarHeight)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 16))
+                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
                 .padding(.bottom, viewStore.tabBarHeight + viewStore.tabBarOffset + 16)
                 .padding(.horizontal)
                 .transition(.move(edge: .bottom))
