@@ -10,7 +10,7 @@ import MediaPlayer
 import Combine
 
 protocol PlaybackService {
-    func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never>
+    func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never>
     func nowPlayingItem() -> Effect<LibraryItem?, Never>
     func playbackProperties() -> Effect<PlaybackProperties, Never>
     func togglePlayback() -> Effect<Never, Never>
@@ -18,7 +18,10 @@ protocol PlaybackService {
 }
 
 final class DefaultPlaybackService: PlaybackService {
-    func play(id: String, of category: LibraryCategoryType, from position: Int?) -> Effect<Never, Never> {
+    func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never> {
+#if targetEnvironment(simulator)
+        return Just().eraseToAnyPublisher().eraseToEffect()
+#else
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
         var predicate: MPMediaPropertyPredicate
         
@@ -52,31 +55,23 @@ final class DefaultPlaybackService: PlaybackService {
         
         let filter: Set<MPMediaPropertyPredicate> = [predicate]
         let query = MPMediaQuery(filterPredicates: filter)
-        var items: [MPMediaItem] = query.items ?? []
         
-        // TODO: When backwarding, the first songs are not found, perhaps there is a better way?
-        // MPMusicPlayerMediaItemQueueDescriptor with start item
-        switch category {
-        case .albums:
-            if let position = position {
-                items.removeAll { $0.albumTrackNumber < position }
-            }
-        default:
-            if let position = position {
-                items.removeFirst(position - 1)
-            }
+        let descriptor = MPMusicPlayerMediaItemQueueDescriptor(query: query)
+        if let startItem = query.items?.first(where: { $0.localItemID == startItem }) {
+            descriptor.startItem = startItem
         }
-        
-        MPMusicPlayerController.systemMusicPlayer.setQueue(with: MPMediaItemCollection(items: items))
+
+        MPMusicPlayerController.systemMusicPlayer.setQueue(with: descriptor)
         MPMusicPlayerController.systemMusicPlayer.prepareToPlay()
         MPMusicPlayerController.systemMusicPlayer.play()
         return Empty().eraseToAnyPublisher().eraseToEffect()
+#endif
     }
     
     func nowPlayingItem() -> Effect<LibraryItem?, Never> {
-        #if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
         return Just(LibraryItem.playlistItems.first!).eraseToAnyPublisher().eraseToEffect()
-        #else
+#else
         if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem,
            let id = item.localItemID {
             let libraryItem = LibraryItem(
@@ -91,7 +86,7 @@ final class DefaultPlaybackService: PlaybackService {
             return Just(libraryItem).eraseToAnyPublisher().eraseToEffect()
         }
         return Just(nil).eraseToAnyPublisher().eraseToEffect()
-        #endif
+#endif
     }
     
     func togglePlayback() -> Effect<Never, Never> {

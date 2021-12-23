@@ -88,14 +88,14 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.isAuthorized = false
             return .none
             
-        case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
-            let .gallery(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, position)))),
-            let .library(.libraryItem(action: .didSelectItem(id, type, position))),
-            let .gallery(.libraryItem(action: .didSelectItem(id, type, position))),
-            let .search(.libraryItem(action: .didSelectItem(id, type, position))):
+        case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem)))),
+            let .gallery(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem)))),
+            let .library(.libraryItem(action: .didSelectItem(id, type, startItem))),
+            let .gallery(.libraryItem(action: .didSelectItem(id, type, startItem))),
+            let .search(.libraryItem(action: .didSelectItem(id, type, startItem))):
             return environment
                 .playbackService
-                .play(id: id, of: type, from: position)
+                .play(id: id, of: type, with: startItem)
                 .subscribe(on: environment.mainQueue)
                 .fireAndForget()
             

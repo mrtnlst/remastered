@@ -8,5 +8,5 @@
 import Foundation
 
 enum LibraryItemAction: Equatable {
-    case didSelectItem(id: String, type: LibraryCategoryType, position: Int? = nil)
+    case didSelectItem(id: String, type: LibraryCategoryType, startItem: String? = nil)
 }

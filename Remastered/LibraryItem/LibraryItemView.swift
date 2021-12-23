@@ -62,7 +62,7 @@ extension LibraryItemView {
                 ForEach(items) { item in
                     VStack {
                         Button {
-                            ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, position: item.track))
+                            ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, startItem: item.id))
                         } label: {
                             HStack {
                                 // TODO: The width should be calculated
