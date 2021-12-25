@@ -11,7 +11,6 @@ import ComposableArchitecture
 
 struct PlaybackEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var nowPlayingItem: () -> Effect<LibraryItem?, Never>
     var playbackProperties: () -> Effect<PlaybackProperties, Never>
     var togglePlayback: () -> Effect<Never, Never>
     var forward: () -> Effect<Never, Never>

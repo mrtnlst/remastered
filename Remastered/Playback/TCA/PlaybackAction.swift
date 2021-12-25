@@ -11,9 +11,7 @@ enum PlaybackAction: Equatable {
     case togglePlayback
     case forward
     case onAppear
-    case receiveNowPlayingItem(Result<LibraryItem?, Never>)
     case receivePlaybackProperties(Result<PlaybackProperties, Never>)
     case playbackStateDidChange
-    case nowPlayingItemDidChange
     case didBecomeActive
 }

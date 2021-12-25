@@ -11,4 +11,5 @@ struct PlaybackProperties: Equatable {
     let playbackState: MPMusicPlaybackState
     let repeatMode: MPMusicRepeatMode
     let shuffleMode: MPMusicShuffleMode
+    let nowPlayingItem: LibraryItem?
 }

@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import UIKit
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     libraryReducer
@@ -20,7 +21,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                     uuid: { UUID.init() }
                 )
             }
-    ),
+        ),
     galleryReducer
         .optional()
         .pullback(
@@ -33,7 +34,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                     uuid: { UUID.init() }
                 )
             }
-    ),
+        ),
     searchReducer
         .optional()
         .pullback(
@@ -46,7 +47,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                     uuid: { UUID.init() }
                 )
             }
-    ),
+        ),
     playbackReducer
         .optional()
         .pullback(
@@ -55,30 +56,61 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 PlaybackEnvironment(
                     mainQueue: $0.mainQueue,
-                    nowPlayingItem: $0.playbackService.nowPlayingItem,
                     playbackProperties: $0.playbackService.playbackProperties,
                     togglePlayback: $0.playbackService.togglePlayback,
                     forward: $0.playbackService.forward
                 )
             }
-    ),
+        ),
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
+#if targetEnvironment(simulator)
+            return Effect(value: .didBecomeActive)
+#else
+            return .merge(
+                NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+                    .map { _ in .didBecomeActive }
+                    .eraseToEffect()
+            )
+#endif
+        case .didBecomeActive:
             return environment
                 .authorizationService
                 .authorize()
                 .receive(on: environment.mainQueue)
                 .catchToEffect(AppAction.authorizationResponse)
-
+            
         case .authorizationResponse(.success(true)):
-            state.library = LibraryState()
-            state.gallery = GalleryState()
-            state.search = SearchState()
-            state.playback = PlaybackState()
-            state.isAuthorized = true
-            return Effect(value: .fetch)
-
+            if !(state.isAuthorized ?? false) {
+                state.library = LibraryState()
+                state.gallery = GalleryState()
+                state.search = SearchState()
+                state.isAuthorized = true
+            }
+            return .merge(
+                Effect(value: .fetch),
+                environment
+                    .playbackService
+                    .playbackProperties()
+                    .receive(on: environment.mainQueue)
+                    .catchToEffect(AppAction.receivePlaybackProperties)
+            )
+            
+        case let .receivePlaybackProperties(.success(properties)):
+            if let item = properties.nowPlayingItem {
+                state.playback = PlaybackState(
+                    isPlaying: properties.playbackState == .playing,
+                    songTitle: item.title,
+                    songArtwork: item.artwork(),
+                    tabBarHeight: state.tabBarHeight,
+                    tabBarOffset: state.tabBarOffset
+                )
+            } else {
+                state.playback = nil
+            }
+            return .none
+            
         case .authorizationResponse(.success(false)),
                 .authorizationResponse(.failure(_)):
             state.library = nil
@@ -108,7 +140,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 .fetch()
                 .receive(on: environment.mainQueue)
                 .catchToEffect(AppAction.fetchResponse)
-    
+            
         case let .fetchResponse(.success(collections)):
             return .merge(
                 Effect(value: .library(.receiveCollections(result: .success(collections)))),

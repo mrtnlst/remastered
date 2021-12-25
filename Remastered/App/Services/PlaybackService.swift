@@ -11,7 +11,6 @@ import Combine
 
 protocol PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never>
-    func nowPlayingItem() -> Effect<LibraryItem?, Never>
     func playbackProperties() -> Effect<PlaybackProperties, Never>
     func togglePlayback() -> Effect<Never, Never>
     func forward() -> Effect<Never, Never>
@@ -20,7 +19,7 @@ protocol PlaybackService {
 final class DefaultPlaybackService: PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never> {
 #if targetEnvironment(simulator)
-        return Just().eraseToAnyPublisher().eraseToEffect()
+        return Empty().eraseToAnyPublisher().eraseToEffect()
 #else
         MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
         var predicate: MPMediaPropertyPredicate
@@ -68,27 +67,6 @@ final class DefaultPlaybackService: PlaybackService {
 #endif
     }
     
-    func nowPlayingItem() -> Effect<LibraryItem?, Never> {
-#if targetEnvironment(simulator)
-        return Just(LibraryItem.playlistItems.first!).eraseToAnyPublisher().eraseToEffect()
-#else
-        if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem,
-           let id = item.localItemID {
-            let libraryItem = LibraryItem(
-                track: item.albumTrackNumber,
-                title: item.title ?? "",
-                id: id,
-                albumID: item.albumPersistentID,
-                duration: item.playbackDuration,
-                isCloudItem: item.isCloudItem,
-                artwork: { item.itemArtwork }
-            )
-            return Just(libraryItem).eraseToAnyPublisher().eraseToEffect()
-        }
-        return Just(nil).eraseToAnyPublisher().eraseToEffect()
-#endif
-    }
-    
     func togglePlayback() -> Effect<Never, Never> {
         switch MPMusicPlayerController.systemMusicPlayer.playbackState {
         case .stopped, .paused:
@@ -107,10 +85,28 @@ final class DefaultPlaybackService: PlaybackService {
     }
     
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
+        var libraryItem: LibraryItem?
+#if targetEnvironment(simulator)
+        libraryItem = LibraryItem.playlistItems.first
+#else
+        if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem,
+           let id = item.localItemID {
+            libraryItem = LibraryItem(
+                track: item.albumTrackNumber,
+                title: item.title ?? "",
+                id: id,
+                albumID: item.albumPersistentID,
+                duration: item.playbackDuration,
+                isCloudItem: item.isCloudItem,
+                artwork: { item.itemArtwork }
+            )
+        }
+#endif
         let properties = PlaybackProperties(
             playbackState: MPMusicPlayerController.systemMusicPlayer.playbackState,
             repeatMode: MPMusicPlayerController.systemMusicPlayer.repeatMode,
-            shuffleMode: MPMusicPlayerController.systemMusicPlayer.shuffleMode
+            shuffleMode: MPMusicPlayerController.systemMusicPlayer.shuffleMode,
+            nowPlayingItem: libraryItem
         )
         return Just(properties).eraseToAnyPublisher().eraseToEffect()
     }

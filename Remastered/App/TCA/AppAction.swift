@@ -19,5 +19,7 @@ enum AppAction: Equatable, BindableAction {
     case playback(PlaybackAction)
     case didSelectTab(_ tag: Int)
     case binding(BindingAction<AppState>)
+    case didBecomeActive
+    case receivePlaybackProperties(Result<PlaybackProperties, Never>)
 }
 
