@@ -10,7 +10,22 @@ import IdentifiedCollections
 import ComposableArchitecture
 
 struct GalleryState: Equatable {
-    var categories: IdentifiedArrayOf<LibraryCategoryState> = []
-    var selectedCategory: Identified<LibraryCategoryState.ID, LibraryCategoryState>?
-    var selectedItem: Identified<LibraryItemState.ID, LibraryItemState>?
+    var rows: IdentifiedArrayOf<GalleryRowState> = []
+}
+
+extension GalleryState {
+    static var initialRows: IdentifiedArrayOf<GalleryRowState> {
+        .init(
+            uniqueElements: GalleryCategoryType.allCases.map {
+                GalleryRowState(
+                    id: $0.uuid,
+                    category: LibraryCategoryState(
+                        id: $0.uuid,
+                        items: [],
+                        name: $0.rawValue
+                    )
+                )
+            }
+        )
+    }
 }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import simd
+import ComposableArchitecture
 
 struct ArtworkView: View {
     let collection: LibraryCollection

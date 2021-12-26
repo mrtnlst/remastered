@@ -11,6 +11,7 @@ extension MPMediaItemCollection {
     func toAlbum() -> LibraryCollection? {
         let idProperty = MPMediaItemPropertyAlbumPersistentID
         guard let id = representativeItem?.value(forProperty: idProperty) as? NSNumber,
+              let uuid = UUID.customUUID(from: id.stringValue),
               let title = representativeItem?.albumTitle,
               let subtitle = artist,
               let dateAdded = dateAdded
@@ -19,7 +20,8 @@ extension MPMediaItemCollection {
         }
         return LibraryCollection(
             type: .albums,
-            id: id.stringValue,
+            id: uuid,
+            persistentID: id.stringValue,
             title: title,
             subtitle: subtitle,
             dateAdded: dateAdded,

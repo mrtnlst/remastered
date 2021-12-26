@@ -27,7 +27,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
                 )
             }
             let category = LibraryCategoryState(
-                id: environment.uuid(),
+                id: type.uuid,
                 items: .init(uniqueElements: itemStates),
                 name: type.rawValue,
                 icon: type.icon
@@ -47,9 +47,6 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
         return .none
         
     case let .libraryCategory(action):
-        return .none
-        
-    case let .libraryItem(action):
         return .none
     }
 }

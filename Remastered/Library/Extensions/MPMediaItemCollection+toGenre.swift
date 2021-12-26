@@ -11,6 +11,7 @@ extension MPMediaItemCollection {
     func toGenre() -> LibraryCollection? {
         let idProperty = MPMediaItemPropertyGenrePersistentID
         guard let id = representativeItem?.value(forProperty: idProperty) as? NSNumber,
+              let uuid = UUID.customUUID(from: id.stringValue),
               let title = representativeItem?.genre,
               let dateAdded = dateAdded
         else {
@@ -18,7 +19,8 @@ extension MPMediaItemCollection {
         }
         return LibraryCollection(
             type: .genres,
-            id: id.stringValue,
+            id: uuid,
+            persistentID: id.stringValue,
             title: title,
             subtitle: numberOfItems,
             dateAdded: dateAdded,

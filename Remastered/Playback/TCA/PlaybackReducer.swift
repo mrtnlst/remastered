@@ -12,7 +12,7 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
     switch action {
     case .onAppear:
 #if targetEnvironment(simulator)
-        return Effect(value: .nowPlayingItemDidChange)
+        return Effect(value: .playbackStateDidChange)
 #else
         return .merge(
             NotificationCenter.default.publisher(for: .MPMusicPlayerControllerPlaybackStateDidChange)

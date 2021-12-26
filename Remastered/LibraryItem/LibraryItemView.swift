@@ -16,7 +16,7 @@ struct LibraryItemView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 headerView(for: viewStore.item)
                 playButton {
-                    viewStore.send(.didSelectItem(id: viewStore.item.id, type: viewStore.item.type))
+                    viewStore.send(.didSelectItem(id: viewStore.item.persistentID, type: viewStore.item.type))
                 }
                 trackList(for: viewStore.item.items(), in: viewStore.item)
             }
@@ -62,7 +62,7 @@ extension LibraryItemView {
                 ForEach(items) { item in
                     VStack {
                         Button {
-                            ViewStore(store).send(.didSelectItem(id: collection.id, type: collection.type, startItem: item.id))
+                            ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
                         } label: {
                             HStack {
                                 // TODO: The width should be calculated

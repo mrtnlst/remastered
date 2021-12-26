@@ -84,7 +84,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case .authorizationResponse(.success(true)):
             if !(state.isAuthorized ?? false) {
                 state.library = LibraryState()
-                state.gallery = GalleryState()
+                state.gallery = GalleryState(rows: GalleryState.initialRows)
                 state.search = SearchState()
                 state.isAuthorized = true
             }
@@ -121,9 +121,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             return .none
             
         case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem)))),
-            let .gallery(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem)))),
-            let .library(.libraryItem(action: .didSelectItem(id, type, startItem))),
-            let .gallery(.libraryItem(action: .didSelectItem(id, type, startItem))),
+            let .gallery(.galleryRowAction(id: _, action: .libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem))))),
+            let .gallery(.galleryRowAction(id: _, action: .libraryItem(action: .didSelectItem(id, type, startItem)))),
             let .search(.libraryItem(action: .didSelectItem(id, type, startItem))):
             return environment
                 .playbackService
@@ -149,10 +148,10 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             )
             
         case let .didSelectTab(tag):
+            var effects: [Effect<AppAction, Never>] = []
             switch (state.selectedTab, tag) {
             case (0, 0):
-                state.gallery?.selectedCategory = nil
-                state.gallery?.selectedItem = nil
+                effects.append(Effect(value: .gallery(.dismiss)))
             case (1, 1):
                 state.library?.selectedCategory = nil
             case (2, 2):
@@ -161,7 +160,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 break
             }
             state.selectedTab = tag
-            return .none
+            return .merge(effects)
             
         case .binding(\.$tabBarOffset),
              .binding(\.$tabBarHeight):

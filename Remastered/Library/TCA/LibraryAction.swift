@@ -11,6 +11,5 @@ enum LibraryAction: Equatable {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
     case libraryCategory(LibraryCategoryAction)
-    case libraryItem(LibraryItemAction)
     case setCategoryNavigation(selection: UUID?)
 }

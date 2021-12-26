@@ -45,42 +45,54 @@ extension LibraryCategoryState {
         ),
     ]
     
-    static let exampleGalleryCategories: IdentifiedArrayOf<LibraryCategoryState> = [
-        LibraryCategoryState(
-            items: .init(
-                uniqueElements: LibraryCollection.exampleAlbums
-                    .filter(GalleryCategoryType.discover.filterValue)
-                    .sorted(by: GalleryCategoryType.discover.sortOrder)
-                    .map { LibraryItemState(item: $0) }
-            ),
-            name: GalleryCategoryType.discover.rawValue
+    static let exampleGalleryRows: IdentifiedArrayOf<GalleryRowState> = [
+        GalleryRowState(
+            id: UUID(),
+            category: LibraryCategoryState(
+                items: .init(
+                    uniqueElements: LibraryCollection.exampleAlbums
+                        .filter(GalleryCategoryType.discover.filterValue)
+                        .sorted(by: GalleryCategoryType.discover.sortOrder)
+                        .map { LibraryItemState(item: $0) }
+                ),
+                name: GalleryCategoryType.discover.rawValue
+            )
         ),
-        LibraryCategoryState(
-            items: .init(
-                uniqueElements: LibraryCollection.exampleAlbums
-                    .filter(GalleryCategoryType.favorites.filterValue)
-                    .sorted(by: GalleryCategoryType.favorites.sortOrder)
-                    .map { LibraryItemState(item: $0) }
-            ),
-            name: GalleryCategoryType.favorites.rawValue
+        GalleryRowState(
+            id: UUID(),
+            category: LibraryCategoryState(
+                items: .init(
+                    uniqueElements: LibraryCollection.exampleAlbums
+                        .filter(GalleryCategoryType.favorites.filterValue)
+                        .sorted(by: GalleryCategoryType.favorites.sortOrder)
+                        .map { LibraryItemState(item: $0) }
+                ),
+                name: GalleryCategoryType.favorites.rawValue
+            )
         ),
-        LibraryCategoryState(
-            items: .init(
-                uniqueElements: LibraryCollection.exampleAlbums
-                    .filter(GalleryCategoryType.recentlyAdded.filterValue)
-                    .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
-                    .map { LibraryItemState(item: $0) }
-            ),
-            name: GalleryCategoryType.recentlyAdded.rawValue
+        GalleryRowState(
+            id: UUID(),
+            category: LibraryCategoryState(
+                items: .init(
+                    uniqueElements: LibraryCollection.exampleAlbums
+                        .filter(GalleryCategoryType.recentlyAdded.filterValue)
+                        .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
+                        .map { LibraryItemState(item: $0) }
+                ),
+                name: GalleryCategoryType.recentlyAdded.rawValue
+            )
         ),
-        LibraryCategoryState(
-            items: .init(
-                uniqueElements: LibraryCollection.exampleAlbums
-                    .filter(GalleryCategoryType.recentlyAdded.filterValue)
-                    .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
-                    .map { LibraryItemState(item: $0) }
-            ),
-            name: GalleryCategoryType.recentlyAdded.rawValue
+        GalleryRowState(
+            id: UUID(),
+            category: LibraryCategoryState(
+                items: .init(
+                    uniqueElements: LibraryCollection.exampleAlbums
+                        .filter(GalleryCategoryType.recentlyAdded.filterValue)
+                        .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
+                        .map { LibraryItemState(item: $0) }
+                ),
+                name: GalleryCategoryType.recentlyAdded.rawValue
+            )
         )
     ]
     

@@ -10,8 +10,6 @@ import Foundation
 enum GalleryAction: Equatable {
     case fetch
     case receiveCollections(result: Result<[LibraryCollection], Never>)
-    case libraryCategory(action: LibraryCategoryAction)
-    case libraryItem(action: LibraryItemAction)
-    case setCategoryNavigation(selection: UUID?)
-    case setItemNavigation(selection: UUID?)
+    case galleryRowAction(id: UUID, action: GalleryRowAction)
+    case dismiss
 }

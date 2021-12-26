@@ -13,6 +13,7 @@ extension MPMediaItemCollection {
         let idProperty = MPMediaPlaylistPropertyPersistentID
         guard let playlistSelf = self as? MPMediaPlaylist,
               let id = playlistSelf.value(forProperty: idProperty) as? NSNumber,
+              let uuid = UUID.customUUID(from: id.stringValue),
               let title = playlistSelf.name,
               let dateAdded = value(forProperty: "dateModified") as? Date
         else {
@@ -20,7 +21,8 @@ extension MPMediaItemCollection {
         }
         return LibraryCollection(
             type: .playlists,
-            id: id.stringValue,
+            id: uuid,
+            persistentID: id.stringValue,
             title: title,
             subtitle: numberOfItems,
             dateAdded: dateAdded,

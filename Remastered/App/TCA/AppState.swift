@@ -32,7 +32,7 @@ extension AppState {
                 categories: LibraryCategoryState.exampleLibraryCategories
             ),
             gallery: GalleryState(
-                categories: LibraryCategoryState.exampleGalleryCategories
+                rows: GalleryState.initialRows
             ),
             search: SearchState(
                 collections: LibraryCollection.exampleAlbums

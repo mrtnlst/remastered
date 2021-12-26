@@ -12,7 +12,8 @@ struct LibraryCollection: Identifiable {
     let type: LibraryCategoryType
     let title: String
     let subtitle: String
-    let id: String
+    let id: UUID
+    let persistentID: String
     let dateAdded: Date
     let lastPlayed: Date
     let isFavorite: Bool
@@ -22,7 +23,8 @@ struct LibraryCollection: Identifiable {
     
     init?(
         type: LibraryCategoryType,
-        id: String,
+        id: UUID,
+        persistentID: String,
         title: String,
         subtitle: String,
         dateAdded: Date,
@@ -36,6 +38,7 @@ struct LibraryCollection: Identifiable {
         self.title = title
         self.subtitle = subtitle
         self.id = id
+        self.persistentID = persistentID
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed
         self.isFavorite = isFavorite
@@ -95,7 +98,8 @@ extension LibraryCollection {
         self.type = type
         self.title = title
         self.subtitle = artist
-        self.id = id
+        self.id = UUID.customUUID(from: id)!
+        self.persistentID = id
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)
         self.isFavorite = isFavorite
@@ -143,7 +147,7 @@ extension LibraryCollection {
             id: "AABB-CCDD-EEFF-GGHH",
             dateAdded: Date(timeIntervalSince1970: 1615037320),
             lastPlayed: Date(timeIntervalSince1970: 1616678920),
-            isFavorite: true, artwork: UIImage(named: "Organ"),
+            isFavorite: true, artwork: nil,
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(

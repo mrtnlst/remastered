@@ -7,64 +7,62 @@
 
 import ComposableArchitecture
 
-let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment> { state, action, environment in
-    switch action {
-    case .fetch:
-        return environment
-            .fetch()
-            .receive(on: environment.mainQueue)
-            .catchToEffect(GalleryAction.receiveCollections)
-        
-    case let .receiveCollections(.success(collections)):
-        GalleryCategoryType.allCases.forEach { type in
-            var items = Array(
-                collections
-                    .filter(type.filterValue)
-                    .filter { $0.type == .albums || $0.type == .playlists }
-                    .sorted(by: type.sortOrder)
-            )
-            guard !items.isEmpty else { return }
-            items = type == .discover ? items.shuffled() : items
+let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.combine(
+    galleryRowReducer.forEach(
+        state: \.rows,
+        action: /GalleryAction.galleryRowAction(id:action:),
+        environment: { _ in GalleryRowEnvironment() }
+    ),
+    Reducer { state, action, environment in
+        switch action {
+        case .fetch:
+            return environment
+                .fetch()
+                .receive(on: environment.mainQueue)
+                .catchToEffect(GalleryAction.receiveCollections)
             
-            let category = LibraryCategoryState(
-                id: environment.uuid(),
-                items: .init(
-                    uniqueElements: items.map {
-                        LibraryItemState(item: $0, id: environment.uuid())
+        case let .receiveCollections(.success(collections)):
+            var effects: [Effect<GalleryAction, Never>] = []
+            GalleryCategoryType.allCases.forEach { type in
+                var items = Array(
+                    collections
+                        .filter(type.filterValue)
+                        .filter { $0.type == .albums || $0.type == .playlists }
+                        .sorted(by: type.sortOrder)
+                )
+                guard !items.isEmpty else { return }
+                
+                if type == .discover {
+                    items.shuffle()
+                    // This moves the currently selected item to the first position of discover,
+                    // otherwise the `LibraryItemView` gets dismissed after a new fetch.
+                    if let selectedItem = state.rows.first(where: { $0.id == type.uuid })?.selectedItem?.value,
+                       let index = items.firstIndex(of: selectedItem.item) {
+                        items.move(fromOffsets: .init(arrayLiteral: index), toOffset: 0)
                     }
-                ),
-                name: type.rawValue
-            )
-            state.categories.updateOrAppend(category)
-        }
-        return .none
-        
-    case let .setCategoryNavigation(id):
-        guard let id = id else {
-            state.selectedCategory = nil
+                }
+                
+                let category = LibraryCategoryState(
+                    id: type.uuid,
+                    items: .init(uniqueElements: items.map { LibraryItemState(item: $0, id: $0.id) }),
+                    name: type.rawValue
+                )
+                effects.append(
+                    Effect(value: .galleryRowAction(id: type.uuid, action: .receiveCategory(category)))
+                )
+            }
+            return .merge(effects)
+            
+        case .dismiss:
+            var effects: [Effect<GalleryAction, Never>] = []
+            let rows = state.rows.filter({ $0.selectedCategory != nil || $0.selectedItem != nil })
+            rows.forEach {
+                effects.append(Effect(value: .galleryRowAction(id: $0.id, action: .dismiss)))
+            }
+            return .merge(effects)
+            
+        case .galleryRowAction(_, _):
             return .none
         }
-        if let category = state.categories.first(where: { $0.id == id }) {
-            state.selectedCategory = Identified(category, id: id)
-        }
-        return .none
-        
-    case let .setItemNavigation(id):
-        guard let id = id else {
-            state.selectedItem = nil
-            return .none
-        }
-        // TODO: That's not great
-        let items = state.categories.map( { $0.items }).reduce([], +)        
-        if let item = items.first(where: { $0.id == id }) {
-            state.selectedItem = Identified(item, id: id)
-        }
-        return .none
-        
-    case let .libraryCategory(action):
-        return .none
-        
-    case let .libraryItem(action):
-        return .none
     }
-}
+)
