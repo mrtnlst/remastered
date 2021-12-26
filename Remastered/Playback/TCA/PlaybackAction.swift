@@ -8,10 +8,12 @@
 import Foundation
 
 enum PlaybackAction: Equatable {
+    case onAppear
+    case didBecomeActive
+    case playbackStateDidChange
+    case receivePlaybackProperties(Result<PlaybackProperties, Never>)
+    case playbackDetail(PlaybackDetailAction)
+    case setIsDetailPresented(Bool)
     case togglePlayback
     case forward
-    case onAppear
-    case receivePlaybackProperties(Result<PlaybackProperties, Never>)
-    case playbackStateDidChange
-    case didBecomeActive
 }

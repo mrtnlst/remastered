@@ -58,7 +58,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                     mainQueue: $0.mainQueue,
                     playbackProperties: $0.playbackService.playbackProperties,
                     togglePlayback: $0.playbackService.togglePlayback,
-                    forward: $0.playbackService.forward
+                    forward: $0.playbackService.forward,
+                    backward: $0.playbackService.backward
                 )
             }
         ),
@@ -86,33 +87,13 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 state.library = LibraryState()
                 state.gallery = GalleryState(rows: GalleryState.initialRows)
                 state.search = SearchState()
+                state.playback = PlaybackState()
                 state.isAuthorized = true
             }
-            return .merge(
-                Effect(value: .fetch),
-                environment
-                    .playbackService
-                    .playbackProperties()
-                    .receive(on: environment.mainQueue)
-                    .catchToEffect(AppAction.receivePlaybackProperties)
-            )
-            
-        case let .receivePlaybackProperties(.success(properties)):
-            if let item = properties.nowPlayingItem {
-                state.playback = PlaybackState(
-                    isPlaying: properties.playbackState == .playing,
-                    songTitle: item.title,
-                    songArtwork: item.artwork(),
-                    tabBarHeight: state.tabBarHeight,
-                    tabBarOffset: state.tabBarOffset
-                )
-            } else {
-                state.playback = nil
-            }
-            return .none
+            return Effect(value: .fetch)
             
         case .authorizationResponse(.success(false)),
-                .authorizationResponse(.failure(_)):
+             .authorizationResponse(.failure(_)):
             state.library = nil
             state.gallery = nil
             state.search = nil

@@ -16,7 +16,8 @@ struct PlaybackView: View {
             VStack {
                 Spacer()
                 HStack {
-                    if let artwork = viewStore.songArtwork {
+                    // TODO: use artwork view
+                    if let artwork = viewStore.libraryItem?.artwork() {
                         Image(uiImage: artwork)
                             .resizable()
                             .cornerRadius(4)
@@ -26,7 +27,7 @@ struct PlaybackView: View {
                     } else {
                         Image(systemName: "square.fill")
                     }
-                    Text(viewStore.songTitle ?? "None")
+                    Text(viewStore.libraryItem?.title ?? "None")
                         .foregroundColor(.secondary)
                         .font(Font.caption)
                         .lineLimit(2)
@@ -49,8 +50,26 @@ struct PlaybackView: View {
                 .padding(.horizontal)
                 .transition(.move(edge: .bottom))
             }
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isDetailPresented,
+                    send: PlaybackAction.setIsDetailPresented
+                )
+            ) {
+                IfLetStore(
+                    store.scope(
+                        state: \.playbackDetail,
+                        action: PlaybackAction.playbackDetail
+                    )
+                ) { detailStore in
+                    PlaybackDetailView(store: detailStore)
+                }
+            }
             .onAppear {
                 viewStore.send(.onAppear)
+            }
+            .onTapGesture {
+                viewStore.send(.setIsDetailPresented(true))
             }
         }
     }
@@ -68,7 +87,12 @@ struct PlaybackView_Previews: PreviewProvider {
             store: Store (
                 initialState: AppState(
                     playback: PlaybackState(
-                        songArtwork: UIImage(named: "Afte Hours"),
+                        properties: PlaybackProperties(
+                            playbackState: .playing,
+                            repeatMode: .none,
+                            shuffleMode: .default,
+                            nowPlayingItem: LibraryItem.playlistItems.first!
+                        ),
                         tabBarHeight: 49,
                         tabBarOffset: 34
                     )

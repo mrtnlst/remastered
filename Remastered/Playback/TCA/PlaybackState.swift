@@ -8,9 +8,19 @@
 import UIKit
 
 struct PlaybackState: Equatable {
-    var isPlaying: Bool = false
-    var songTitle: String? = nil
-    var songArtwork: UIImage? = nil
+    var properties: PlaybackProperties?
+    var playbackDetail: PlaybackDetailState?
     var tabBarHeight: CGFloat = 0
     var tabBarOffset: CGFloat = 0
+    var isDetailPresented: Bool = false
+}
+
+extension PlaybackState {
+    var isPlaying: Bool {
+        properties?.playbackState == .playing
+    }
+    
+    var libraryItem: LibraryItem? {
+        properties?.nowPlayingItem
+    }
 }
