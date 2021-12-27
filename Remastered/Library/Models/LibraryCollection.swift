@@ -139,6 +139,21 @@ extension LibraryCollection {
         )
     ]
     
+    static let exampleGenres: [LibraryCollection] = [
+        LibraryCollection(
+            type: .genres,
+            title: "Pop",
+            artist: "\(LibraryItem.playlistItems.count) songs",
+            id: "AABB-CCDD-EEFF-QQBDM",
+            dateAdded: Date(timeIntervalSince1970: 1615037320),
+            lastPlayed: Date(timeIntervalSince1970: 1616678920),
+            isFavorite: false,
+            isCloudItem: false,
+            artwork: nil,
+            items: LibraryItem.exampleItems
+        )
+    ]
+    
     static let exampleAlbums: [LibraryCollection] = [
         LibraryCollection(
             type: .albums,

@@ -60,31 +60,11 @@ extension LibraryItemView {
             Divider()
             LazyVStack {
                 ForEach(items) { item in
-                    VStack {
-                        Button {
-                            ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
-                        } label: {
-                            HStack {
-                                // TODO: The width should be calculated
-                                Text("\(item.track)")
-                                    .font(.body)
-                                    .foregroundColor(.secondary)
-                                    .frame(maxWidth: 30)
-                                Text(item.title)
-                                    .font(.body)
-                                    .lineLimit(1)
-                                    .foregroundColor(.primary)
-                                Spacer(minLength: 16)
-                                Spacer()
-                                Text(item.formattedDuration)
-                                    .font(.body)
-                                    .foregroundColor(.secondary)
-                                    .padding(.trailing, 16)
-                            }
-                        }
-                        .padding(.vertical, 4)
-                        Divider()
-                            .padding(.leading, 28)
+                    switch collection.type {
+                    case .albums:
+                        albumRow(for: item, in: collection)
+                    default:
+                        genericRow(for: item, in: collection)
                     }
                 }
             }
@@ -104,10 +84,83 @@ extension LibraryItemView {
             }
         }
     }
+    
+    @ViewBuilder func genericRow(for item: LibraryItem, in collection: LibraryCollection) -> some View {
+        VStack(spacing: 4) {
+            Button {
+                ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
+            } label: {
+                HStack {
+                    ArtworkView(
+                        with: .item(item),
+                        cornerRadius: 4
+                    )
+                        .frame(maxHeight: 40)
+                    VStack(alignment: .leading) {
+                        Text(item.title)
+                            .font(.body)
+                            .lineLimit(1)
+                            .foregroundColor(.primary)
+                        if let artist = item.artist {
+                            Text("by \(artist)")
+                                .font(.caption)
+                                .lineLimit(1)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    Spacer(minLength: 16)
+                    Spacer()
+                    Text(item.formattedDuration)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .padding(.trailing, 16)
+                }
+            }
+            Divider()
+                .padding(.leading, 28)
+        }
+    }
+    
+    @ViewBuilder func albumRow(for item: LibraryItem, in collection: LibraryCollection) -> some View {
+        VStack(spacing: 8) {
+            Button {
+                ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
+            } label: {
+                HStack {
+                    // TODO: The width should be calculated
+                    Text("\(item.track)")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: 20)
+                    Text(item.title)
+                        .font(.body)
+                        .lineLimit(1)
+                        .foregroundColor(.primary)
+                    Spacer(minLength: 16)
+                    Spacer()
+                    Text(item.formattedDuration)
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .padding(.trailing, 16)
+                }
+            }
+            Divider()
+                .padding(.leading, 28)
+        }
+    }
 }
 
 struct LibraryItemView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
+            LibraryItemView(
+                store: Store(
+                    initialState: LibraryItemState(collection: LibraryCollection.examplePlaylists.last!),
+                    reducer: libraryItemReducer,
+                    environment: LibraryItemEnvironment()
+                )
+            )
+        }
         NavigationView {
             LibraryItemView(
                 store: Store(

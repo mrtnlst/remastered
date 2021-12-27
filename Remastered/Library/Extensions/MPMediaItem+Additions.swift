@@ -17,6 +17,6 @@ extension MPMediaItem {
         return (value(forProperty: idProperty) as? NSNumber)?.stringValue
     }
     var itemArtwork: UIImage? {
-        return artwork?.image(at: CGSize(width: 100, height: 100))
+        return artwork?.image(at: CGSize(width: 180, height: 180))
     }
 }

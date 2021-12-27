@@ -22,10 +22,14 @@ struct PlaybackDetailView: View {
                         .foregroundColor(.secondary)
                         .padding(.vertical, 20)
                     Text(viewStore.libraryItem?.title ?? "None")
-                        .font(.headline)
+                        .font(.title3)
+                        .bold()
+                        .foregroundColor(.primary)
+                        .padding(.horizontal, 16)
+                        .multilineTextAlignment(.center)
                     if let artist = viewStore.libraryItem?.artist {
                         Text("by \(artist)")
-                            .font(.subheadline)
+                            .font(.caption)
                             .foregroundColor(.secondary)
                     }
                     ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 16)
@@ -41,6 +45,7 @@ struct PlaybackDetailView: View {
                         Button { viewStore.send(.togglePlayback) } label: {
                             Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
                                 .font(.largeTitle)
+                                .frame(minWidth: 60)
                         }
                         Spacer()
                         Button { viewStore.send(.forward) } label: {
@@ -49,7 +54,7 @@ struct PlaybackDetailView: View {
                         }
                         Spacer()
                     }
-                    .padding(.bottom, 20)
+                    .frame(minHeight: 60)
                     HStack {
                         Spacer()
                         Button {

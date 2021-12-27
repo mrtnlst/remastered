@@ -37,6 +37,10 @@ struct ArtworkView: View {
                 default:
                     tiledArtworkView(for: artworks, with: cornerRadius)
                 }
+            } else if collection?.type == .genres {
+                EmptyView()
+            } else {
+                placeholderArtworkView(with: cornerRadius)
             }
         case let .item(item):
             if let artwork = item?.artwork() {
@@ -86,7 +90,7 @@ struct ArtworkView: View {
     @ViewBuilder func placeholderArtworkView(
         with cornerRadius: CGFloat
     ) -> some View {
-        Image(systemName: "questionmark.square.dashed")
+        Image(systemName: "questionmark.square.fill")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(cornerRadius)

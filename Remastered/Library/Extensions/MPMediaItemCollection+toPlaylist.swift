@@ -36,6 +36,7 @@ extension MPMediaItemCollection {
                     return LibraryItem(
                         track: index + 1,
                         title: item.title ?? "",
+                        artist: item.artist ?? "",
                         id: id,
                         albumID: item.albumPersistentID,
                         duration: item.playbackDuration,

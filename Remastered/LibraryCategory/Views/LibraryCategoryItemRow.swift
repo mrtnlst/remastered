@@ -39,9 +39,14 @@ struct LibraryCategoryItemRow: View {
 
 struct LibraryCategoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        LibraryCategoryItemRow(
-            collection: LibraryCollection.examplePlaylists[0]
-        )
-            .padding(.horizontal)
+        VStack {
+            LibraryCategoryItemRow(
+                collection: LibraryCollection.examplePlaylists[0]
+            )
+            LibraryCategoryItemRow(
+                collection: LibraryCollection.exampleGenres[0]
+            )
+        }
+        .padding(.horizontal)
     }
 }

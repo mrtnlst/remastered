@@ -26,7 +26,6 @@ struct LibraryCategoryView: View {
                     gridView()
                 }
             }
-            .padding(.horizontal)
             .navigationBarTitle(viewStore.name)
             .toolbar { CategoryToolbar(displayStyle: $displayStyle) }
         }
@@ -50,6 +49,7 @@ extension LibraryCategoryView {
                 }
             }
         }
+        .padding(.horizontal)
     }
     
     @ViewBuilder func listView() -> some View {
@@ -67,6 +67,7 @@ extension LibraryCategoryView {
                 }
             }
         }
+        .padding(.horizontal)
     }
 }
 
