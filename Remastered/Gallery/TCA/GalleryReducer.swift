@@ -37,14 +37,14 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
                     // This moves the currently selected item to the first position of discover,
                     // otherwise the `LibraryItemView` gets dismissed after a new fetch.
                     if let selectedItem = state.rows.first(where: { $0.id == type.uuid })?.selectedItem?.value,
-                       let index = items.firstIndex(of: selectedItem.item) {
+                       let index = items.firstIndex(of: selectedItem.collection) {
                         items.move(fromOffsets: .init(arrayLiteral: index), toOffset: 0)
                     }
                 }
                 
                 let category = LibraryCategoryState(
                     id: type.uuid,
-                    items: .init(uniqueElements: items.map { LibraryItemState(item: $0, id: $0.id) }),
+                    items: .init(uniqueElements: items.map { LibraryItemState(collection: $0, id: $0.id) }),
                     name: type.rawValue
                 )
                 effects.append(

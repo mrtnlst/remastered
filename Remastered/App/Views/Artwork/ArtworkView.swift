@@ -9,24 +9,41 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ArtworkView: View {
-    let collection: LibraryCollection
+    enum ArtworkType {
+        case collection(LibraryCollection?)
+        case item(LibraryItem?)
+    }
+    
     let cornerRadius: CGFloat
+    let type: ArtworkType
+    
+    init(with type: ArtworkType, cornerRadius: CGFloat) {
+        self.type = type
+        self.cornerRadius = cornerRadius
+    }
   
     var body: some View {
-        if let artwork = collection.artwork() {
-            singleArtworkView(for: artwork, with: cornerRadius)
-        } else if collection.type == .playlists {
-            let artworks = collection.tiledArtworks()
-            switch artworks.count {
-            case 0:
-                placeholderArtworkView(with: cornerRadius)
-            case 1:
-                singleArtworkView(for: artworks[0], with: cornerRadius)
-            default:
-                tiledArtworkView(for: artworks, with: cornerRadius)
+        switch type {
+        case let .collection(collection):
+            if let artwork = collection?.artwork() {
+                singleArtworkView(for: artwork, with: cornerRadius)
+            } else if collection?.type == .playlists {
+                let artworks = collection?.tiledArtworks() ?? []
+                switch artworks.count {
+                case 0:
+                    placeholderArtworkView(with: cornerRadius)
+                case 1:
+                    singleArtworkView(for: artworks[0], with: cornerRadius)
+                default:
+                    tiledArtworkView(for: artworks, with: cornerRadius)
+                }
             }
-        } else {
-            placeholderArtworkView(with: cornerRadius)
+        case let .item(item):
+            if let artwork = item?.artwork() {
+                singleArtworkView(for: artwork, with: cornerRadius)
+            } else {
+                placeholderArtworkView(with: cornerRadius)
+            }
         }
     }
     
@@ -73,7 +90,7 @@ struct ArtworkView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(cornerRadius)
-            .foregroundColor(.primary)
+            .foregroundColor(.secondary)
     }
 }
 
@@ -81,23 +98,25 @@ struct ArtworkView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             ArtworkView(
-                collection: LibraryCollection.exampleAlbums.first!,
+                with: .collection(LibraryCollection.exampleAlbums.first!),
                 cornerRadius: 8
             )
             ArtworkView(
-                collection: LibraryCollection.exampleAlbums.last!,
+                with: .collection(LibraryCollection.exampleAlbums.last!),
                 cornerRadius: 8
             )
             ArtworkView(
-                collection: LibraryCollection.exampleAlbums[1],
+                with: .collection(LibraryCollection.exampleAlbums[1]),
                 cornerRadius: 8
             )
             ArtworkView(
-                collection: LibraryCollection(
-                    type: .genres,
-                    title: "",
-                    artist: "",
-                    dateAdded: Date()
+                with: .collection(
+                    LibraryCollection(
+                        type: .genres,
+                        title: "",
+                        artist: "",
+                        dateAdded: Date()
+                    )
                 ),
                 cornerRadius: 8
             )

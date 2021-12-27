@@ -18,10 +18,10 @@ let searchReducer = Reducer<SearchState, SearchAction, SearchEnvironment> { stat
             state.searchResults = []
             return .none
         }
-        let items = state.collections.map { LibraryItemState(item: $0, id: environment.uuid()) }
+        let items = state.collections.map { LibraryItemState(collection: $0, id: environment.uuid()) }
         let result = items.filter {
-            $0.item.title.lowercased().contains(state.searchText.lowercased()) ||
-            $0.item.subtitle.lowercased().contains(state.searchText.lowercased())
+            $0.collection.title.lowercased().contains(state.searchText.lowercased()) ||
+            $0.collection.subtitle.lowercased().contains(state.searchText.lowercased())
         }
         state.searchResults = IdentifiedArrayOf<LibraryItemState>(uniqueElements: result)
         return .none

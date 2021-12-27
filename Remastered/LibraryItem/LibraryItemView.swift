@@ -14,11 +14,11 @@ struct LibraryItemView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView(.vertical, showsIndicators: true) {
-                headerView(for: viewStore.item)
+                headerView(for: viewStore.collection)
                 playButton {
-                    viewStore.send(.didSelectItem(id: viewStore.item.persistentID, type: viewStore.item.type))
+                    viewStore.send(.didSelectItem(id: viewStore.collection.persistentID, type: viewStore.collection.type))
                 }
-                trackList(for: viewStore.item.items(), in: viewStore.item)
+                trackList(for: viewStore.collection.items(), in: viewStore.collection)
             }
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -48,7 +48,7 @@ extension LibraryItemView {
             Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            ArtworkView(collection: collection, cornerRadius: 8)
+            ArtworkView(with: .collection(collection), cornerRadius: 8)
                 .frame(maxHeight: 180)
                 .reflection(offsetY: 10)
         }
@@ -111,7 +111,7 @@ struct LibraryItemView_Previews: PreviewProvider {
         NavigationView {
             LibraryItemView(
                 store: Store(
-                    initialState: LibraryItemState(item: LibraryCollection.exampleAlbums.last!),
+                    initialState: LibraryItemState(collection: LibraryCollection.exampleAlbums.last!),
                     reducer: libraryItemReducer,
                     environment: LibraryItemEnvironment()
                 )

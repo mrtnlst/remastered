@@ -9,6 +9,8 @@ import Foundation
 
 enum PlaybackDetailAction: Equatable {
     case togglePlayback
+    case toggleShuffle
+    case toggleRepeat
     case forward
     case backward
     case receivePlaybackProperties(Result<PlaybackProperties, Never>)

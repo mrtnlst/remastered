@@ -12,7 +12,7 @@ struct LibraryCategoryItemRow: View {
     
     var body: some View {
         HStack {
-            ArtworkView(collection: collection, cornerRadius: 4)
+            ArtworkView(with: .collection(collection), cornerRadius: 4)
                 .frame(maxHeight: 50)
             VStack(alignment: .leading) {
                 Text(collection.title)

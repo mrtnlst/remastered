@@ -53,7 +53,7 @@ extension LibraryCategoryState {
                     uniqueElements: LibraryCollection.exampleAlbums
                         .filter(GalleryCategoryType.discover.filterValue)
                         .sorted(by: GalleryCategoryType.discover.sortOrder)
-                        .map { LibraryItemState(item: $0) }
+                        .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.discover.rawValue
             )
@@ -65,7 +65,7 @@ extension LibraryCategoryState {
                     uniqueElements: LibraryCollection.exampleAlbums
                         .filter(GalleryCategoryType.favorites.filterValue)
                         .sorted(by: GalleryCategoryType.favorites.sortOrder)
-                        .map { LibraryItemState(item: $0) }
+                        .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.favorites.rawValue
             )
@@ -77,7 +77,7 @@ extension LibraryCategoryState {
                     uniqueElements: LibraryCollection.exampleAlbums
                         .filter(GalleryCategoryType.recentlyAdded.filterValue)
                         .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
-                        .map { LibraryItemState(item: $0) }
+                        .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.recentlyAdded.rawValue
             )
@@ -89,7 +89,7 @@ extension LibraryCategoryState {
                     uniqueElements: LibraryCollection.exampleAlbums
                         .filter(GalleryCategoryType.recentlyAdded.filterValue)
                         .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
-                        .map { LibraryItemState(item: $0) }
+                        .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.recentlyAdded.rawValue
             )
@@ -98,34 +98,34 @@ extension LibraryCategoryState {
     
     static let exampleLibraryAlbums: IdentifiedArrayOf<LibraryItemState> = [
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[0]
+            collection: LibraryCollection.exampleAlbums[0]
         ),
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[1]
+            collection: LibraryCollection.exampleAlbums[1]
         ),
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[2]
+            collection: LibraryCollection.exampleAlbums[2]
         ),
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[3]
+            collection: LibraryCollection.exampleAlbums[3]
         ),
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[4]
+            collection: LibraryCollection.exampleAlbums[4]
         ),
         LibraryItemState(
-            item: LibraryCollection.exampleAlbums[5]
+            collection: LibraryCollection.exampleAlbums[5]
         )
     ]
     
     static let exampleLibraryPlaylists: IdentifiedArrayOf<LibraryItemState> = [
         LibraryItemState(
-            item: LibraryCollection.examplePlaylists[0]
+            collection: LibraryCollection.examplePlaylists[0]
         )
     ]
     
     static let exampleLibraryArtists: IdentifiedArrayOf<LibraryItemState> = [
         LibraryItemState(
-            item: LibraryCollection.exampleArtists[0]
+            collection: LibraryCollection.exampleArtists[0]
         )
     ]
 }

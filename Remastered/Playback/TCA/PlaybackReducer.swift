@@ -19,6 +19,8 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
                     mainQueue: $0.mainQueue,
                     playbackProperties: $0.playbackProperties,
                     togglePlayback: $0.togglePlayback,
+                    toggleShuffle: $0.toggleShuffle,
+                    toggleRepeat: $0.toggleRepeat,
                     forward: $0.forward,
                     backward: $0.backward
                 )

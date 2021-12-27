@@ -13,6 +13,8 @@ protocol PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never>
     func playbackProperties() -> Effect<PlaybackProperties, Never>
     func togglePlayback() -> Effect<Never, Never>
+    func toggleShuffle() -> Effect<Never, Never>
+    func toggleRepeat() -> Effect<Never, Never>
     func forward() -> Effect<Never, Never>
     func backward() -> Effect<Never, Never>
 }
@@ -37,6 +39,14 @@ extension DefaultPlaybackService: PlaybackService {
     }
     
     func togglePlayback() -> Effect<Never, Never> {
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func toggleShuffle() -> Effect<Never, Never> {
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func toggleRepeat() -> Effect<Never, Never> {
         return Empty().eraseToAnyPublisher().eraseToEffect()
     }
     
@@ -103,6 +113,7 @@ extension DefaultPlaybackService: PlaybackService {
             libraryItem = LibraryItem(
                 track: item.albumTrackNumber,
                 title: item.title ?? "",
+                artist: item.artist,
                 id: id,
                 albumID: item.albumPersistentID,
                 duration: item.playbackDuration,
@@ -132,13 +143,41 @@ extension DefaultPlaybackService: PlaybackService {
         return Empty().eraseToAnyPublisher().eraseToEffect()
     }
     
+    func toggleShuffle() -> Effect<Never, Never> {
+        switch MPMusicPlayerController.systemMusicPlayer.shuffleMode {
+        case .off:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
+        default:
+            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+        }
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func toggleRepeat() -> Effect<Never, Never> {
+        switch MPMusicPlayerController.systemMusicPlayer.repeatMode {
+        case .none:
+            MPMusicPlayerController.systemMusicPlayer.repeatMode = .all
+        case .all:
+            MPMusicPlayerController.systemMusicPlayer.repeatMode = .one
+        case .one, .`default`:
+            MPMusicPlayerController.systemMusicPlayer.repeatMode = .none
+        @unknown default:
+            MPMusicPlayerController.systemMusicPlayer.repeatMode = .none
+        }
+        return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
     func forward() -> Effect<Never, Never> {
         MPMusicPlayerController.systemMusicPlayer.skipToNextItem()
         return Empty().eraseToAnyPublisher().eraseToEffect()
     }
     
     func backward() -> Effect<Never, Never> {
-        MPMusicPlayerController.systemMusicPlayer.skipToPreviousItem()
+        if MPMusicPlayerController.systemMusicPlayer.currentPlaybackTime < 5 {
+            MPMusicPlayerController.systemMusicPlayer.skipToPreviousItem()
+        } else {
+            MPMusicPlayerController.systemMusicPlayer.skipToBeginning()
+        }
         return Empty().eraseToAnyPublisher().eraseToEffect()
     }
 }

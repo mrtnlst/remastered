@@ -40,7 +40,7 @@ struct ReflectionViewModifier_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(ColorScheme.allCases, id: \.self) {
             HStack {
-                if let artwork = LibraryCategoryState.exampleLibraryAlbums.first?.item.artwork() {
+                if let artwork = LibraryCategoryState.exampleLibraryAlbums.first?.collection.artwork() {
                     Image(uiImage: artwork)
                         .resizable()
                         .aspectRatio(contentMode: .fit)

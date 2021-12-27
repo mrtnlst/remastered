@@ -48,7 +48,7 @@ extension SearchListView {
                         send: SearchAction.setItemNavigation(selection:)
                     )
                 ) {
-                    LibraryCategoryItemRow(collection: searchResult.item)
+                    LibraryCategoryItemRow(collection: searchResult.collection)
                 }
             }
         }

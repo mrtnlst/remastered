@@ -58,6 +58,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                     mainQueue: $0.mainQueue,
                     playbackProperties: $0.playbackService.playbackProperties,
                     togglePlayback: $0.playbackService.togglePlayback,
+                    toggleShuffle: $0.playbackService.toggleShuffle,
+                    toggleRepeat: $0.playbackService.toggleRepeat,
                     forward: $0.playbackService.forward,
                     backward: $0.playbackService.backward
                 )

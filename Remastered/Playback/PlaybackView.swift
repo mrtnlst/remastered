@@ -16,17 +16,8 @@ struct PlaybackView: View {
             VStack {
                 Spacer()
                 HStack {
-                    // TODO: use artwork view
-                    if let artwork = viewStore.libraryItem?.artwork() {
-                        Image(uiImage: artwork)
-                            .resizable()
-                            .cornerRadius(4)
-                            .aspectRatio(contentMode: .fit)
-                            .padding(.vertical, 8)
-                            
-                    } else {
-                        Image(systemName: "square.fill")
-                    }
+                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 4)
+                        .padding(.vertical, 8)
                     Text(viewStore.libraryItem?.title ?? "None")
                         .foregroundColor(.secondary)
                         .font(Font.caption)
@@ -91,7 +82,7 @@ struct PlaybackView_Previews: PreviewProvider {
                             playbackState: .playing,
                             repeatMode: .none,
                             shuffleMode: .default,
-                            nowPlayingItem: LibraryItem.playlistItems.first!
+                            nowPlayingItem: nil
                         ),
                         tabBarHeight: 49,
                         tabBarOffset: 34

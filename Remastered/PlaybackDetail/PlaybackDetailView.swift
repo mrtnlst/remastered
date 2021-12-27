@@ -15,52 +15,61 @@ struct PlaybackDetailView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView(.vertical, showsIndicators: true) {
-                VStack(spacing: 20) {
+                VStack {
                     Image(systemName: "minus")
                         .imageScale(.large)
                         .font(Font.title.weight(.heavy))
                         .foregroundColor(.secondary)
-                        .padding(.top, 20)
+                        .padding(.vertical, 20)
                     Text(viewStore.libraryItem?.title ?? "None")
                         .font(.headline)
-                    // TODO: use artwork view
-                    if let artwork = viewStore.libraryItem?.artwork() {
-                        Image(uiImage: artwork)
-                            .resizable()
-                            .cornerRadius(8)
-                            .aspectRatio(contentMode: .fit)
-                            .padding()
+                    if let artist = viewStore.libraryItem?.artist {
+                        Text("by \(artist)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
                     }
-                    Text("by Artist")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    ProgressView()
-                        .progressViewStyle(LinearProgressViewStyle())
+                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 16)
+                        .reflection(offsetY: 10)
+                        .padding(.bottom, 40)
                     HStack {
                         Spacer()
-                        Button { viewStore.send(.backward) } label: { Image(systemName: "backward.fill") }
-                        Spacer()
-                        Button { viewStore.send(.togglePlayback) } label: {
-                            Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
+                        Button { viewStore.send(.backward) } label: {
+                            Image(systemName: "backward.fill")
                                 .font(.title)
                         }
                         Spacer()
-                        Button { viewStore.send(.forward) } label: { Image(systemName: "forward.fill") }
+                        Button { viewStore.send(.togglePlayback) } label: {
+                            Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
+                                .font(.largeTitle)
+                        }
+                        Spacer()
+                        Button { viewStore.send(.forward) } label: {
+                            Image(systemName: "forward.fill")
+                                .font(.title)
+                        }
                         Spacer()
                     }
+                    .padding(.bottom, 20)
                     HStack {
                         Spacer()
-                        Button { } label: { Image(systemName: "shuffle") }
+                        Button {
+                            viewStore.send(.toggleShuffle)
+                        } label: {
+                            Image(systemName: "shuffle")
+                                .foregroundColor(viewStore.isShuffleOn ? .primary : .secondary)
+                        }
                         Spacer()
-                        Button { } label: { Image(systemName: "repeat") }
+                        Button {
+                            viewStore.send(.toggleRepeat)
+                        } label: {
+                            Image(systemName: viewStore.isRepeatOneOn ?  "repeat.1" : "repeat")
+                                .foregroundColor(viewStore.isRepeatOn ? .primary : .secondary)
+                        }
                         Spacer()
-                    }
-                    VStack {
-                        Slider(value: $volume, in: -100...100)
                     }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 32)
             .foregroundColor(.primary)
         }
     }
@@ -85,6 +94,8 @@ struct PlaybackDetailView_Previews: PreviewProvider {
                     mainQueue: .main,
                     playbackProperties: { return .none },
                     togglePlayback: { return .none },
+                    toggleShuffle: { return .none },
+                    toggleRepeat: { return .none },
                     forward: { return .none },
                     backward: { return .none }
                 )

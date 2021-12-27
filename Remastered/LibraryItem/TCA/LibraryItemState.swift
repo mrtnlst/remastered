@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct LibraryItemState: Equatable, Identifiable {
-    var item: LibraryCollection
+    var collection: LibraryCollection
     var id: UUID = UUID()
 }
 

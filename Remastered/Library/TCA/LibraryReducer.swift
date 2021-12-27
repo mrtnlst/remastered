@@ -22,7 +22,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
             
             let itemStates: [LibraryItemState] = filteredCollections.map { collection in
                 LibraryItemState(
-                    item: collection,
+                    collection: collection,
                     id: environment.uuid()
                 )
             }

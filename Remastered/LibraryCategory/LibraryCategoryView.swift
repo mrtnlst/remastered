@@ -44,7 +44,7 @@ extension LibraryCategoryView {
                     LibraryItemView(store: libraryStore)
                 } label: {
                     ArtworkView(
-                        collection: ViewStore(libraryStore).item,
+                        with: .collection(ViewStore(libraryStore).collection),
                         cornerRadius: 8
                     )
                 }
@@ -62,7 +62,7 @@ extension LibraryCategoryView {
                     LibraryItemView(store: store)
                 } label: {
                     WithViewStore(store) { viewStore in
-                        LibraryCategoryItemRow(collection: viewStore.item)
+                        LibraryCategoryItemRow(collection: viewStore.collection)
                     }
                 }
             }

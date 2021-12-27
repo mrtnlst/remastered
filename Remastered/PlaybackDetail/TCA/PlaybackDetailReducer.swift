@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import MediaPlayer
 
 let playbackDetailReducer = Reducer<PlaybackDetailState, PlaybackDetailAction, PlaybackDetailEnvironment> { state, action, environment in
     switch action {
@@ -16,6 +17,16 @@ let playbackDetailReducer = Reducer<PlaybackDetailState, PlaybackDetailAction, P
     case .togglePlayback:
         return environment
             .togglePlayback()
+            .fireAndForget()
+        
+    case .toggleRepeat:
+        return environment
+            .toggleRepeat()
+            .fireAndForget()
+    
+    case .toggleShuffle:
+        return environment
+            .toggleShuffle()
             .fireAndForget()
         
     case .forward:

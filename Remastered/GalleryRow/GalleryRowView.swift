@@ -75,7 +75,7 @@ extension GalleryRowView {
                                 )
                             ) {
                                 ArtworkView(
-                                    collection: item.item,
+                                    with: .collection(item.collection),
                                     cornerRadius: 8
                                 )
                                     .frame(minHeight: 80, maxHeight: 80)
