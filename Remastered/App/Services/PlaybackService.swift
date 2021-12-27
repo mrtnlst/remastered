@@ -61,49 +61,57 @@ extension DefaultPlaybackService: PlaybackService {
 #else
 extension DefaultPlaybackService: PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never> {
-        MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-        var predicate: MPMediaPropertyPredicate
-        
-        switch category {
-        case .albums:
+        return Future<Void, Never> { promise in
             MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-            predicate = MPMediaPropertyPredicate(value: id,
-                                                 forProperty: MPMediaItemPropertyAlbumPersistentID,
-                                                 comparisonType: MPMediaPredicateComparison.equalTo)
-        case .playlists:
-            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-            predicate = MPMediaPropertyPredicate(value: UInt64(id),
-                                                 forProperty: MPMediaPlaylistPropertyPersistentID,
-                                                 comparisonType: MPMediaPredicateComparison.equalTo)
-        case .artists:
-            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
-            predicate = MPMediaPropertyPredicate(value: id,
-                                                 forProperty: MPMediaItemPropertyArtistPersistentID,
-                                                 comparisonType: MPMediaPredicateComparison.equalTo)
-        case .genres:
-            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
-            predicate = MPMediaPropertyPredicate(value: id,
-                                                 forProperty: MPMediaItemPropertyGenrePersistentID,
-                                                 comparisonType: MPMediaPredicateComparison.equalTo)
-        case .songs:
-            MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
-            predicate = MPMediaPropertyPredicate(value: id,
-                                                 forProperty: MPMediaItemPropertyPersistentID,
-                                                 comparisonType: MPMediaPredicateComparison.equalTo)
+            var predicate: MPMediaPropertyPredicate
+            
+            switch category {
+            case .albums:
+                MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+                predicate = MPMediaPropertyPredicate(value: id,
+                                                     forProperty: MPMediaItemPropertyAlbumPersistentID,
+                                                     comparisonType: MPMediaPredicateComparison.equalTo)
+            case .playlists:
+                MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+                predicate = MPMediaPropertyPredicate(value: UInt64(id),
+                                                     forProperty: MPMediaPlaylistPropertyPersistentID,
+                                                     comparisonType: MPMediaPredicateComparison.equalTo)
+            case .artists:
+                MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
+                predicate = MPMediaPropertyPredicate(value: id,
+                                                     forProperty: MPMediaItemPropertyArtistPersistentID,
+                                                     comparisonType: MPMediaPredicateComparison.equalTo)
+            case .genres:
+                MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
+                predicate = MPMediaPropertyPredicate(value: id,
+                                                     forProperty: MPMediaItemPropertyGenrePersistentID,
+                                                     comparisonType: MPMediaPredicateComparison.equalTo)
+            case .songs:
+                MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
+                predicate = MPMediaPropertyPredicate(value: id,
+                                                     forProperty: MPMediaItemPropertyPersistentID,
+                                                     comparisonType: MPMediaPredicateComparison.equalTo)
+            }
+            
+            let filter: Set<MPMediaPropertyPredicate> = [predicate]
+            let query = MPMediaQuery(filterPredicates: filter)
+            
+            let descriptor = MPMusicPlayerMediaItemQueueDescriptor(query: query)
+            if let startItem = query.items?.first(where: { $0.localItemID == startItem }) {
+                descriptor.startItem = startItem
+            }
+            
+            MPMusicPlayerController.systemMusicPlayer.setQueue(with: descriptor)
+            MPMusicPlayerController.systemMusicPlayer.prepareToPlay { error in
+                if error == nil {
+                    MPMusicPlayerController.systemMusicPlayer.play()
+                }
+                promise(.success(()))
+            }
         }
-        
-        let filter: Set<MPMediaPropertyPredicate> = [predicate]
-        let query = MPMediaQuery(filterPredicates: filter)
-        
-        let descriptor = MPMusicPlayerMediaItemQueueDescriptor(query: query)
-        if let startItem = query.items?.first(where: { $0.localItemID == startItem }) {
-            descriptor.startItem = startItem
-        }
-
-        MPMusicPlayerController.systemMusicPlayer.setQueue(with: descriptor)
-        MPMusicPlayerController.systemMusicPlayer.prepareToPlay()
-        MPMusicPlayerController.systemMusicPlayer.play()
-        return Empty().eraseToAnyPublisher().eraseToEffect()
+        .eraseToAnyPublisher()
+        .ignoreOutput()
+        .eraseToEffect()
     }
     
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
