@@ -20,25 +20,26 @@ final class DefaultLibraryService: LibraryService {
             #if targetEnvironment(simulator)
             promise(.success(LibraryCollection.exampleAlbums))
             #else
-            let query = MPMediaQuery()
             var collections: [LibraryCollection] = []
             
-            query.groupingType = .album
-            let albums = query.collections?.uniques().compactMap { $0.toAlbum() } ?? []
+            let albumQuery = MPMediaQuery.albums()
+            albumQuery.groupingType = .album
+            let albums = albumQuery.collections?.uniques().compactMap { $0.toAlbum() } ?? []
             collections.append(contentsOf: albums)
             
-            query.groupingType = .playlist
-            let playlists = query.collections?.uniques().compactMap { $0.toPlaylist() } ?? []
+            let playlistQuery = MPMediaQuery.playlists()
+            playlistQuery.groupingType = .playlist
+            let playlists = playlistQuery.collections?.uniques().compactMap { $0.toPlaylist() } ?? []
             collections.append(contentsOf: playlists)
             
-            query.groupingType = .genre
-            let genres = query.collections?.uniques().compactMap { $0.toGenre() } ?? []
+            let genreQuery = MPMediaQuery.genres()
+            genreQuery.groupingType = .genre
+            let genres = genreQuery.collections?.uniques().compactMap { $0.toGenre() } ?? []
             collections.append(contentsOf: genres)
             
-            query.groupingType = .title
-            
-            query.groupingType = .albumArtist
-            let artists = query.collections?.uniques().compactMap { $0.toArtist() } ?? []
+            let artistQuery = MPMediaQuery.artists()
+            artistQuery.groupingType = .albumArtist
+            let artists = artistQuery.collections?.uniques().compactMap { $0.toArtist() } ?? []
             collections.append(contentsOf: artists)
             
             promise(.success(collections))
