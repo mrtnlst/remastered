@@ -13,7 +13,7 @@ struct GalleryRowView: View {
     
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack(alignment: .center) {
+            VStack(alignment: .center, spacing: 0) {
                 galleryRowHeader(for: viewStore.category)
                 galleryRowBody(for: viewStore.category)
             }
@@ -58,7 +58,7 @@ extension GalleryRowView {
         WithViewStore(store) { viewStore in
             VStack(alignment: .center) {
                 ScrollView(.horizontal, showsIndicators: true) {
-                    LazyHGrid(rows: [GridItem(.adaptive(minimum: 50))], alignment: .center, spacing: 16) {
+                    LazyHGrid(rows: [GridItem(.adaptive(minimum: 50))], alignment: .center, spacing: 0) {
                         ForEach(category.items) { item in
                             NavigationLink(
                                 destination: IfLetStore(
@@ -76,10 +76,12 @@ extension GalleryRowView {
                             ) {
                                 ArtworkView(
                                     with: .collection(item.collection),
-                                    cornerRadius: 8
+                                    cornerRadius: 8,
+                                    shadowRadius: 2
                                 )
                                     .frame(minHeight: 80, maxHeight: 80)
                                     .reflection(offsetY: 5)
+                                    .padding(8)
                             }
                         }
                     }
@@ -96,7 +98,7 @@ struct GalleryRowView_Previews: PreviewProvider {
         ScrollView(.vertical, showsIndicators: true) {
             GalleryRowView(
                 store: Store(
-                    initialState: LibraryCategoryState.exampleGalleryRows[1],
+                    initialState: LibraryCategoryState.exampleGalleryRows[0],
                     reducer: galleryRowReducer,
                     environment: GalleryRowEnvironment())
             )

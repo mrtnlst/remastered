@@ -57,6 +57,10 @@
 		5B97D277276648D100260593 /* CategoryDisplayStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97D276276648D100260593 /* CategoryDisplayStyle.swift */; };
 		5B97D27A27664DCE00260593 /* CategoryToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97D27927664DCE00260593 /* CategoryToolbar.swift */; };
 		5B97D27D2767BCC300260593 /* LibraryCategoryItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97D27C2767BCC300260593 /* LibraryCategoryItemRow.swift */; };
+		5BA87CF5277DA70C001FA7C5 /* Sequence+uniques.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA87CF4277DA70C001FA7C5 /* Sequence+uniques.swift */; };
+		5BA87CF7277DA752001FA7C5 /* LibraryId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA87CF6277DA752001FA7C5 /* LibraryId.swift */; };
+		5BA87CF9277DA758001FA7C5 /* LibraryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA87CF8277DA758001FA7C5 /* LibraryAlbum.swift */; };
+		5BA87CFB277DA762001FA7C5 /* LibraryArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA87CFA277DA762001FA7C5 /* LibraryArtist.swift */; };
 		5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */; };
 		5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE42275532BC007FFA24 /* LibraryItem.swift */; };
 		5BBAEE49275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE48275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift */; };
@@ -79,9 +83,9 @@
 		5BF34E03276FA582005A79D7 /* PlaybackProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF34E02276FA582005A79D7 /* PlaybackProperties.swift */; };
 		5BFB003B2777C27700729740 /* GalleryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB00392777C27700729740 /* GalleryRowView.swift */; };
 		5BFB003C2777C27700729740 /* GalleryRowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB003A2777C27700729740 /* GalleryRowState.swift */; };
-		5BFB003E27786ABD00729740 /* GallerRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB003D27786ABD00729740 /* GallerRowAction.swift */; };
-		5BFB004027786AC500729740 /* GallerRowEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB003F27786AC500729740 /* GallerRowEnvironment.swift */; };
-		5BFB004227786AD400729740 /* GallerRowReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB004127786AD400729740 /* GallerRowReducer.swift */; };
+		5BFB003E27786ABD00729740 /* GalleryRowAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB003D27786ABD00729740 /* GalleryRowAction.swift */; };
+		5BFB004027786AC500729740 /* GalleryRowEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB003F27786AC500729740 /* GalleryRowEnvironment.swift */; };
+		5BFB004227786AD400729740 /* GalleryRowReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB004127786AD400729740 /* GalleryRowReducer.swift */; };
 		5BFB004627786E2E00729740 /* PlaybackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB004527786E2E00729740 /* PlaybackDetailView.swift */; };
 		5BFB004927786F3400729740 /* PlaybackDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB004827786F3400729740 /* PlaybackDetailState.swift */; };
 /* End PBXBuildFile section */
@@ -148,6 +152,10 @@
 		5B97D276276648D100260593 /* CategoryDisplayStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDisplayStyle.swift; sourceTree = "<group>"; };
 		5B97D27927664DCE00260593 /* CategoryToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryToolbar.swift; sourceTree = "<group>"; };
 		5B97D27C2767BCC300260593 /* LibraryCategoryItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCategoryItemRow.swift; sourceTree = "<group>"; };
+		5BA87CF4277DA70C001FA7C5 /* Sequence+uniques.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+uniques.swift"; sourceTree = "<group>"; };
+		5BA87CF6277DA752001FA7C5 /* LibraryId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryId.swift; sourceTree = "<group>"; };
+		5BA87CF8277DA758001FA7C5 /* LibraryAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAlbum.swift; sourceTree = "<group>"; };
+		5BA87CFA277DA762001FA7C5 /* LibraryArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryArtist.swift; sourceTree = "<group>"; };
 		5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItem+Additions.swift"; sourceTree = "<group>"; };
 		5BBAEE42275532BC007FFA24 /* LibraryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItem.swift; sourceTree = "<group>"; };
 		5BBAEE48275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toAlbum.swift"; sourceTree = "<group>"; };
@@ -170,9 +178,9 @@
 		5BF34E02276FA582005A79D7 /* PlaybackProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackProperties.swift; sourceTree = "<group>"; };
 		5BFB00392777C27700729740 /* GalleryRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryRowView.swift; sourceTree = "<group>"; };
 		5BFB003A2777C27700729740 /* GalleryRowState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryRowState.swift; sourceTree = "<group>"; };
-		5BFB003D27786ABD00729740 /* GallerRowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerRowAction.swift; sourceTree = "<group>"; };
-		5BFB003F27786AC500729740 /* GallerRowEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerRowEnvironment.swift; sourceTree = "<group>"; };
-		5BFB004127786AD400729740 /* GallerRowReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GallerRowReducer.swift; sourceTree = "<group>"; };
+		5BFB003D27786ABD00729740 /* GalleryRowAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowAction.swift; sourceTree = "<group>"; };
+		5BFB003F27786AC500729740 /* GalleryRowEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowEnvironment.swift; sourceTree = "<group>"; };
+		5BFB004127786AD400729740 /* GalleryRowReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRowReducer.swift; sourceTree = "<group>"; };
 		5BFB004527786E2E00729740 /* PlaybackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDetailView.swift; sourceTree = "<group>"; };
 		5BFB004827786F3400729740 /* PlaybackDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackDetailState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,6 +318,9 @@
 		5B38CEF427402464003376CC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5BA87CF8277DA758001FA7C5 /* LibraryAlbum.swift */,
+				5BA87CFA277DA762001FA7C5 /* LibraryArtist.swift */,
+				5BA87CF6277DA752001FA7C5 /* LibraryId.swift */,
 				5BBAEE42275532BC007FFA24 /* LibraryItem.swift */,
 				5B38CEF2274023D9003376CC /* LibraryCollection.swift */,
 			);
@@ -326,6 +337,7 @@
 				5BBAEE4A275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift */,
 				5BBAEE4027552FB3007FFA24 /* MPMediaItem+Additions.swift */,
 				5B89EBBE27760048008CDA60 /* UUID+fromString.swift */,
+				5BA87CF4277DA70C001FA7C5 /* Sequence+uniques.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,9 +563,9 @@
 			isa = PBXGroup;
 			children = (
 				5BFB003A2777C27700729740 /* GalleryRowState.swift */,
-				5BFB003D27786ABD00729740 /* GallerRowAction.swift */,
-				5BFB003F27786AC500729740 /* GallerRowEnvironment.swift */,
-				5BFB004127786AD400729740 /* GallerRowReducer.swift */,
+				5BFB003D27786ABD00729740 /* GalleryRowAction.swift */,
+				5BFB003F27786AC500729740 /* GalleryRowEnvironment.swift */,
+				5BFB004127786AD400729740 /* GalleryRowReducer.swift */,
 			);
 			path = TCA;
 			sourceTree = "<group>";
@@ -687,7 +699,7 @@
 				5B5D06CA275255ED00966287 /* GalleryReducer.swift in Sources */,
 				5BFB003B2777C27700729740 /* GalleryRowView.swift in Sources */,
 				5B19D0752778F26C00381286 /* PlaybackDetailAction.swift in Sources */,
-				5BFB003E27786ABD00729740 /* GallerRowAction.swift in Sources */,
+				5BFB003E27786ABD00729740 /* GalleryRowAction.swift in Sources */,
 				5B38CEF3274023D9003376CC /* LibraryCollection.swift in Sources */,
 				5BFB004627786E2E00729740 /* PlaybackDetailView.swift in Sources */,
 				5BEA05D4276F6BEE0058E3CE /* PlayBackViewModifier.swift in Sources */,
@@ -696,10 +708,11 @@
 				5B19D0792778F27A00381286 /* PlaybackDetailReducer.swift in Sources */,
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
 				5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */,
-				5BFB004227786AD400729740 /* GallerRowReducer.swift in Sources */,
+				5BFB004227786AD400729740 /* GalleryRowReducer.swift in Sources */,
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
 				5BBAEE4B275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift in Sources */,
 				5BEA05C5276F5E920058E3CE /* PlaybackState.swift in Sources */,
+				5BA87CF5277DA70C001FA7C5 /* Sequence+uniques.swift in Sources */,
 				5B53F5F42753F5070022D57A /* LibraryItemAction.swift in Sources */,
 				5BEA05CA276F5EB50058E3CE /* TabBarProxy.swift in Sources */,
 				5BBAEE4F27582093007FFA24 /* MPMediaItemCollection+toGenre.swift in Sources */,
@@ -710,6 +723,7 @@
 				5B97D27D2767BCC300260593 /* LibraryCategoryItemRow.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
 				5BBAEE51275829C2007FFA24 /* LibraryCategoryType.swift in Sources */,
+				5BA87CFB277DA762001FA7C5 /* LibraryArtist.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
 				5B38CEE1273FDE7A003376CC /* AppReducer.swift in Sources */,
 				5B2757AA276E3D82004381E3 /* SearchState.swift in Sources */,
@@ -722,7 +736,7 @@
 				5B38CEEB2740232C003376CC /* LibraryEnvironment.swift in Sources */,
 				5B5E7C8C275D44BB0033E664 /* GalleryCategoryType.swift in Sources */,
 				5B53F5EC2753E4570022D57A /* LibraryCategoryReducer.swift in Sources */,
-				5BFB004027786AC500729740 /* GallerRowEnvironment.swift in Sources */,
+				5BFB004027786AC500729740 /* GalleryRowEnvironment.swift in Sources */,
 				5BFB003C2777C27700729740 /* GalleryRowState.swift in Sources */,
 				5B5D06C2275255CF00966287 /* GalleryView.swift in Sources */,
 				5B53F5F62753F51C0022D57A /* LibraryItemEnvironment.swift in Sources */,
@@ -740,10 +754,12 @@
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */,
 				5B53F5F82753F52D0022D57A /* LibraryItemReducer.swift in Sources */,
+				5BA87CF7277DA752001FA7C5 /* LibraryId.swift in Sources */,
 				5B38CEDB273FD959003376CC /* AuthorizationService.swift in Sources */,
 				5B38CEF627414213003376CC /* MPMediaItemCollection+Additions.swift in Sources */,
 				5B38CEED27402332003376CC /* LibraryReducer.swift in Sources */,
 				5B97D277276648D100260593 /* CategoryDisplayStyle.swift in Sources */,
+				5BA87CF9277DA758001FA7C5 /* LibraryAlbum.swift in Sources */,
 				5BEA05D0276F6B760058E3CE /* PlaybackReducer.swift in Sources */,
 				5B53F5ED2753E4570022D57A /* LibraryCategoryView.swift in Sources */,
 				5B5D06D0275280BE00966287 /* PlaybackService.swift in Sources */,
@@ -900,7 +916,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
 				DEVELOPMENT_TEAM = 4853CED358;
 				ENABLE_PREVIEWS = YES;
@@ -933,7 +949,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Remastered/Preview Content\"";
 				DEVELOPMENT_TEAM = 4853CED358;
 				ENABLE_PREVIEWS = YES;

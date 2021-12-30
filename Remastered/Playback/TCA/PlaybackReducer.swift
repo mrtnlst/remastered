@@ -14,15 +14,15 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
         .pullback(
             state: \.playbackDetail,
             action: /PlaybackAction.playbackDetail,
-            environment: {
+            environment: { env in
                 PlaybackDetailEnvironment(
-                    mainQueue: $0.mainQueue,
-                    playbackProperties: $0.playbackProperties,
-                    togglePlayback: $0.togglePlayback,
-                    toggleShuffle: $0.toggleShuffle,
-                    toggleRepeat: $0.toggleRepeat,
-                    forward: $0.forward,
-                    backward: $0.backward
+                    mainQueue: env.mainQueue,
+                    playbackProperties: env.playbackProperties,
+                    togglePlayback: env.togglePlayback,
+                    toggleShuffle: env.toggleShuffle,
+                    toggleRepeat: env.toggleRepeat,
+                    forward: env.forward,
+                    backward: env.backward
                 )
             }
         ),

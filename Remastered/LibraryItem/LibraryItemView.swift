@@ -16,7 +16,7 @@ struct LibraryItemView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 headerView(for: viewStore.collection)
                 playButton {
-                    viewStore.send(.didSelectItem(id: viewStore.collection.persistentID, type: viewStore.collection.type))
+                    viewStore.send(.didSelectItem(id: viewStore.collection.libraryId.persistentId, type: viewStore.collection.type))
                 }
                 trackList(for: viewStore.collection.items(), in: viewStore.collection)
             }
@@ -45,10 +45,10 @@ extension LibraryItemView {
                 .foregroundColor(.primary)
                 .padding(.horizontal, 16)
                 .multilineTextAlignment(.center)
-            Text(collection.type == .albums ? "by \(collection.subtitle)" : "\(collection.subtitle)")
+            Text(collection.type == .album ? "by \(collection.subtitle)" : "\(collection.subtitle)")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            ArtworkView(with: .collection(collection), cornerRadius: 8)
+            ArtworkView(with: .collection(collection), cornerRadius: 8, shadowRadius: 3)
                 .frame(maxHeight: 180)
                 .reflection(offsetY: 10)
         }
@@ -61,7 +61,7 @@ extension LibraryItemView {
             LazyVStack {
                 ForEach(items) { item in
                     switch collection.type {
-                    case .albums:
+                    case .album:
                         albumRow(for: item, in: collection)
                     default:
                         genericRow(for: item, in: collection)
@@ -88,12 +88,17 @@ extension LibraryItemView {
     @ViewBuilder func genericRow(for item: LibraryItem, in collection: LibraryCollection) -> some View {
         VStack(spacing: 4) {
             Button {
-                ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
+                ViewStore(store).send(.didSelectItem(
+                    id: collection.libraryId.persistentId,
+                    type: collection.type,
+                    startItem: item.libraryId.persistentId)
+                )
             } label: {
                 HStack {
                     ArtworkView(
                         with: .item(item),
-                        cornerRadius: 4
+                        cornerRadius: 4,
+                        shadowRadius: 2
                     )
                         .frame(maxHeight: 40)
                     VStack(alignment: .leading) {
@@ -102,7 +107,7 @@ extension LibraryItemView {
                             .lineLimit(1)
                             .foregroundColor(.primary)
                         if let artist = item.artist {
-                            Text("by \(artist)")
+                            Text("by \(artist.name)")
                                 .font(.caption)
                                 .lineLimit(1)
                                 .foregroundColor(.secondary)
@@ -117,14 +122,18 @@ extension LibraryItemView {
                 }
             }
             Divider()
-                .padding(.leading, 28)
+                .padding(.leading, 48)
         }
     }
     
     @ViewBuilder func albumRow(for item: LibraryItem, in collection: LibraryCollection) -> some View {
         VStack(spacing: 8) {
             Button {
-                ViewStore(store).send(.didSelectItem(id: collection.persistentID, type: collection.type, startItem: item.id))
+                ViewStore(store).send(.didSelectItem(
+                    id: collection.libraryId.persistentId,
+                    type: collection.type,
+                    startItem: item.libraryId.persistentId)
+                )
             } label: {
                 HStack {
                     // TODO: The width should be calculated

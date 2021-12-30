@@ -8,12 +8,11 @@
 import Foundation
 import MediaPlayer
 
-struct LibraryCollection: Identifiable {
+struct LibraryCollection {
+    let libraryId: LibraryId
     let type: LibraryCategoryType
     let title: String
     let subtitle: String
-    let id: UUID
-    let persistentID: String
     let dateAdded: Date
     let lastPlayed: Date
     let isFavorite: Bool
@@ -23,8 +22,7 @@ struct LibraryCollection: Identifiable {
     
     init?(
         type: LibraryCategoryType,
-        id: UUID,
-        persistentID: String,
+        libraryId: LibraryId,
         title: String,
         subtitle: String,
         dateAdded: Date,
@@ -37,8 +35,7 @@ struct LibraryCollection: Identifiable {
         self.type = type
         self.title = title
         self.subtitle = subtitle
-        self.id = id
-        self.persistentID = persistentID
+        self.libraryId = libraryId
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed
         self.isFavorite = isFavorite
@@ -46,6 +43,10 @@ struct LibraryCollection: Identifiable {
         self.artwork = artwork
         self.items = items
     }
+}
+
+extension LibraryCollection: Identifiable {
+    var id: UUID { libraryId.uuid }
 }
 
 extension LibraryCollection: Equatable {
@@ -64,7 +65,7 @@ extension LibraryCollection {
         var uniqueElements: [LibraryItem] = []
         for element in libraryItems {
             guard uniqueElements.count < 4 else { break }
-            if !uniqueElements.contains(where: { $0.albumID == element.albumID }),
+            if !uniqueElements.contains(where: { $0.album?.id.persistentId == element.album?.id.persistentId }),
                let artwork = element.artwork() {
                 uniqueElements.append(element)
                 artworks.append(artwork)
@@ -86,7 +87,7 @@ extension LibraryCollection {
     init(
         type: LibraryCategoryType,
         title: String,
-        artist: String,
+        subtitle: String,
         id: String = UUID().uuidString,
         dateAdded: Date,
         lastPlayed: Date? = nil,
@@ -97,9 +98,8 @@ extension LibraryCollection {
     ) {
         self.type = type
         self.title = title
-        self.subtitle = artist
-        self.id = UUID.customUUID(from: id)!
-        self.persistentID = id
+        self.subtitle = subtitle
+        self.libraryId = LibraryId(id)!
         self.dateAdded = dateAdded
         self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)
         self.isFavorite = isFavorite
@@ -112,9 +112,9 @@ extension LibraryCollection {
 extension LibraryCollection {
     static let examplePlaylists: [LibraryCollection] = [
         LibraryCollection(
-            type: .playlists,
+            type: .playlist,
             title: "Disco Hits with an ultra long title that creates a line break",
-            artist: "\(LibraryItem.playlistItems.count) songs",
+            subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQRR",
             dateAdded: Date(timeIntervalSince1970: 1633609912),
             lastPlayed: Date(timeIntervalSince1970: 1610026199),
@@ -126,9 +126,9 @@ extension LibraryCollection {
     
     static let exampleArtists: [LibraryCollection] = [
         LibraryCollection(
-            type: .artists,
+            type: .artist,
             title: "The Weeknd",
-            artist: "\(LibraryItem.playlistItems.count) songs",
+            subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQBDG",
             dateAdded: Date(timeIntervalSince1970: 1615037320),
             lastPlayed: Date(timeIntervalSince1970: 1616678920),
@@ -141,9 +141,9 @@ extension LibraryCollection {
     
     static let exampleGenres: [LibraryCollection] = [
         LibraryCollection(
-            type: .genres,
+            type: .genre,
             title: "Pop",
-            artist: "\(LibraryItem.playlistItems.count) songs",
+            subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQBDM",
             dateAdded: Date(timeIntervalSince1970: 1615037320),
             lastPlayed: Date(timeIntervalSince1970: 1616678920),
@@ -156,37 +156,38 @@ extension LibraryCollection {
     
     static let exampleAlbums: [LibraryCollection] = [
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "Organ",
-            artist: "Dimension",
+            subtitle: "Dimension",
             id: "AABB-CCDD-EEFF-GGHH",
             dateAdded: Date(timeIntervalSince1970: 1615037320),
             lastPlayed: Date(timeIntervalSince1970: 1616678920),
-            isFavorite: true, artwork: nil,
+            isFavorite: true,
+            artwork: UIImage(named: "Organ"),
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "Whenever You Need Somebody",
-            artist: "Rick Astley",
+            subtitle: "Rick Astley",
             id: "AABB-CCDD-EEFF-KKLL",
             dateAdded: Date(timeIntervalSince1970: 1615642120),
             artwork: UIImage(named: "Whenever You Need Somebody"),
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "Midnight Express",
-            artist: "Giorgio Moroder",
+            subtitle: "Giorgio Moroder",
             id: "AABB-CCDD-EEFF-LLMM",
             dateAdded: Date(timeIntervalSince1970: 1615642122),
             artwork: UIImage(named: "Midnight Express"),
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "After Hours",
-            artist: "The Weeknd",
+            subtitle: "The Weeknd",
             id: "AABB-CCDD-EEFF-MMNN",
             dateAdded: Date(timeIntervalSince1970: 1632227320),
             lastPlayed: Date(timeIntervalSince1970: 1636896520),
@@ -194,9 +195,9 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "Mosaik",
-            artist: "Camo & Krooked",
+            subtitle: "Camo & Krooked",
             id: "AABB-CCDD-EEFF-NNOO",
             dateAdded: Date(timeIntervalSince1970: 1602073720),
             lastPlayed: Date(timeIntervalSince1970: 1631276920),
@@ -204,9 +205,9 @@ extension LibraryCollection {
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(
-            type: .albums,
+            type: .album,
             title: "It's Album Time",
-            artist: "Todd Terje",
+            subtitle: "Todd Terje",
             id: "AABB-CCDD-EEFF-OOPP",
             dateAdded: Date(timeIntervalSince1970: 1633609720),
             lastPlayed: Date(timeIntervalSince1970: 1610026120),

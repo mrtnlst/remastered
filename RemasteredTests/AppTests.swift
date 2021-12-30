@@ -27,13 +27,17 @@ class AppTests: XCTestCase {
         )
                 
         store.send(.onAppear)
+        store.receive(.didBecomeActive)
         scheduler.advance()
         store.receive(.authorizationResponse(.success(true))) {
             $0.library = LibraryState()
-            $0.gallery = GalleryState()
+            $0.gallery = GalleryState(rows: GalleryState.initialRows)
+            $0.search = SearchState()
+            $0.playback = PlaybackState()
             $0.isAuthorized = true
         }
         store.receive(.fetch)
+        
     }
     
     func testAuthorizationFailure() {
@@ -51,10 +55,13 @@ class AppTests: XCTestCase {
         )
         
         store.send(.onAppear)
+        store.receive(.didBecomeActive)
         scheduler.advance()
         store.receive(.authorizationResponse(.failure(.authorizationFailed))) {
             $0.library = nil
             $0.gallery = nil
+            $0.playback = nil
+            $0.search = nil
             $0.isAuthorized = false
         }
     }

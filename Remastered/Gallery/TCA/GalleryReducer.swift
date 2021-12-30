@@ -27,7 +27,7 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
                 var items = Array(
                     collections
                         .filter(type.filterValue)
-                        .filter { $0.type == .albums || $0.type == .playlists }
+                        .filter { $0.type == .album || $0.type == .playlist }
                         .sorted(by: type.sortOrder)
                 )
                 guard !items.isEmpty else { return }

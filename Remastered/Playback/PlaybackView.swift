@@ -16,7 +16,7 @@ struct PlaybackView: View {
             VStack {
                 Spacer()
                 HStack {
-                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 4)
+                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 4, shadowRadius: 2)
                         .padding(.vertical, 8)
                     Text(viewStore.libraryItem?.title ?? "None")
                         .foregroundColor(.secondary)

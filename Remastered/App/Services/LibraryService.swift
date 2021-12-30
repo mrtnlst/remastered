@@ -24,21 +24,21 @@ final class DefaultLibraryService: LibraryService {
             var collections: [LibraryCollection] = []
             
             query.groupingType = .album
-            let albums = query.collections?.compactMap { $0.toAlbum() } ?? []
+            let albums = query.collections?.uniques().compactMap { $0.toAlbum() } ?? []
             collections.append(contentsOf: albums)
             
             query.groupingType = .playlist
-            let playlists = query.collections?.compactMap { $0.toPlaylist() } ?? []
+            let playlists = query.collections?.uniques().compactMap { $0.toPlaylist() } ?? []
             collections.append(contentsOf: playlists)
             
             query.groupingType = .genre
-            let genres = query.collections?.compactMap { $0.toGenre() } ?? []
+            let genres = query.collections?.uniques().compactMap { $0.toGenre() } ?? []
             collections.append(contentsOf: genres)
             
             query.groupingType = .title
             
             query.groupingType = .albumArtist
-            let artists = query.collections?.compactMap { $0.toArtist() } ?? []
+            let artists = query.collections?.uniques().compactMap { $0.toArtist() } ?? []
             collections.append(contentsOf: artists)
             
             promise(.success(collections))

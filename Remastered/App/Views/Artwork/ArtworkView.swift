@@ -15,11 +15,13 @@ struct ArtworkView: View {
     }
     
     let cornerRadius: CGFloat
+    let shadowRadius: CGFloat
     let type: ArtworkType
     
-    init(with type: ArtworkType, cornerRadius: CGFloat) {
+    init(with type: ArtworkType, cornerRadius: CGFloat, shadowRadius: CGFloat = 0) {
         self.type = type
         self.cornerRadius = cornerRadius
+        self.shadowRadius = shadowRadius
     }
   
     var body: some View {
@@ -27,7 +29,7 @@ struct ArtworkView: View {
         case let .collection(collection):
             if let artwork = collection?.artwork() {
                 singleArtworkView(for: artwork, with: cornerRadius)
-            } else if collection?.type == .playlists {
+            } else if collection?.type == .playlist {
                 let artworks = collection?.tiledArtworks() ?? []
                 switch artworks.count {
                 case 0:
@@ -37,7 +39,7 @@ struct ArtworkView: View {
                 default:
                     tiledArtworkView(for: artworks, with: cornerRadius)
                 }
-            } else if collection?.type == .genres {
+            } else if collection?.type == .genre {
                 EmptyView()
             } else {
                 placeholderArtworkView(with: cornerRadius)
@@ -59,6 +61,7 @@ struct ArtworkView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .cornerRadius(cornerRadius)
+            .shadow(radius: shadowRadius)
     }
     
     @ViewBuilder func tiledArtworkView(
@@ -85,6 +88,7 @@ struct ArtworkView: View {
             }
         }
         .cornerRadius(cornerRadius)
+        .shadow(radius: shadowRadius)
     }
     
     @ViewBuilder func placeholderArtworkView(
@@ -116,9 +120,9 @@ struct ArtworkView_Previews: PreviewProvider {
             ArtworkView(
                 with: .collection(
                     LibraryCollection(
-                        type: .genres,
+                        type: .genre,
                         title: "",
-                        artist: "",
+                        subtitle: "",
                         dateAdded: Date()
                     )
                 ),

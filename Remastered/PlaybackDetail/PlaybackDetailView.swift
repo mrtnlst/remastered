@@ -13,73 +13,79 @@ struct PlaybackDetailView: View {
     @State var volume: Double = 0
     
     var body: some View {
-        WithViewStore(store) { viewStore in
-            ScrollView(.vertical, showsIndicators: true) {
-                VStack {
-                    Image(systemName: "minus")
-                        .imageScale(.large)
-                        .font(Font.title.weight(.heavy))
-                        .foregroundColor(.secondary)
-                        .padding(.vertical, 20)
-                    Text(viewStore.libraryItem?.title ?? "None")
-                        .font(.title3)
-                        .bold()
-                        .foregroundColor(.primary)
-                        .padding(.horizontal, 16)
-                        .multilineTextAlignment(.center)
-                    if let artist = viewStore.libraryItem?.artist {
-                        Text("by \(artist)")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 16)
-                        .reflection(offsetY: 10)
-                        .padding(.bottom, 40)
-                    HStack {
-                        Spacer()
-                        Button { viewStore.send(.backward) } label: {
-                            Image(systemName: "backward.fill")
-                                .font(.title)
+        NavigationView {
+            WithViewStore(store) { viewStore in
+                ScrollView(.vertical, showsIndicators: true) {
+                    VStack {
+                        Text(viewStore.libraryItem?.title ?? "None")
+                            .font(.title3)
+                            .bold()
+                            .foregroundColor(.primary)
+                            .padding(.horizontal, 16)
+                            .multilineTextAlignment(.center)
+                        if let artist = viewStore.libraryItem?.artist {
+                            Text("by \(artist.name)")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
                         }
-                        Spacer()
-                        Button { viewStore.send(.togglePlayback) } label: {
-                            Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
-                                .font(.largeTitle)
-                                .frame(minWidth: 60)
+                        ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 16, shadowRadius: 3)
+                            .reflection(offsetY: 10)
+                            .padding(.bottom, 40)
+                            .padding(.horizontal, 16)
+                        HStack {
+                            Spacer()
+                            Button { viewStore.send(.backward) } label: {
+                                Image(systemName: "backward.fill")
+                                    .font(.title)
+                            }
+                            Spacer()
+                            Button { viewStore.send(.togglePlayback) } label: {
+                                Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
+                                    .font(.largeTitle)
+                                    .frame(minWidth: 60)
+                            }
+                            Spacer()
+                            Button { viewStore.send(.forward) } label: {
+                                Image(systemName: "forward.fill")
+                                    .font(.title)
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                        Button { viewStore.send(.forward) } label: {
-                            Image(systemName: "forward.fill")
-                                .font(.title)
+                        .frame(minHeight: 60)
+                        HStack {
+                            Spacer()
+                            Button {
+                                viewStore.send(.toggleShuffle)
+                            } label: {
+                                Image(systemName: "shuffle")
+                                    .foregroundColor(viewStore.isShuffleOn ? .primary : .secondary)
+                            }
+                            Spacer()
+                            Button {
+                                viewStore.send(.toggleRepeat)
+                            } label: {
+                                Image(systemName: viewStore.isRepeatOneOn ?  "repeat.1" : "repeat")
+                                    .foregroundColor(viewStore.isRepeatOn ? .primary : .secondary)
+                            }
+                            Spacer()
                         }
-                        Spacer()
-                    }
-                    .frame(minHeight: 60)
-                    HStack {
-                        Spacer()
-                        Button {
-                            viewStore.send(.toggleShuffle)
-                        } label: {
-                            Image(systemName: "shuffle")
-                                .foregroundColor(viewStore.isShuffleOn ? .primary : .secondary)
-                        }
-                        Spacer()
-                        Button {
-                            viewStore.send(.toggleRepeat)
-                        } label: {
-                            Image(systemName: viewStore.isRepeatOneOn ?  "repeat.1" : "repeat")
-                                .foregroundColor(viewStore.isRepeatOn ? .primary : .secondary)
-                        }
-                        Spacer()
                     }
                 }
+                .padding(.horizontal, 16)
+                .foregroundColor(.primary)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Image(systemName: "minus")
+                            .imageScale(.large)
+                            .font(Font.title.weight(.heavy))
+                            .foregroundColor(.secondary)
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
             }
-            .padding(.horizontal, 32)
-            .foregroundColor(.primary)
         }
     }
 }
-
 
 struct PlaybackDetailView_Previews: PreviewProvider {
     

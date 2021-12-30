@@ -9,10 +9,7 @@ import CryptoKit
 import Foundation
 
 extension UUID {
-    static func customUUID(from string: String?) -> UUID? {
-        guard let string = string else {
-            return nil
-        }
+    static func customUUID(from string: String) -> UUID {
         let namespace = "com.martinlist.Remastered"
         let fullString = namespace + string
         
@@ -24,6 +21,6 @@ extension UUID {
         truncatedHash[8] &= 0x3F    // Clear variant field
         truncatedHash[8] |= 0x80    // Set variant to DCE 1.1
         let uuidString = NSUUID(uuidBytes: truncatedHash).uuidString
-        return UUID(uuidString: uuidString)
+        return UUID(uuidString: uuidString)!
     }
 }

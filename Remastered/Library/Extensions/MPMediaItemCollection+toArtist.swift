@@ -11,16 +11,15 @@ extension MPMediaItemCollection {
     func toArtist() -> LibraryCollection? {
         let idProperty = MPMediaItemPropertyArtistPersistentID
         guard let id = representativeItem?.value(forProperty: idProperty) as? NSNumber,
-              let uuid = UUID.customUUID(from: id.stringValue),
+              let libraryId = LibraryId(id.stringValue),
               let title = artist,
               let dateAdded = dateAdded
         else {
             return nil
         }
         return LibraryCollection(
-            type: .artists,
-            id: uuid,
-            persistentID: id.stringValue,
+            type: .artist,
+            libraryId: libraryId,
             title: title,
             subtitle: numberOfItems,
             dateAdded: dateAdded,
@@ -30,14 +29,16 @@ extension MPMediaItemCollection {
             artwork: { self.catalogArtwork },
             items: {
                 self.items.enumerated().compactMap { index, item in
-                    guard let id = item.localItemID else { return nil }
+                    guard let id = item.libraryId else { return nil }
                     return LibraryItem(
+                        libraryId: id,
+                        album: item.libraryAlbum,
+                        artist: item.libraryArtist,
                         track: index + 1,
                         title: item.title ?? "",
-                        id: id,
-                        albumID: item.albumPersistentID,
                         duration: item.playbackDuration,
-                        isCloudItem: item.isCloudItem
+                        isCloudItem: item.isCloudItem,
+                        artwork: { item.itemArtwork }
                     )
                 }
             }

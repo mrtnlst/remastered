@@ -11,7 +11,7 @@ extension MPMediaItemCollection {
     func toAlbum() -> LibraryCollection? {
         let idProperty = MPMediaItemPropertyAlbumPersistentID
         guard let id = representativeItem?.value(forProperty: idProperty) as? NSNumber,
-              let uuid = UUID.customUUID(from: id.stringValue),
+              let libraryId = LibraryId(id.stringValue),
               let title = representativeItem?.albumTitle,
               let subtitle = artist,
               let dateAdded = dateAdded
@@ -19,9 +19,8 @@ extension MPMediaItemCollection {
             return nil
         }
         return LibraryCollection(
-            type: .albums,
-            id: uuid,
-            persistentID: id.stringValue,
+            type: .album,
+            libraryId: libraryId,
             title: title,
             subtitle: subtitle,
             dateAdded: dateAdded,
@@ -30,15 +29,17 @@ extension MPMediaItemCollection {
             isCloudItem: items.first(where: { $0.isCloudItem })?.isCloudItem ?? false,
             artwork: { self.artwork },
             items: {
-                self.items.compactMap {
-                    guard let id = $0.localItemID else { return nil }
+                self.items.compactMap { item in
+                    guard let id = item.libraryId else { return nil }
                     return LibraryItem(
-                        track: $0.albumTrackNumber,
-                        title: $0.title ?? "",
-                        id: id,
-                        albumID: $0.albumPersistentID,
-                        duration: $0.playbackDuration,
-                        isCloudItem: $0.isCloudItem
+                        libraryId: id,
+                        album: item.libraryAlbum,
+                        artist: item.libraryArtist,
+                        track: item.albumTrackNumber,
+                        title: item.title ?? "",
+                        duration: item.playbackDuration,
+                        isCloudItem: item.isCloudItem,
+                        artwork: { item.itemArtwork }
                     )
                 }
             }

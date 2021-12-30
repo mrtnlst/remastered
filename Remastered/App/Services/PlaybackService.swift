@@ -17,6 +17,7 @@ protocol PlaybackService {
     func toggleRepeat() -> Effect<Never, Never>
     func forward() -> Effect<Never, Never>
     func backward() -> Effect<Never, Never>
+    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never>
 }
 
 final class DefaultPlaybackService {}
@@ -25,6 +26,10 @@ final class DefaultPlaybackService {}
 extension DefaultPlaybackService: PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never> {
         return Empty().eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never> {
+        return Just(LibraryCollection.exampleAlbums.first!).eraseToAnyPublisher().eraseToEffect()
     }
     
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
@@ -66,27 +71,27 @@ extension DefaultPlaybackService: PlaybackService {
             var predicate: MPMediaPropertyPredicate
             
             switch category {
-            case .albums:
+            case .album:
                 MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
                 predicate = MPMediaPropertyPredicate(value: id,
                                                      forProperty: MPMediaItemPropertyAlbumPersistentID,
                                                      comparisonType: MPMediaPredicateComparison.equalTo)
-            case .playlists:
+            case .playlist:
                 MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
                 predicate = MPMediaPropertyPredicate(value: UInt64(id),
                                                      forProperty: MPMediaPlaylistPropertyPersistentID,
                                                      comparisonType: MPMediaPredicateComparison.equalTo)
-            case .artists:
+            case .artist:
                 MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
                 predicate = MPMediaPropertyPredicate(value: id,
                                                      forProperty: MPMediaItemPropertyArtistPersistentID,
                                                      comparisonType: MPMediaPredicateComparison.equalTo)
-            case .genres:
+            case .genre:
                 MPMusicPlayerController.systemMusicPlayer.shuffleMode = .songs
                 predicate = MPMediaPropertyPredicate(value: id,
                                                      forProperty: MPMediaItemPropertyGenrePersistentID,
                                                      comparisonType: MPMediaPredicateComparison.equalTo)
-            case .songs:
+            case .song:
                 MPMusicPlayerController.systemMusicPlayer.shuffleMode = .off
                 predicate = MPMediaPropertyPredicate(value: id,
                                                      forProperty: MPMediaItemPropertyPersistentID,
@@ -114,16 +119,45 @@ extension DefaultPlaybackService: PlaybackService {
         .eraseToEffect()
     }
     
+    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never> {
+        switch type {
+        case .artist:
+            let predicate = MPMediaPropertyPredicate(
+                value: id,
+                forProperty: MPMediaItemPropertyArtistPersistentID,
+                comparisonType: MPMediaPredicateComparison.equalTo
+            )
+            let filter: Set<MPMediaPropertyPredicate> = [predicate]
+            let query = MPMediaQuery(filterPredicates: filter)
+            query.groupingType = .artist
+            
+            let result = query.collections?.first?.toArtist()
+            return Just(result).eraseToAnyPublisher().eraseToEffect()
+        default:
+            let predicate = MPMediaPropertyPredicate(
+                value: id,
+                forProperty: MPMediaItemPropertyAlbumPersistentID,
+                comparisonType: MPMediaPredicateComparison.equalTo
+            )
+            let filter: Set<MPMediaPropertyPredicate> = [predicate]
+            let query = MPMediaQuery(filterPredicates: filter)
+            query.groupingType = .album
+            
+            let result = query.collections?.first?.toAlbum()
+            return Just(result).eraseToAnyPublisher().eraseToEffect()
+        }
+    }
+    
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
         var libraryItem: LibraryItem?
         if let item = MPMusicPlayerController.systemMusicPlayer.nowPlayingItem,
-           let id = item.localItemID {
+           let id = item.libraryId {
             libraryItem = LibraryItem(
+                libraryId: id,
+                album: item.libraryAlbum,
+                artist: item.libraryArtist,
                 track: item.albumTrackNumber,
                 title: item.title ?? "",
-                artist: item.artist,
-                id: id,
-                albumID: item.albumPersistentID,
                 duration: item.playbackDuration,
                 isCloudItem: item.isCloudItem,
                 artwork: { item.itemArtwork }

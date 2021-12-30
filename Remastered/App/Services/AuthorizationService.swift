@@ -20,6 +20,9 @@ protocol AuthorizationService {
 final class DefaultAuthorizationService: AuthorizationService {
     
     func authorize() -> Effect<Bool, AuthorizationError> {
+#if targetEnvironment(simulator)
+        return Future { $0(.success(true)) }.eraseToAnyPublisher().eraseToEffect()
+#else
         Future { promise in
             let status = MPMediaLibrary.authorizationStatus()
             
@@ -41,5 +44,6 @@ final class DefaultAuthorizationService: AuthorizationService {
         }
         .eraseToAnyPublisher()
         .eraseToEffect()
+#endif
     }
 }

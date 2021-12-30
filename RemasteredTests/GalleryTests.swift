@@ -20,47 +20,61 @@ class GalleryTests: XCTestCase {
         static let lastPlayed = Date()
         static let isFavorite = true
         static let artwork = UIImage()
-        static let uuid = UUID(uuidString: "40fff5a3-26d7-446f-9bbb-498babaaaa91")!
+        static let uuid = UUID.customUUID(from: Constants.id)
     }
     
-    let libraryCollection: LibraryCollection = .init(
-        type: .albums,
-        title: Constants.title,
-        artist: Constants.artist,
-        id: Constants.id,
-        dateAdded: Constants.dateAdded,
-        lastPlayed: Constants.lastPlayed,
-        isFavorite: Constants.isFavorite,
-        artwork: Constants.artwork,
-        items: []
-    )
+    var libraryCollection: LibraryCollection {
+        LibraryCollection(
+            type: .album,
+            title: Constants.title,
+            subtitle: Constants.artist,
+            id: Constants.id,
+            dateAdded: Constants.dateAdded,
+            lastPlayed: Constants.lastPlayed,
+            isFavorite: Constants.isFavorite,
+            artwork: Constants.artwork,
+            items: []
+        )
+    }
     
-    let categories: [LibraryCategoryState] = [
+    var libraryItemState: LibraryItemState {
+        LibraryItemState(
+            collection: libraryCollection,
+            id: Constants.uuid
+        )
+    }
+    var discoverCategory: LibraryCategoryState {
         LibraryCategoryState(
-            id: Constants.uuid,
-            items: [
-                LibraryItemState(
-                    item: LibraryCollection(
-                        type: .albums,
-                        title: Constants.title,
-                        artist: Constants.artist,
-                        id: Constants.id,
-                        dateAdded: Constants.dateAdded,
-                        lastPlayed: Constants.lastPlayed,
-                        isFavorite: Constants.isFavorite,
-                        artwork: Constants.artwork,
-                        items: []
-                    ),
-                    id: Constants.uuid
-                )
-            ],
+            id: GalleryCategoryType.discover.uuid,
+            items: [libraryItemState],
+            name: GalleryCategoryType.discover.rawValue
+        )
+    }
+    var favoritesCategory: LibraryCategoryState {
+        LibraryCategoryState(
+            id: GalleryCategoryType.favorites.uuid,
+            items: [libraryItemState],
+            name: GalleryCategoryType.favorites.rawValue
+        )
+    }
+    var addedCategory: LibraryCategoryState {
+        LibraryCategoryState(
+            id: GalleryCategoryType.recentlyAdded.uuid,
+            items: [libraryItemState],
+            name: GalleryCategoryType.recentlyAdded.rawValue
+        )
+    }
+    var playedCategory: LibraryCategoryState {
+        LibraryCategoryState(
+            id: GalleryCategoryType.recentlyPlayed.uuid,
+            items: [libraryItemState],
             name: GalleryCategoryType.recentlyPlayed.rawValue
         )
-    ]
+    }
     
     func testFetchSuccess() {
         let store = TestStore(
-            initialState: GalleryState(),
+            initialState: GalleryState(rows: GalleryState.initialRows),
             reducer: galleryReducer,
             environment: GalleryEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
@@ -68,12 +82,42 @@ class GalleryTests: XCTestCase {
                 uuid: { Constants.uuid }
             )
         )
-        // Right now all categories are replaces because of the same uuid, therefor
-        // the only category in the state is `.discover`.
+        
         store.send(.fetch)
         scheduler.advance()
-        store.receive(.receiveCollections(result: .success([self.libraryCollection]))) {
-            $0.categories = .init(uniqueElements: self.categories)
+        store.receive(.receiveCollections(result: .success([self.libraryCollection])))
+        store.receive(
+            .galleryRowAction(
+                id: GalleryCategoryType.discover.uuid,
+                action: .receiveCategory(self.discoverCategory)
+            )
+        ) {
+            
+            $0.rows[id: GalleryCategoryType.discover.uuid]?.category = self.discoverCategory
+        }
+        store.receive(
+            .galleryRowAction(
+                id: GalleryCategoryType.favorites.uuid,
+                action: .receiveCategory(self.favoritesCategory)
+            )
+        ) {
+            $0.rows[id: GalleryCategoryType.favorites.uuid]?.category = self.favoritesCategory
+        }
+        store.receive(
+            .galleryRowAction(
+                id: GalleryCategoryType.recentlyAdded.uuid,
+                action: .receiveCategory(self.addedCategory)
+            )
+        ) {
+            $0.rows[id: GalleryCategoryType.recentlyAdded.uuid]?.category = self.addedCategory
+        }
+        store.receive(
+            .galleryRowAction(
+                id: GalleryCategoryType.recentlyPlayed.uuid,
+                action: .receiveCategory(self.playedCategory)
+            )
+        ) {
+            $0.rows[id: GalleryCategoryType.recentlyPlayed.uuid]?.category = self.playedCategory
         }
     }
     
@@ -93,7 +137,7 @@ class GalleryTests: XCTestCase {
         store.send(.fetch)
         scheduler.advance()
         store.receive(.receiveCollections(result: .success(expectedCollections))) {
-            $0.categories = []
+            $0.rows = []
         }
     }
 }

@@ -44,7 +44,8 @@ extension LibraryCategoryView {
                 } label: {
                     ArtworkView(
                         with: .collection(ViewStore(libraryStore).collection),
-                        cornerRadius: 8
+                        cornerRadius: 8,
+                        shadowRadius: 3
                     )
                 }
             }

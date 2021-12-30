@@ -20,13 +20,13 @@ class LibraryTests: XCTestCase {
         static let lastPlayed = Date()
         static let isFavorite = true
         static let artwork = UIImage()
-        static let uuid = UUID(uuidString: "40fff5a3-26d7-446f-9bbb-498babaaaa91")!
+        static let uuid = LibraryCategoryType.album.uuid
     }
     
     let libraryCollection: LibraryCollection = .init(
-        type: .albums,
+        type: .album,
         title: Constants.title,
-        artist: Constants.artist,
+        subtitle: Constants.artist,
         id: Constants.id,
         dateAdded: Constants.dateAdded,
         lastPlayed: Constants.lastPlayed,
@@ -40,10 +40,10 @@ class LibraryTests: XCTestCase {
             id: Constants.uuid,
             items: [
                 LibraryItemState(
-                    item: LibraryCollection(
-                        type: .albums,
+                    collection: LibraryCollection(
+                        type: .album,
                         title: Constants.title,
-                        artist: Constants.artist,
+                        subtitle: Constants.artist,
                         id: Constants.id,
                         dateAdded: Constants.dateAdded,
                         lastPlayed: Constants.lastPlayed,
@@ -54,8 +54,8 @@ class LibraryTests: XCTestCase {
                     id: Constants.uuid
                 )
             ],
-            name: LibraryCategoryType.albums.rawValue,
-            icon: LibraryCategoryType.albums.icon
+            name: LibraryCategoryType.album.text,
+            icon: LibraryCategoryType.album.icon
         )
     ]
     

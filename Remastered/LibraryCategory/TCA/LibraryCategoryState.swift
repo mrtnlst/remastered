@@ -20,28 +20,28 @@ extension LibraryCategoryState {
     static let exampleLibraryCategories: IdentifiedArrayOf<LibraryCategoryState> = [
         LibraryCategoryState(
             items: exampleLibraryPlaylists,
-            name: LibraryCategoryType.playlists.rawValue,
-            icon: LibraryCategoryType.playlists.icon
+            name: LibraryCategoryType.playlist.text,
+            icon: LibraryCategoryType.playlist.icon
         ),
         LibraryCategoryState(
             items: exampleLibraryArtists,
-            name: LibraryCategoryType.artists.rawValue,
-            icon: LibraryCategoryType.artists.icon
+            name: LibraryCategoryType.artist.text,
+            icon: LibraryCategoryType.artist.icon
         ),
         LibraryCategoryState(
             items: exampleLibraryAlbums,
-            name: LibraryCategoryType.albums.rawValue,
-            icon: LibraryCategoryType.albums.icon
+            name: LibraryCategoryType.album.text,
+            icon: LibraryCategoryType.album.icon
         ),
         LibraryCategoryState(
             items: exampleLibraryAlbums,
-            name: LibraryCategoryType.songs.rawValue,
-            icon: LibraryCategoryType.songs.icon
+            name: LibraryCategoryType.song.text,
+            icon: LibraryCategoryType.song.icon
         ),
         LibraryCategoryState(
             items: exampleLibraryAlbums,
-            name: LibraryCategoryType.genres.rawValue,
-            icon: LibraryCategoryType.genres.icon
+            name: LibraryCategoryType.genre.text,
+            icon: LibraryCategoryType.genre.icon
         ),
     ]
     

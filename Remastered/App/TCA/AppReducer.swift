@@ -53,15 +53,15 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         .pullback(
             state: \.playback,
             action: /AppAction.playback,
-            environment: {
+            environment: { env in
                 PlaybackEnvironment(
-                    mainQueue: $0.mainQueue,
-                    playbackProperties: $0.playbackService.playbackProperties,
-                    togglePlayback: $0.playbackService.togglePlayback,
-                    toggleShuffle: $0.playbackService.toggleShuffle,
-                    toggleRepeat: $0.playbackService.toggleRepeat,
-                    forward: $0.playbackService.forward,
-                    backward: $0.playbackService.backward
+                    mainQueue: env.mainQueue,
+                    playbackProperties: env.playbackService.playbackProperties,
+                    togglePlayback: env.playbackService.togglePlayback,
+                    toggleShuffle: env.playbackService.toggleShuffle,
+                    toggleRepeat: env.playbackService.toggleRepeat,
+                    forward: env.playbackService.forward,
+                    backward: env.playbackService.backward
                 )
             }
         ),
