@@ -140,7 +140,7 @@ extension LibraryItemView {
                     Text("\(item.track)")
                         .font(.body)
                         .foregroundColor(.secondary)
-                        .frame(maxWidth: 20)
+                        .frame(maxWidth: 24)
                     Text(item.title)
                         .font(.body)
                         .lineLimit(1)
@@ -154,7 +154,7 @@ extension LibraryItemView {
                 }
             }
             Divider()
-                .padding(.leading, 28)
+                .padding(.leading, 32)
         }
     }
 }
