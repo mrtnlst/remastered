@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct LibraryCategoryView: View {
     let store: Store<LibraryCategoryState, LibraryCategoryAction>
-    @AppStorage("category-display-style") var displayStyle: CategoryDisplayStyle = .list
+    @AppStorage("category-display-style") var displayStyle: CategoryDisplayStyle = .grid
     
     init(store: Store<LibraryCategoryState, LibraryCategoryAction>) {
         self.store = store
@@ -42,11 +42,17 @@ extension LibraryCategoryView {
                 NavigationLink {
                     LibraryItemView(store: libraryStore)
                 } label: {
-                    ArtworkView(
-                        with: .collection(ViewStore(libraryStore).collection),
-                        cornerRadius: 8,
-                        shadowRadius: 3
-                    )
+                    VStack {
+                        ArtworkView(
+                            with: .collection(ViewStore(libraryStore).collection),
+                            cornerRadius: 8,
+                            shadowRadius: 3
+                        )
+                        Text(ViewStore(libraryStore).collection.title)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
                 }
             }
         }

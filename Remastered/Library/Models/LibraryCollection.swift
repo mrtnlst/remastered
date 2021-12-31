@@ -191,7 +191,7 @@ extension LibraryCollection {
             id: "AABB-CCDD-EEFF-MMNN",
             dateAdded: Date(timeIntervalSince1970: 1632227320),
             lastPlayed: Date(timeIntervalSince1970: 1636896520),
-            artwork: UIImage(named: "After Hours"),
+            artwork: nil,
             items: LibraryItem.exampleItems
         ),
         LibraryCollection(

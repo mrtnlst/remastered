@@ -39,8 +39,6 @@ struct ArtworkView: View {
                 default:
                     tiledArtworkView(for: artworks, with: cornerRadius)
                 }
-            } else if collection?.type == .genre {
-                EmptyView()
             } else {
                 placeholderArtworkView(with: cornerRadius)
             }
