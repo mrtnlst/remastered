@@ -28,31 +28,35 @@ struct PlaybackView: View {
                         viewStore.send(.togglePlayback)
                     } label: {
                         Image(systemName: viewStore.isPlaying ? "pause.fill" : "play.fill")
+                            .font(.title3)
                     }
                     Button {
                         viewStore.send(.forward)
                     } label: {
                         Image(systemName: "forward.fill")
+                            .font(.title3)
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 8)
                 .frame(height: viewStore.tabBarHeight)
-                .background(isSelected ? Color.gray.opacity(0.05) : .clear)
-                .background(
-                    isSelected ? .ultraThinMaterial : .thinMaterial,
-                    in: RoundedRectangle(cornerRadius: 12)
-                )
+                .background {
+                    ZStack {
+                        isSelected ? Color.gray.opacity(0.05) : Color.clear
+                    }
+                    .background(isSelected ? .ultraThinMaterial : .thinMaterial)
+                    .mask(RoundedRectangle(cornerRadius: 12))
+                    .onTapGesture {
+                        viewStore.send(.setIsDetailPresented(true))
+                    }
+                    .onLongPressGesture(minimumDuration: 5.0) {
+                        viewStore.send(.setIsDetailPresented(true))
+                    } onPressingChanged: { onChange in
+                        isSelected = onChange
+                    }
+                }
                 .padding(.bottom, viewStore.tabBarHeight + viewStore.tabBarOffset + 16)
                 .padding(.horizontal)
                 .transition(.move(edge: .bottom))
-                .simultaneousGesture(
-                    DragGesture(minimumDistance: 0)
-                        .onChanged { _ in isSelected = true }
-                        .onEnded { _ in
-                            isSelected = false
-                            viewStore.send(.setIsDetailPresented(true))
-                        }
-                )
             }
             .sheet(
                 isPresented: viewStore.binding(
