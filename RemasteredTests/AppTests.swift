@@ -31,7 +31,7 @@ class AppTests: XCTestCase {
         store.receive(.didBecomeActive)
         scheduler.advance()
         store.receive(.authorizationResponse(.success(true))) {
-            $0.library = LibraryState()
+            $0.library = LibraryState(categories: LibraryState.initialCategories)
             $0.gallery = GalleryState(rows: GalleryState.initialRows)
             $0.search = SearchState()
             $0.playback = PlaybackState()

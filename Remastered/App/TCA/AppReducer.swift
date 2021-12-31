@@ -86,7 +86,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .authorizationResponse(.success(true)):
             if !(state.isAuthorized ?? false) {
-                state.library = LibraryState()
+                state.library = LibraryState(categories: LibraryState.initialCategories)
                 state.gallery = GalleryState(rows: GalleryState.initialRows)
                 state.search = SearchState()
                 state.playback = PlaybackState()

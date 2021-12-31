@@ -20,48 +20,61 @@ class LibraryTests: XCTestCase {
         static let lastPlayed = Date()
         static let isFavorite = true
         static let artwork = UIImage()
-        static let uuid = LibraryCategoryType.album.uuid
+        static let uuid = UUID.customUUID(from: Constants.id)
     }
     
-    let libraryCollection: LibraryCollection = .init(
-        type: .album,
-        title: Constants.title,
-        subtitle: Constants.artist,
-        id: Constants.id,
-        dateAdded: Constants.dateAdded,
-        lastPlayed: Constants.lastPlayed,
-        isFavorite: Constants.isFavorite,
-        artwork: Constants.artwork,
-        items: []
-    )
-    
-    let categories: [LibraryCategoryState] = [
-        LibraryCategoryState(
-            id: Constants.uuid,
-            items: [
-                LibraryItemState(
-                    collection: LibraryCollection(
-                        type: .album,
-                        title: Constants.title,
-                        subtitle: Constants.artist,
-                        id: Constants.id,
-                        dateAdded: Constants.dateAdded,
-                        lastPlayed: Constants.lastPlayed,
-                        isFavorite: Constants.isFavorite,
-                        artwork: Constants.artwork,
-                        items: []
-                    ),
-                    id: Constants.uuid
-                )
-            ],
-            name: LibraryCategoryType.album.text,
-            icon: LibraryCategoryType.album.icon
+    var libraryCollection: LibraryCollection {
+        .init(
+            type: .album,
+            title: Constants.title,
+            subtitle: Constants.artist,
+            id: Constants.id,
+            dateAdded: Constants.dateAdded,
+            lastPlayed: Constants.lastPlayed,
+            isFavorite: Constants.isFavorite,
+            artwork: Constants.artwork,
+            items: []
         )
-    ]
+    }
+    
+    var categories: [LibraryCategoryState] {
+        [
+            LibraryCategoryState(
+                id: LibraryCategoryType.playlist.uuid,
+                items: [],
+                name: LibraryCategoryType.playlist.text,
+                icon: LibraryCategoryType.playlist.icon
+            ),
+            LibraryCategoryState(
+                id: LibraryCategoryType.artist.uuid,
+                items: [],
+                name: LibraryCategoryType.artist.text,
+                icon: LibraryCategoryType.artist.icon
+            ),
+            LibraryCategoryState(
+                id: LibraryCategoryType.album.uuid,
+                items: [LibraryItemState(collection: libraryCollection, id: Constants.uuid)],
+                name: LibraryCategoryType.album.text,
+                icon: LibraryCategoryType.album.icon
+            ),
+            LibraryCategoryState(
+                id: LibraryCategoryType.song.uuid,
+                items: [],
+                name: LibraryCategoryType.song.text,
+                icon: LibraryCategoryType.song.icon
+            ),
+            LibraryCategoryState(
+                id: LibraryCategoryType.genre.uuid,
+                items: [],
+                name: LibraryCategoryType.genre.text,
+                icon: LibraryCategoryType.genre.icon
+            )
+        ]
+    }
     
     func testFetchSuccess() {
         let store = TestStore(
-            initialState: LibraryState(),
+            initialState: LibraryState(categories: LibraryState.initialCategories),
             reducer: libraryReducer,
             environment: LibraryEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),

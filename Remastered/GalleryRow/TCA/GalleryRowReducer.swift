@@ -43,5 +43,4 @@ let galleryRowReducer = Reducer<GalleryRowState, GalleryRowAction, GalleryRowEnv
     case .libraryItem(_):
         return .none
     }
-    
 }
