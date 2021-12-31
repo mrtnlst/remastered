@@ -10,6 +10,7 @@ import ComposableArchitecture
 
 struct PlaybackView: View {
     let store: Store<PlaybackState, PlaybackAction>
+    @State var isSelected: Bool = false
     
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -36,10 +37,22 @@ struct PlaybackView: View {
                 }
                 .padding(.horizontal)
                 .frame(height: viewStore.tabBarHeight)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                .background(isSelected ? Color.gray.opacity(0.05) : .clear)
+                .background(
+                    isSelected ? .ultraThinMaterial : .thinMaterial,
+                    in: RoundedRectangle(cornerRadius: 12)
+                )
                 .padding(.bottom, viewStore.tabBarHeight + viewStore.tabBarOffset + 16)
                 .padding(.horizontal)
                 .transition(.move(edge: .bottom))
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in isSelected = true }
+                        .onEnded { _ in
+                            isSelected = false
+                            viewStore.send(.setIsDetailPresented(true))
+                        }
+                )
             }
             .sheet(
                 isPresented: viewStore.binding(
@@ -58,9 +71,6 @@ struct PlaybackView: View {
             }
             .onAppear {
                 viewStore.send(.onAppear)
-            }
-            .onTapGesture {
-                viewStore.send(.setIsDetailPresented(true))
             }
         }
     }
