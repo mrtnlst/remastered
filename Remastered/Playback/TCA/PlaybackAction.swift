@@ -16,4 +16,5 @@ enum PlaybackAction: Equatable {
     case setIsDetailPresented(Bool)
     case togglePlayback
     case forward
+    case openItemView(persistentId: String?, type: LibraryCategoryType)
 }

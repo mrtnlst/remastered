@@ -20,5 +20,6 @@ enum AppAction: Equatable, BindableAction {
     case didSelectTab(_ tag: Int)
     case binding(BindingAction<AppState>)
     case didBecomeActive
+    case fetchCollectionResponse(Result<LibraryCollection?, Never>)
 }
 

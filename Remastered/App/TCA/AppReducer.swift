@@ -153,6 +153,30 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.playback?.tabBarHeight = height
             return .none
             
+        case let .playback(.openItemView(persistentId, type)):
+            if let persistentId = persistentId {
+                return environment
+                    .libraryService
+                    .fetchCollection(for: persistentId, of: type)
+                    .catchToEffect(AppAction.fetchCollectionResponse)
+            }
+            return .none
+            
+        case let .fetchCollectionResponse(.success(collection)):
+            switch state.selectedTab {
+            case 0:
+                return Effect(
+                    value: .gallery(
+                        .galleryRowAction(
+                            id: GalleryCategoryType.recentlyPlayed.uuid,
+                            action: .setItemNavigation(selection: collection?.id)
+                        )
+                    )
+                )
+            default:
+                return .none
+            }
+            
         case .playback(_):
             return .none
             

@@ -17,8 +17,17 @@ struct PlaybackView: View {
             VStack {
                 Spacer()
                 HStack {
-                    ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 4, shadowRadius: 2)
-                        .padding(.vertical, 8)
+                    Button {
+                        viewStore.send(
+                            .openItemView(
+                                persistentId: viewStore.libraryItem?.album?.id.persistentId,
+                                type: .album
+                            )
+                        )
+                    } label: {
+                        ArtworkView(with: .item(viewStore.libraryItem), cornerRadius: 4, shadowRadius: 2)
+                            .padding(.vertical, 8)
+                    }
                     Text(viewStore.libraryItem?.title ?? "None")
                         .foregroundColor(.secondary)
                         .font(Font.caption)

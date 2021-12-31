@@ -86,6 +86,8 @@ let playbackReducer = Reducer<PlaybackState, PlaybackAction, PlaybackEnvironment
         case .playbackDetail(_):
             return .none
             
+        case .openItemView(_, _):
+            return .none
         }
     }
 )
