@@ -19,7 +19,8 @@ class AppTests: XCTestCase {
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(
-                    mockFetch: { .none }
+                    mockFetch: { .none },
+                    mockFetchCollection: { _, _ in return .none }
                 ),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(value: true) }),
                 playbackService: DefaultPlaybackService()
@@ -47,7 +48,8 @@ class AppTests: XCTestCase {
             environment: AppEnvironment(
                 mainQueue: scheduler.eraseToAnyScheduler(),
                 libraryService: MockLibraryService(
-                    mockFetch: { return .none }
+                    mockFetch: { return .none },
+                    mockFetchCollection: { _, _ in return .none }
                 ),
                 authorizationService: MockAuthorizationService(mockAuthorize: { Effect(error: .authorizationFailed) }),
                 playbackService: DefaultPlaybackService()

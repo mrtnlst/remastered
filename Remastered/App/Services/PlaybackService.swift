@@ -17,7 +17,6 @@ protocol PlaybackService {
     func toggleRepeat() -> Effect<Never, Never>
     func forward() -> Effect<Never, Never>
     func backward() -> Effect<Never, Never>
-    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never>
 }
 
 final class DefaultPlaybackService {}
@@ -26,10 +25,6 @@ final class DefaultPlaybackService {}
 extension DefaultPlaybackService: PlaybackService {
     func play(id: String, of category: LibraryCategoryType, with startItem: String?) -> Effect<Never, Never> {
         return Empty().eraseToAnyPublisher().eraseToEffect()
-    }
-    
-    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never> {
-        return Just(LibraryCollection.exampleAlbums.first!).eraseToAnyPublisher().eraseToEffect()
     }
     
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
@@ -117,35 +112,6 @@ extension DefaultPlaybackService: PlaybackService {
         .eraseToAnyPublisher()
         .ignoreOutput()
         .eraseToEffect()
-    }
-    
-    func fetchCollection(id: String, type: LibraryCategoryType) -> Effect<LibraryCollection?, Never> {
-        switch type {
-        case .artist:
-            let predicate = MPMediaPropertyPredicate(
-                value: id,
-                forProperty: MPMediaItemPropertyArtistPersistentID,
-                comparisonType: MPMediaPredicateComparison.equalTo
-            )
-            let filter: Set<MPMediaPropertyPredicate> = [predicate]
-            let query = MPMediaQuery(filterPredicates: filter)
-            query.groupingType = .artist
-            
-            let result = query.collections?.first?.toArtist()
-            return Just(result).eraseToAnyPublisher().eraseToEffect()
-        default:
-            let predicate = MPMediaPropertyPredicate(
-                value: id,
-                forProperty: MPMediaItemPropertyAlbumPersistentID,
-                comparisonType: MPMediaPredicateComparison.equalTo
-            )
-            let filter: Set<MPMediaPropertyPredicate> = [predicate]
-            let query = MPMediaQuery(filterPredicates: filter)
-            query.groupingType = .album
-            
-            let result = query.collections?.first?.toAlbum()
-            return Just(result).eraseToAnyPublisher().eraseToEffect()
-        }
     }
     
     func playbackProperties() -> Effect<PlaybackProperties, Never> {
