@@ -15,15 +15,18 @@ struct LibraryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                ScrollView(.vertical, showsIndicators: true) {
-                    LazyVStack {
-                        ForEach(viewStore.categories) { category in
-                            categoryRow(for: category)
+                ZStack {
+                    emptyNavigationLink()
+                    ScrollView(.vertical, showsIndicators: true) {
+                        LazyVStack {
+                            ForEach(viewStore.categories) { category in
+                                categoryRow(for: category)
+                            }
                         }
                     }
+                    .padding(.horizontal)
+                    .navigationBarTitle("Library")
                 }
-                .padding(.horizontal)
-                .navigationBarTitle("Library")
             }
         }
     }
@@ -58,6 +61,27 @@ extension LibraryView {
                 }
                 .padding(.vertical, 4)
                 Divider()
+            }
+        }
+    }
+    
+    @ViewBuilder func emptyNavigationLink() -> some View {
+        WithViewStore(store) { viewStore in
+            NavigationLink(
+                destination: IfLetStore(
+                    store.scope(
+                        state: { $0.selectedItem?.value },
+                        action: LibraryAction.libraryItem
+                    ),
+                    then: LibraryItemView.init(store:)
+                ),
+                tag: viewStore.emptyNavigationLinkId,
+                selection: viewStore.binding(
+                    get: { $0.selectedItem?.id },
+                    send: LibraryAction.setItemNavigation(selection:)
+                )
+            ) {
+                EmptyView()
             }
         }
     }

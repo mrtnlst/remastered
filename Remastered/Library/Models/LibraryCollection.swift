@@ -45,6 +45,12 @@ struct LibraryCollection {
     }
 }
 
+extension LibraryCollection: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 extension LibraryCollection: Identifiable {
     var id: UUID { libraryId.uuid }
 }

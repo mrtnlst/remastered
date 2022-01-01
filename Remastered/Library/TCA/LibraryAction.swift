@@ -12,4 +12,7 @@ enum LibraryAction: Equatable {
     case receiveCollections(result: Result<[LibraryCollection], Never>)
     case libraryCategory(LibraryCategoryAction)
     case setCategoryNavigation(selection: UUID?)
+    case libraryItem(LibraryItemAction)
+    case setItemNavigation(selection: UUID?)
+    case dismiss
 }

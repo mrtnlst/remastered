@@ -54,6 +54,8 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
             return .merge(effects)
             
         case .dismiss:
+            state.selectedItem = nil
+            
             var effects: [Effect<GalleryAction, Never>] = []
             let rows = state.rows.filter({ $0.selectedCategory != nil || $0.selectedItem != nil })
             rows.forEach {
@@ -61,7 +63,20 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
             }
             return .merge(effects)
             
+        case let .setItemNavigation(id):
+            guard let id = id else {
+                state.selectedItem = nil
+                return .none
+            }
+            if let item = state.rows[id: GalleryCategoryType.recentlyAdded.uuid]?.category.items.first(where: { $0.id == id }) {
+                state.selectedItem = Identified(item, id: state.emptyNavigationLinkId)
+            }
+            return .none
+            
         case .galleryRowAction(_, _):
+            return .none
+            
+        case .libraryItem(_):
             return .none
         }
     }

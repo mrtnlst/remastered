@@ -23,7 +23,7 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
             let itemStates: [LibraryItemState] = filteredCollections.map { collection in
                 LibraryItemState(
                     collection: collection,
-                    id: environment.uuid()
+                    id: collection.id
                 )
             }
             state.categories[id: type.uuid]?.items = .init(uniqueElements: itemStates)
@@ -40,7 +40,25 @@ let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { 
         }
         return .none
         
-    case let .libraryCategory(action):
+    case let .setItemNavigation(id):
+        guard let id = id else {
+            state.selectedItem = nil
+            return .none
+        }
+        if let item = state.categories[id: LibraryCategoryType.album.uuid]?.items.first(where: { $0.id == id }) {
+            state.selectedItem = Identified(item, id: state.emptyNavigationLinkId)
+        }
+        return .none
+        
+    case .dismiss:
+        state.selectedItem = nil
+        state.selectedCategory = nil
+        return .none
+        
+    case .libraryCategory(_):
+        return .none
+        
+    case .libraryItem(_):
         return .none
     }
 }

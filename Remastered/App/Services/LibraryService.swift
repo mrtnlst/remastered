@@ -39,23 +39,23 @@ extension DefaultLibraryService: LibraryService {
             
             let albumQuery = MPMediaQuery.albums()
             albumQuery.groupingType = .album
-            let albums = albumQuery.collections?.uniques().compactMap { $0.toAlbum() } ?? []
-            collections.append(contentsOf: albums)
+            let albums = albumQuery.collections?.compactMap { $0.toAlbum() } ?? []
+            collections.append(contentsOf: albums.uniques())
             
             let playlistQuery = MPMediaQuery.playlists()
             playlistQuery.groupingType = .playlist
-            let playlists = playlistQuery.collections?.uniques().compactMap { $0.toPlaylist() } ?? []
-            collections.append(contentsOf: playlists)
+            let playlists = playlistQuery.collections?.compactMap { $0.toPlaylist() } ?? []
+            collections.append(contentsOf: playlists.uniques())
             
             let genreQuery = MPMediaQuery.genres()
             genreQuery.groupingType = .genre
-            let genres = genreQuery.collections?.uniques().compactMap { $0.toGenre() } ?? []
-            collections.append(contentsOf: genres)
+            let genres = genreQuery.collections?.compactMap { $0.toGenre() } ?? []
+            collections.append(contentsOf: genres.uniques())
             
             let artistQuery = MPMediaQuery.artists()
             artistQuery.groupingType = .albumArtist
-            let artists = artistQuery.collections?.uniques().compactMap { $0.toArtist() } ?? []
-            collections.append(contentsOf: artists)
+            let artists = artistQuery.collections?.compactMap { $0.toArtist() } ?? []
+            collections.append(contentsOf: artists.uniques())
             
             promise(.success(collections))
             #endif

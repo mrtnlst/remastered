@@ -14,11 +14,38 @@ struct SearchView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                SearchListView(store: store)
-                    .navigationBarTitle("Search")
-                    .padding(.horizontal)
+                ZStack {
+                    emptyNavigationLink()
+                    SearchListView(store: store)
+                        .navigationBarTitle("Search")
+                        .padding(.horizontal)
+                }
             }
             .searchable(text: viewStore.binding(\.$searchText))
+            .disableAutocorrection(true)
+        }
+    }
+}
+
+extension SearchView {
+    @ViewBuilder func emptyNavigationLink() -> some View {
+        WithViewStore(store) { viewStore in
+            NavigationLink(
+                destination: IfLetStore(
+                    store.scope(
+                        state: { $0.selectedItem?.value },
+                        action: SearchAction.libraryItem
+                    ),
+                    then: LibraryItemView.init(store:)
+                ),
+                tag: viewStore.emptyNavigationLinkId,
+                selection: viewStore.binding(
+                    get: { $0.selectedItem?.id },
+                    send: SearchAction.setItemNavigation(selection:)
+                )
+            ) {
+                EmptyView()
+            }
         }
     }
 }

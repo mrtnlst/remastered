@@ -103,10 +103,12 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             state.isAuthorized = false
             return .none
             
-        case let .library(.libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem)))),
-            let .gallery(.galleryRowAction(id: _, action: .libraryCategory(action: .libraryItem(id: _, action: .didSelectItem(id, type, startItem))))),
-            let .gallery(.galleryRowAction(id: _, action: .libraryItem(action: .didSelectItem(id, type, startItem)))),
-            let .search(.libraryItem(action: .didSelectItem(id, type, startItem))):
+        case let .library(.libraryCategory(.libraryItem(_, action: .didSelectItem(id, type, startItem)))),
+            let .library(.libraryItem(.didSelectItem(id, type, startItem))),
+            let .gallery(.libraryItem(.didSelectItem(id, type, startItem))),
+            let .gallery(.galleryRowAction(_, action: .libraryCategory(.libraryItem(_, action: .didSelectItem(id, type, startItem))))),
+            let .gallery(.galleryRowAction(_, action: .libraryItem(.didSelectItem(id, type, startItem)))),
+            let .search(.libraryItem(.didSelectItem(id, type, startItem))):
             return environment
                 .playbackService
                 .play(id: id, of: type, with: startItem)
@@ -136,7 +138,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             case (0, 0):
                 effects.append(Effect(value: .gallery(.dismiss)))
             case (1, 1):
-                state.library?.selectedCategory = nil
+                effects.append(Effect(value: .library(.dismiss)))
             case (2, 2):
                 state.search?.selectedItem = nil
             default:
@@ -165,14 +167,24 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         case let .fetchCollectionResponse(.success(collection)):
             switch state.selectedTab {
             case 0:
-                return Effect(
-                    value: .gallery(
-                        .galleryRowAction(
-                            id: GalleryCategoryType.recentlyPlayed.uuid,
-                            action: .setItemNavigation(selection: collection?.id)
-                        )
-                    )
+                return .concatenate(
+                    Effect(value: .gallery(.dismiss)),
+                    Effect(value: .gallery(.setItemNavigation(selection: collection?.id)))
+                    // Introduces a delay, so that the dismissal of the navigation stack runs smoothly.
+                        .delay(for: 0.55, scheduler: environment.mainQueue)
+                        .eraseToEffect()
                 )
+            case 1:
+                return .concatenate(
+                    Effect(value: .library(.dismiss)),
+                    Effect(value: .library(.setItemNavigation(selection: collection?.id)))
+                    // Introduces a delay, so that the dismissal of the navigation stack runs smoothly.
+                        .delay(for: 0.55, scheduler: environment.mainQueue)
+                        .eraseToEffect()
+                )
+            case 2:
+                state.search?.selectedItem = nil
+                return Effect(value: .search(.setItemNavigation(selection: collection?.id)))
             default:
                 return .none
             }

@@ -15,24 +15,48 @@ struct GalleryView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationView {
-                ScrollView(.vertical, showsIndicators: true) {
-                    ForEachStore(
-                        store.scope(
-                            state: \.rows,
-                            action: GalleryAction.galleryRowAction(id:action:)
-                        )
-                    ) { rowStore in
-                        GalleryRowView(store: rowStore)
+                ZStack {
+                    emptyNavigationLink()
+                    ScrollView(.vertical, showsIndicators: true) {
+                        ForEachStore(
+                            store.scope(
+                                state: \.rows,
+                                action: GalleryAction.galleryRowAction(id:action:)
+                            )
+                        ) { rowStore in
+                            GalleryRowView(store: rowStore)
+                        }
                     }
+                    .padding(.horizontal)
+                    .navigationBarTitle("Gallery")
                 }
-                .padding(.horizontal)
-                .navigationBarTitle("Gallery")
             }
         }
     }
 }
 
-
+extension GalleryView {
+    @ViewBuilder func emptyNavigationLink() -> some View {
+        WithViewStore(store) { viewStore in
+            NavigationLink(
+                destination: IfLetStore(
+                    store.scope(
+                        state: { $0.selectedItem?.value },
+                        action: GalleryAction.libraryItem
+                    ),
+                    then: LibraryItemView.init(store:)
+                ),
+                tag: viewStore.emptyNavigationLinkId,
+                selection: viewStore.binding(
+                    get: { $0.selectedItem?.id },
+                    send: GalleryAction.setItemNavigation(selection:)
+                )
+            ) {
+                EmptyView()
+            }
+        }
+    }
+}
 
 struct GalleryView_Previews: PreviewProvider {
     static var previews: some View {
