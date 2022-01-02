@@ -135,14 +135,14 @@ extension LibraryItemView {
                     startItem: item.libraryId.persistentId)
                 )
             } label: {
-                HStack {
+                HStack(alignment: .center) {
                     // TODO: The width should be calculated
                     Text("\(item.track)")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: 24)
                     Text(item.title)
-                        .font(.body)
+                        .font(.callout)
                         .lineLimit(1)
                         .foregroundColor(.primary)
                     Spacer(minLength: 16)
@@ -153,6 +153,7 @@ extension LibraryItemView {
                         .padding(.trailing, 16)
                 }
             }
+            .padding(.vertical, 2)
             Divider()
                 .padding(.leading, 32)
         }
