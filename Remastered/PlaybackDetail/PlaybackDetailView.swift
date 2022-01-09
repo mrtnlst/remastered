@@ -69,6 +69,7 @@ struct PlaybackDetailView: View {
                             }
                             Spacer()
                         }
+                        AirPlayButton()
                     }
                 }
                 .padding(.horizontal, 16)

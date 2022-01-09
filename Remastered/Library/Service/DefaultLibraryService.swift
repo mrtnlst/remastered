@@ -109,16 +109,8 @@ extension DefaultLibraryService: LibraryService {
         .eraseToEffect()
     }
     
-    func fetchCollection(for id: String, of type: LibraryCategoryType) -> Effect<LibraryCollection?, Never> {
-        return Just(LibraryCollection.exampleAlbums.first!).eraseToAnyPublisher().eraseToEffect()
-    }
-    
-    func fetchRecentlyPlayed() -> Effect<[LibraryCollection], Never> {
-        return Just(LibraryCollection.exampleAlbums).eraseToAnyPublisher().eraseToEffect()
-    }
-    
-    func fetchRecentlyAdded() -> Effect<[LibraryCollection], Never> {
-        return Just(LibraryCollection.exampleArtists).eraseToAnyPublisher().eraseToEffect()
+    func fetchCollection(for id: String, of type: LibraryServiceResult) -> Effect<LibraryServiceResult, Never> {
+        return Just(.albums([LibraryCollection.exampleAlbums.first!])).eraseToAnyPublisher().eraseToEffect()
     }
 }
 #endif

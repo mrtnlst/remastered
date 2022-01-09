@@ -74,6 +74,7 @@
 		5BC55FBB2789B3890065F06A /* DefaultLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBA2789B3890065F06A /* DefaultLibraryService.swift */; };
 		5BC55FBD2789B4240065F06A /* DefaultGalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBC2789B4240065F06A /* DefaultGalleryService.swift */; };
 		5BC55FBF2789B44F0065F06A /* GalleryServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBE2789B44F0065F06A /* GalleryServiceResult.swift */; };
+		5BC55FC1278B56E50065F06A /* AirPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FC0278B56E50065F06A /* AirPlayButton.swift */; };
 		5BEA05BB276E4D530058E3CE /* SearchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BA276E4D530058E3CE /* SearchAction.swift */; };
 		5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */; };
 		5BEA05BF276E4D5F0058E3CE /* SearchReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */; };
@@ -174,6 +175,7 @@
 		5BC55FBA2789B3890065F06A /* DefaultLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLibraryService.swift; sourceTree = "<group>"; };
 		5BC55FBC2789B4240065F06A /* DefaultGalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGalleryService.swift; sourceTree = "<group>"; };
 		5BC55FBE2789B44F0065F06A /* GalleryServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryServiceResult.swift; sourceTree = "<group>"; };
+		5BC55FC0278B56E50065F06A /* AirPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPlayButton.swift; sourceTree = "<group>"; };
 		5BEA05BA276E4D530058E3CE /* SearchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAction.swift; sourceTree = "<group>"; };
 		5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEnvironment.swift; sourceTree = "<group>"; };
 		5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReducer.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				5BFB004527786E2E00729740 /* PlaybackDetailView.swift */,
+				5BC55FC0278B56E50065F06A /* AirPlayButton.swift */,
 				5B19D07A2778F2D900381286 /* TCA */,
 			);
 			path = PlaybackDetail;
@@ -740,6 +743,7 @@
 				5B38CECA273FD771003376CC /* AppView.swift in Sources */,
 				5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */,
 				5BFB004227786AD400729740 /* GalleryRowReducer.swift in Sources */,
+				5BC55FC1278B56E50065F06A /* AirPlayButton.swift in Sources */,
 				5B5D06C6275255DF00966287 /* GalleryAction.swift in Sources */,
 				5BBAEE4B275817AF007FFA24 /* MPMediaItemCollection+toPlaylist.swift in Sources */,
 				5BEA05C5276F5E920058E3CE /* PlaybackState.swift in Sources */,
