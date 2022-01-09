@@ -9,19 +9,27 @@ import MediaPlayer
 
 extension MPMediaItemCollection {
     
-    var dateAdded: Date? { representativeItem?.dateAdded }
-    
+    var dateAdded: Date {
+        if let date = value(forProperty: "dateModified") as? Date {
+            return date
+        } else if let date = representativeItem?.dateAdded {
+            return date
+        } else {
+            return Date(timeIntervalSince1970: 0)
+        }
+    }
+
     var artist: String? { representativeItem?.artist }
     
     var isFavorite: Bool { return items.contains { $0.rating > 3 } }
     
     var numberOfItems: String { items.count == 1 ? "\(items.count) song" : "\(items.count) songs" }
     
-    var lastPlayed: Date? {
-        let defaultDate = Date(timeIntervalSince1970: 0)
+    var lastPlayed: Date {
+        let defaultDate = Date()
         return items
             .sorted { $0.lastPlayedDate ?? defaultDate > $1.lastPlayedDate ?? defaultDate }
-            .first?.lastPlayedDate
+            .first?.lastPlayedDate ?? defaultDate
     }
     
     var artwork: UIImage? {

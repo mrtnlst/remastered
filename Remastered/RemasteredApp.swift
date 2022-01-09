@@ -16,6 +16,7 @@ struct RemasteredApp: App {
         reducer: appReducer,
         environment: AppEnvironment(
             libraryService: DefaultLibraryService(),
+            galleryService: DefaultGalleryService(),
             authorizationService: DefaultAuthorizationService(),
             playbackService: DefaultPlaybackService()
         )

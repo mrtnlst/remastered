@@ -15,6 +15,44 @@ enum LibraryCategoryType: CaseIterable {
     case genre
 }
 
+// MARK: - Custom Initializer
+extension LibraryCategoryType {
+    init?(from uuid: UUID) {
+        switch uuid {
+        case LibraryCategoryType.album.uuid:
+            self = .album
+        case LibraryCategoryType.playlist.uuid:
+            self = .playlist
+        case LibraryCategoryType.artist.uuid:
+            self = .artist
+        case LibraryCategoryType.genre.uuid:
+            self = .genre
+        case LibraryCategoryType.song.uuid:
+            self = .song
+        default: return nil
+        }
+    }
+}
+
+// MARK: - Mapping
+extension LibraryCategoryType {
+    var serviceResult: LibraryServiceResult {
+        switch self {
+        case .playlist:
+            return .playlists([])
+        case .artist:
+            return .artists([])
+        case .album:
+            return .albums([])
+        case .song:
+            return .songs([])
+        case .genre:
+            return .genres([])
+        }
+    }
+}
+
+// MARK: - Properties
 extension LibraryCategoryType {
     var text: String {
         switch self {

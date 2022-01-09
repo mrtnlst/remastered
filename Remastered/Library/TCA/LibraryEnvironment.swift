@@ -10,7 +10,7 @@ import CombineSchedulers
 import ComposableArchitecture
 
 struct LibraryEnvironment {
+    var fetch: (LibraryServiceResult) -> Effect<LibraryServiceResult, Never>
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var fetch: () -> Effect<[LibraryCollection], Never>
     var uuid: () -> UUID
 }

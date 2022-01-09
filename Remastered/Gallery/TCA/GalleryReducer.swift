@@ -5,6 +5,7 @@
 //  Created by martin on 27.11.21.
 //
 
+import UIKit
 import ComposableArchitecture
 
 let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.combine(
@@ -15,44 +16,44 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
     ),
     Reducer { state, action, environment in
         switch action {
-        case .fetch:
-            return environment
-                .fetch()
-                .receive(on: environment.mainQueue)
-                .catchToEffect(GalleryAction.receiveCollections)
+        case .onAppear:
+#if targetEnvironment(simulator)
+            return Effect(value: .didBecomeActive)
+#else
+            return NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
+                .map { _ in .didBecomeActive }
+                .eraseToEffect()
+#endif
             
-        case let .receiveCollections(.success(collections)):
-            var effects: [Effect<GalleryAction, Never>] = []
-            GalleryCategoryType.allCases.forEach { type in
-                var items = Array(
-                    collections
-                        .filter(type.filterValue)
-                        .filter { $0.type == .album || $0.type == .playlist }
-                        .sorted(by: type.sortOrder)
-                )
-                guard !items.isEmpty else { return }
-                
-                if type == .discover {
-                    items.shuffle()
-                    // This moves the currently selected item to the first position of discover,
-                    // otherwise the `LibraryItemView` gets dismissed after a new fetch.
-                    if let selectedItem = state.rows.first(where: { $0.id == type.uuid })?.selectedItem?.value,
-                       let index = items.firstIndex(of: selectedItem.collection) {
-                        items.move(fromOffsets: .init(arrayLiteral: index), toOffset: 0)
-                    }
-                }
-                
-                let category = LibraryCategoryState(
-                    id: type.uuid,
-                    items: .init(uniqueElements: items.map { LibraryItemState(collection: $0, id: $0.id) }),
-                    name: type.rawValue
-                )
-                effects.append(
-                    Effect(value: .galleryRowAction(id: type.uuid, action: .receiveCategory(category)))
-                )
+        case .didBecomeActive:
+            let effects = GalleryCategoryType.allCases.map {
+                environment.fetch($0.serviceResult)
+                    .receive(on: environment.mainQueue)
+                    .catchToEffect(GalleryAction.receiveCollections)
             }
-            return .merge(effects)
+            return .concatenate(effects)
             
+        case let .receiveCollections(.success(result)):
+            let type = result.categoryType
+            var collections = result.collections
+            
+            // This moves the currently selected item to the first position of discover,
+            // otherwise the `LibraryItemView` gets dismissed after a new fetch.
+            if type == .discover,
+               let selectedItem = state.rows[id: GalleryCategoryType.discover.uuid]?.selectedItem?.value {
+                if let index = collections.firstIndex(of: selectedItem.collection) {
+                    collections.move(fromOffsets: .init(arrayLiteral: index), toOffset: 0)
+                } else {
+                    collections.insert(selectedItem.collection, at: 0)
+                }
+            }
+            let category = LibraryCategoryState(
+                id: type.uuid,
+                items: .init(uniqueElements: collections.map { LibraryItemState(collection: $0, id: $0.id) }),
+                name: type.rawValue
+            )
+            return Effect(value: .galleryRowAction(id: type.uuid, action: .receiveCategory(category)))
+
         case .dismiss:
             state.selectedItem = nil
             
@@ -64,13 +65,17 @@ let galleryReducer = Reducer<GalleryState, GalleryAction, GalleryEnvironment>.co
             return .merge(effects)
             
         case let .setItemNavigation(id):
-            guard let id = id else {
+            // Selected items are only set via `.openCollection`.
+            state.selectedItem = nil
+            return .none
+
+        case let .openCollection(collection):
+            guard let collection = collection else {
                 state.selectedItem = nil
                 return .none
             }
-            if let item = state.rows[id: GalleryCategoryType.recentlyAdded.uuid]?.category.items.first(where: { $0.id == id }) {
-                state.selectedItem = Identified(item, id: state.emptyNavigationLinkId)
-            }
+            let itemState = LibraryItemState(collection: collection, id: collection.id)
+            state.selectedItem = Identified(itemState, id: state.emptyNavigationLinkId)
             return .none
             
         case .galleryRowAction(_, _):

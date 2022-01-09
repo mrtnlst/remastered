@@ -9,45 +9,45 @@ import ComposableArchitecture
 
 let libraryReducer = Reducer<LibraryState, LibraryAction, LibraryEnvironment> { state, action, environment in
     switch action {
-    case .fetch:
-        return environment
-            .fetch()
-            .receive(on: environment.mainQueue)
-            .catchToEffect(LibraryAction.receiveCollections)
+    case let .receiveCollections(.success(result)):
+        let type = result.categoryType
+        let collections = result.collections
         
-    case let .receiveCollections(.success(collections)):
-        LibraryCategoryType.allCases.forEach { type in
-            let filteredCollections = collections.filter { $0.type == type }
-            guard !filteredCollections.isEmpty else { return }
-            
-            let itemStates: [LibraryItemState] = filteredCollections.map { collection in
-                LibraryItemState(
-                    collection: collection,
-                    id: collection.id
-                )
-            }
-            state.categories[id: type.uuid]?.items = .init(uniqueElements: itemStates)
+        let itemStates: [LibraryItemState] = collections.map { collection in
+            LibraryItemState(
+                collection: collection,
+                id: collection.id
+            )
+        }
+        state.categories[id: type.uuid]?.items = .init(uniqueElements: itemStates)
+        if let category = state.categories[id: type.uuid] {
+            state.selectedCategory = Identified(category, id: type.uuid)
         }
         return .none
         
     case let .setCategoryNavigation(id):
-        guard let id = id else {
+        guard let id = id,
+              let type = LibraryCategoryType(from: id) else {
             state.selectedCategory = nil
             return .none
         }
-        if let category = state.categories.first(where: { $0.id == id }) {
-            state.selectedCategory = Identified(category, id: id)
-        }
-        return .none
+        return environment
+            .fetch(type.serviceResult)
+            .receive(on: environment.mainQueue)
+            .catchToEffect(LibraryAction.receiveCollections)
         
     case let .setItemNavigation(id):
-        guard let id = id else {
+        // Selected items are only set via `.openCollection`.
+        state.selectedItem = nil
+        return .none
+    
+    case let .openCollection(collection):
+        guard let collection = collection else {
             state.selectedItem = nil
             return .none
         }
-        if let item = state.categories[id: LibraryCategoryType.album.uuid]?.items.first(where: { $0.id == id }) {
-            state.selectedItem = Identified(item, id: state.emptyNavigationLinkId)
-        }
+        let itemState = LibraryItemState(collection: collection, id: collection.id)
+        state.selectedItem = Identified(itemState, id: state.emptyNavigationLinkId)
         return .none
         
     case .dismiss:

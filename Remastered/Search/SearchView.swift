@@ -60,7 +60,6 @@ struct SearchView_Previews: PreviewProvider {
                 reducer: searchReducer,
                 environment: SearchEnvironment(
                     mainQueue: .main,
-                    fetch: { return .none },
                     uuid: { UUID.init() }
                 )
             )

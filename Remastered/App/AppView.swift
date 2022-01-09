@@ -107,6 +107,7 @@ struct ContentView_Previews: PreviewProvider {
                 reducer: appReducer,
                 environment: .init(
                     libraryService: DefaultLibraryService(),
+                    galleryService: DefaultGalleryService(),
                     authorizationService: DefaultAuthorizationService(),
                     playbackService: DefaultPlaybackService()
                 )

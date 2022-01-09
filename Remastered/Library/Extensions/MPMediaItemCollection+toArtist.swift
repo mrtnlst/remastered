@@ -12,8 +12,7 @@ extension MPMediaItemCollection {
         let idProperty = MPMediaItemPropertyArtistPersistentID
         guard let id = representativeItem?.value(forProperty: idProperty) as? NSNumber,
               let libraryId = LibraryId(id.stringValue),
-              let title = artist,
-              let dateAdded = dateAdded
+              let title = artist
         else {
             return nil
         }
@@ -22,8 +21,6 @@ extension MPMediaItemCollection {
             libraryId: libraryId,
             title: title,
             subtitle: numberOfItems,
-            dateAdded: dateAdded,
-            lastPlayed: lastPlayed ?? Date(timeIntervalSince1970: 0),
             isFavorite: isFavorite,
             isCloudItem: items.first(where: { $0.isCloudItem })?.isCloudItem ?? false,
             artwork: { self.catalogArtwork },

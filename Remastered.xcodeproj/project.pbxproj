@@ -69,6 +69,11 @@
 		5BBAEE4F27582093007FFA24 /* MPMediaItemCollection+toGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE4E27582093007FFA24 /* MPMediaItemCollection+toGenre.swift */; };
 		5BBAEE51275829C2007FFA24 /* LibraryCategoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBAEE50275829C2007FFA24 /* LibraryCategoryType.swift */; };
 		5BBE036F2753D5E400A53E7C /* LibraryItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */; };
+		5BC55FB02789A36A0065F06A /* LibraryServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FAF2789A36A0065F06A /* LibraryServiceResult.swift */; };
+		5BC55FB82789ACA90065F06A /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FB72789ACA90065F06A /* GalleryService.swift */; };
+		5BC55FBB2789B3890065F06A /* DefaultLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBA2789B3890065F06A /* DefaultLibraryService.swift */; };
+		5BC55FBD2789B4240065F06A /* DefaultGalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBC2789B4240065F06A /* DefaultGalleryService.swift */; };
+		5BC55FBF2789B44F0065F06A /* GalleryServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC55FBE2789B44F0065F06A /* GalleryServiceResult.swift */; };
 		5BEA05BB276E4D530058E3CE /* SearchAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BA276E4D530058E3CE /* SearchAction.swift */; };
 		5BEA05BD276E4D590058E3CE /* SearchEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */; };
 		5BEA05BF276E4D5F0058E3CE /* SearchReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */; };
@@ -164,6 +169,11 @@
 		5BBAEE4E27582093007FFA24 /* MPMediaItemCollection+toGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPMediaItemCollection+toGenre.swift"; sourceTree = "<group>"; };
 		5BBAEE50275829C2007FFA24 /* LibraryCategoryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCategoryType.swift; sourceTree = "<group>"; };
 		5BBE036E2753D5E400A53E7C /* LibraryItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItemState.swift; sourceTree = "<group>"; };
+		5BC55FAF2789A36A0065F06A /* LibraryServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryServiceResult.swift; sourceTree = "<group>"; };
+		5BC55FB72789ACA90065F06A /* GalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryService.swift; sourceTree = "<group>"; };
+		5BC55FBA2789B3890065F06A /* DefaultLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLibraryService.swift; sourceTree = "<group>"; };
+		5BC55FBC2789B4240065F06A /* DefaultGalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGalleryService.swift; sourceTree = "<group>"; };
+		5BC55FBE2789B44F0065F06A /* GalleryServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryServiceResult.swift; sourceTree = "<group>"; };
 		5BEA05BA276E4D530058E3CE /* SearchAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAction.swift; sourceTree = "<group>"; };
 		5BEA05BC276E4D590058E3CE /* SearchEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEnvironment.swift; sourceTree = "<group>"; };
 		5BEA05BE276E4D5F0058E3CE /* SearchReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchReducer.swift; sourceTree = "<group>"; };
@@ -286,6 +296,7 @@
 			children = (
 				5B38CEE3274019D5003376CC /* LibraryView.swift */,
 				5B38CEF0274023BF003376CC /* TCA */,
+				5BC55FB42789A3EF0065F06A /* Service */,
 				5BBAEE52275829DF007FFA24 /* Types */,
 				5B38CEF427402464003376CC /* Models */,
 				5B38CEF727414217003376CC /* Extensions */,
@@ -410,6 +421,7 @@
 			children = (
 				5B5D06C1275255CF00966287 /* GalleryView.swift */,
 				5B5D06CC2752560700966287 /* TCA */,
+				5BC55FB92789B3410065F06A /* Service */,
 				5B5E7C8D275D44C40033E664 /* Types */,
 			);
 			path = Gallery;
@@ -454,7 +466,6 @@
 			isa = PBXGroup;
 			children = (
 				5B38CEDA273FD959003376CC /* AuthorizationService.swift */,
-				5B38CEEE2740234C003376CC /* LibraryService.swift */,
 				5B5D06CF275280BE00966287 /* PlaybackService.swift */,
 			);
 			path = Services;
@@ -491,6 +502,26 @@
 				5BBAEE50275829C2007FFA24 /* LibraryCategoryType.swift */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		5BC55FB42789A3EF0065F06A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5B38CEEE2740234C003376CC /* LibraryService.swift */,
+				5BC55FAF2789A36A0065F06A /* LibraryServiceResult.swift */,
+				5BC55FBA2789B3890065F06A /* DefaultLibraryService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		5BC55FB92789B3410065F06A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5BC55FB72789ACA90065F06A /* GalleryService.swift */,
+				5BC55FBE2789B44F0065F06A /* GalleryServiceResult.swift */,
+				5BC55FBC2789B4240065F06A /* DefaultGalleryService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		5BEA05C2276E4DD60058E3CE /* TCA */ = {
@@ -722,6 +753,8 @@
 				5BBAEE49275814F3007FFA24 /* MPMediaItemCollection+toAlbum.swift in Sources */,
 				5B97D27D2767BCC300260593 /* LibraryCategoryItemRow.swift in Sources */,
 				5B5D06C4275255D900966287 /* GalleryState.swift in Sources */,
+				5BC55FBD2789B4240065F06A /* DefaultGalleryService.swift in Sources */,
+				5BC55FB02789A36A0065F06A /* LibraryServiceResult.swift in Sources */,
 				5BBAEE51275829C2007FFA24 /* LibraryCategoryType.swift in Sources */,
 				5BA87CFB277DA762001FA7C5 /* LibraryArtist.swift in Sources */,
 				5B38CEEF2740234C003376CC /* LibraryService.swift in Sources */,
@@ -739,9 +772,11 @@
 				5BFB004027786AC500729740 /* GalleryRowEnvironment.swift in Sources */,
 				5BFB003C2777C27700729740 /* GalleryRowState.swift in Sources */,
 				5B5D06C2275255CF00966287 /* GalleryView.swift in Sources */,
+				5BC55FBF2789B44F0065F06A /* GalleryServiceResult.swift in Sources */,
 				5B53F5F62753F51C0022D57A /* LibraryItemEnvironment.swift in Sources */,
 				5B38CEDD273FDE6A003376CC /* AppAction.swift in Sources */,
 				5B53F5EB2753E4570022D57A /* LibraryCategoryEnvironment.swift in Sources */,
+				5BC55FBB2789B3890065F06A /* DefaultLibraryService.swift in Sources */,
 				5B53F5E92753E4570022D57A /* LibraryCategoryState.swift in Sources */,
 				5B2757AE276E3E30004381E3 /* SearchView.swift in Sources */,
 				5BBAEE4D27581BC5007FFA24 /* MPMediaItemCollection+toArtist.swift in Sources */,
@@ -751,6 +786,7 @@
 				5B38CEE4274019D5003376CC /* LibraryView.swift in Sources */,
 				5BBAEE4127552FB3007FFA24 /* MPMediaItem+Additions.swift in Sources */,
 				5B5D06C8275255E500966287 /* GalleryEnvironment.swift in Sources */,
+				5BC55FB82789ACA90065F06A /* GalleryService.swift in Sources */,
 				5B38CEC8273FD771003376CC /* RemasteredApp.swift in Sources */,
 				5BBAEE43275532BC007FFA24 /* LibraryItem.swift in Sources */,
 				5B53F5F82753F52D0022D57A /* LibraryItemReducer.swift in Sources */,

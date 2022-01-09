@@ -8,11 +8,11 @@
 import Foundation
 
 enum LibraryAction: Equatable {
-    case fetch
-    case receiveCollections(result: Result<[LibraryCollection], Never>)
+    case receiveCollections(Result<LibraryServiceResult, Never>)
     case libraryCategory(LibraryCategoryAction)
     case setCategoryNavigation(selection: UUID?)
     case libraryItem(LibraryItemAction)
     case setItemNavigation(selection: UUID?)
     case dismiss
+    case openCollection(LibraryCollection?)
 }

@@ -13,8 +13,6 @@ struct LibraryCollection {
     let type: LibraryCategoryType
     let title: String
     let subtitle: String
-    let dateAdded: Date
-    let lastPlayed: Date
     let isFavorite: Bool
     let isCloudItem: Bool
     var artwork: () -> UIImage?
@@ -25,8 +23,6 @@ struct LibraryCollection {
         libraryId: LibraryId,
         title: String,
         subtitle: String,
-        dateAdded: Date,
-        lastPlayed: Date,
         isFavorite: Bool,
         isCloudItem: Bool = false,
         artwork: @escaping () -> UIImage?,
@@ -36,8 +32,6 @@ struct LibraryCollection {
         self.title = title
         self.subtitle = subtitle
         self.libraryId = libraryId
-        self.dateAdded = dateAdded
-        self.lastPlayed = lastPlayed
         self.isFavorite = isFavorite
         self.isCloudItem = isCloudItem
         self.artwork = artwork
@@ -95,8 +89,6 @@ extension LibraryCollection {
         title: String,
         subtitle: String,
         id: String = UUID().uuidString,
-        dateAdded: Date,
-        lastPlayed: Date? = nil,
         isFavorite: Bool = false,
         isCloudItem: Bool = false,
         artwork: UIImage? = nil,
@@ -106,8 +98,6 @@ extension LibraryCollection {
         self.title = title
         self.subtitle = subtitle
         self.libraryId = LibraryId(id)!
-        self.dateAdded = dateAdded
-        self.lastPlayed = lastPlayed ?? .init(timeIntervalSince1970: 0)
         self.isFavorite = isFavorite
         self.isCloudItem = isCloudItem
         self.artwork = { artwork }
@@ -122,8 +112,6 @@ extension LibraryCollection {
             title: "Disco Hits with an ultra long title that creates a line break",
             subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQRR",
-            dateAdded: Date(timeIntervalSince1970: 1633609912),
-            lastPlayed: Date(timeIntervalSince1970: 1610026199),
             isCloudItem: true,
             artwork: nil,
             items: LibraryItem.playlistItems
@@ -136,8 +124,6 @@ extension LibraryCollection {
             title: "The Weeknd",
             subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQBDG",
-            dateAdded: Date(timeIntervalSince1970: 1615037320),
-            lastPlayed: Date(timeIntervalSince1970: 1616678920),
             isFavorite: false,
             isCloudItem: true,
             artwork: UIImage(named: "After Hours"),
@@ -151,8 +137,6 @@ extension LibraryCollection {
             title: "Pop",
             subtitle: "\(LibraryItem.playlistItems.count) songs",
             id: "AABB-CCDD-EEFF-QQBDM",
-            dateAdded: Date(timeIntervalSince1970: 1615037320),
-            lastPlayed: Date(timeIntervalSince1970: 1616678920),
             isFavorite: false,
             isCloudItem: false,
             artwork: nil,
@@ -166,8 +150,6 @@ extension LibraryCollection {
             title: "Organ",
             subtitle: "Dimension",
             id: "AABB-CCDD-EEFF-GGHH",
-            dateAdded: Date(timeIntervalSince1970: 1615037320),
-            lastPlayed: Date(timeIntervalSince1970: 1616678920),
             isFavorite: true,
             artwork: UIImage(named: "Organ"),
             items: LibraryItem.exampleItems
@@ -177,7 +159,6 @@ extension LibraryCollection {
             title: "Whenever You Need Somebody",
             subtitle: "Rick Astley",
             id: "AABB-CCDD-EEFF-KKLL",
-            dateAdded: Date(timeIntervalSince1970: 1615642120),
             artwork: UIImage(named: "Whenever You Need Somebody"),
             items: LibraryItem.exampleItems
         ),
@@ -186,7 +167,6 @@ extension LibraryCollection {
             title: "Midnight Express",
             subtitle: "Giorgio Moroder",
             id: "AABB-CCDD-EEFF-LLMM",
-            dateAdded: Date(timeIntervalSince1970: 1615642122),
             artwork: UIImage(named: "Midnight Express"),
             items: LibraryItem.exampleItems
         ),
@@ -195,8 +175,6 @@ extension LibraryCollection {
             title: "After Hours",
             subtitle: "The Weeknd",
             id: "AABB-CCDD-EEFF-MMNN",
-            dateAdded: Date(timeIntervalSince1970: 1632227320),
-            lastPlayed: Date(timeIntervalSince1970: 1636896520),
             artwork: nil,
             items: LibraryItem.exampleItems
         ),
@@ -205,8 +183,6 @@ extension LibraryCollection {
             title: "Mosaik",
             subtitle: "Camo & Krooked",
             id: "AABB-CCDD-EEFF-NNOO",
-            dateAdded: Date(timeIntervalSince1970: 1602073720),
-            lastPlayed: Date(timeIntervalSince1970: 1631276920),
             artwork: UIImage(named: "Mosaik"),
             items: LibraryItem.exampleItems
         ),
@@ -215,8 +191,6 @@ extension LibraryCollection {
             title: "It's Album Time",
             subtitle: "Todd Terje",
             id: "AABB-CCDD-EEFF-OOPP",
-            dateAdded: Date(timeIntervalSince1970: 1633609720),
-            lastPlayed: Date(timeIntervalSince1970: 1610026120),
             artwork: UIImage(named: "It's Album Time"),
             items: LibraryItem.exampleItems
         )

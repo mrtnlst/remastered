@@ -96,8 +96,8 @@ struct LibraryView_Previews: PreviewProvider {
                 ),
                 reducer: libraryReducer,
                 environment: LibraryEnvironment(
+                    fetch: { _ in return .none },
                     mainQueue: .main,
-                    fetch: { return .none },
                     uuid: { UUID.init() }
                 )
             )

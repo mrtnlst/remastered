@@ -12,6 +12,7 @@ import ComposableArchitecture
 struct AppEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue> = .main
     var libraryService: LibraryService
+    var galleryService: GalleryService
     var authorizationService: AuthorizationService
     var playbackService: PlaybackService
 }

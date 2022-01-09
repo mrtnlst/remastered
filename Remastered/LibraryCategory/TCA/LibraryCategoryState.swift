@@ -51,8 +51,6 @@ extension LibraryCategoryState {
             category: LibraryCategoryState(
                 items: .init(
                     uniqueElements: LibraryCollection.exampleAlbums
-                        .filter(GalleryCategoryType.discover.filterValue)
-                        .sorted(by: GalleryCategoryType.discover.sortOrder)
                         .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.discover.rawValue
@@ -63,8 +61,6 @@ extension LibraryCategoryState {
             category: LibraryCategoryState(
                 items: .init(
                     uniqueElements: LibraryCollection.exampleAlbums
-                        .filter(GalleryCategoryType.favorites.filterValue)
-                        .sorted(by: GalleryCategoryType.favorites.sortOrder)
                         .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.favorites.rawValue
@@ -75,8 +71,6 @@ extension LibraryCategoryState {
             category: LibraryCategoryState(
                 items: .init(
                     uniqueElements: LibraryCollection.exampleAlbums
-                        .filter(GalleryCategoryType.recentlyAdded.filterValue)
-                        .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
                         .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.recentlyAdded.rawValue
@@ -87,8 +81,6 @@ extension LibraryCategoryState {
             category: LibraryCategoryState(
                 items: .init(
                     uniqueElements: LibraryCollection.exampleAlbums
-                        .filter(GalleryCategoryType.recentlyAdded.filterValue)
-                        .sorted(by: GalleryCategoryType.recentlyAdded.sortOrder)
                         .map { LibraryItemState(collection: $0) }
                 ),
                 name: GalleryCategoryType.recentlyAdded.rawValue

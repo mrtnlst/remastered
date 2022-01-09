@@ -11,15 +11,12 @@ import ComposableArchitecture
 enum AppAction: Equatable, BindableAction {
     case onAppear
     case authorizationResponse(Result<Bool, AuthorizationError>)
-    case fetch
-    case fetchResponse(Result<[LibraryCollection], Never>)
     case library(LibraryAction)
     case gallery(GalleryAction)
     case search(SearchAction)
     case playback(PlaybackAction)
     case didSelectTab(_ tag: Int)
     case binding(BindingAction<AppState>)
-    case didBecomeActive
-    case fetchCollectionResponse(Result<LibraryCollection?, Never>)
+    case fetchCollectionResponse(Result<LibraryServiceResult, Never>)
 }
 

@@ -14,27 +14,41 @@ enum GalleryCategoryType: String, CaseIterable {
     case recentlyPlayed = "Recently Played"    
 }
 
+// MARK: - Custom Initializer
 extension GalleryCategoryType {
-    var sortOrder: (LibraryCollection, LibraryCollection) -> Bool {
+    init?(from uuid: UUID) {
+        switch uuid {
+        case GalleryCategoryType.discover.uuid:
+            self = .discover
+        case GalleryCategoryType.favorites.uuid:
+            self = .favorites
+        case GalleryCategoryType.recentlyAdded.uuid:
+            self = .recentlyAdded
+        case GalleryCategoryType.recentlyPlayed.uuid:
+            self = .recentlyPlayed
+        default: return nil
+        }
+    }
+}
+
+// MARK: - Mapping
+extension GalleryCategoryType {
+    var serviceResult: GalleryServiceResult {
         switch self {
-        case .recentlyAdded:
-            return { lhs, rhs in lhs.dateAdded > rhs.dateAdded }
         case .discover:
-            return { lhs, rhs in lhs.lastPlayed < rhs.lastPlayed }
-        default:
-            return { lhs, rhs in lhs.lastPlayed > rhs.lastPlayed }
-        }
-    }
-    
-    var filterValue: (LibraryCollection) -> Bool {
-        switch self {
+            return .discover([])
         case .favorites:
-            return { item in item.isFavorite }
-        default:
-            return { _ in true }
+            return .favorites([])
+        case .recentlyAdded:
+            return .recentlyAdded([])
+        case .recentlyPlayed:
+            return .recentlyPlayed([])
         }
     }
-    
+}
+
+// MARK: - Properties
+extension GalleryCategoryType {
     var uuid: UUID {
         switch self {
         case .discover:

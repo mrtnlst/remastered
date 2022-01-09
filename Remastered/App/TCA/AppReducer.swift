@@ -16,8 +16,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             action: /AppAction.library,
             environment: {
                 LibraryEnvironment(
-                    mainQueue: $0.mainQueue,
                     fetch: $0.libraryService.fetch,
+                    mainQueue: $0.mainQueue,
                     uuid: { UUID.init() }
                 )
             }
@@ -30,8 +30,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 GalleryEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetch,
-                    uuid: { UUID.init() }
+                    uuid: { UUID.init() },
+                    fetch: $0.galleryService.fetch
                 )
             }
         ),
@@ -43,7 +43,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 SearchEnvironment(
                     mainQueue: $0.mainQueue,
-                    fetch: $0.libraryService.fetch,
                     uuid: { UUID.init() }
                 )
             }
@@ -68,16 +67,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
     Reducer { state, action, environment in
         switch action {
         case .onAppear:
-#if targetEnvironment(simulator)
-            return Effect(value: .didBecomeActive)
-#else
-            return .merge(
-                NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)
-                    .map { _ in .didBecomeActive }
-                    .eraseToEffect()
-            )
-#endif
-        case .didBecomeActive:
             return environment
                 .authorizationService
                 .authorize()
@@ -92,7 +81,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                 state.playback = PlaybackState()
                 state.isAuthorized = true
             }
-            return Effect(value: .fetch)
+            return .none
             
         case .authorizationResponse(.success(false)),
              .authorizationResponse(.failure(_)):
@@ -117,20 +106,6 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             
         case .library(_):
             return .none
-            
-        case .fetch:
-            return environment
-                .libraryService
-                .fetch()
-                .receive(on: environment.mainQueue)
-                .catchToEffect(AppAction.fetchResponse)
-            
-        case let .fetchResponse(.success(collections)):
-            return .merge(
-                Effect(value: .library(.receiveCollections(result: .success(collections)))),
-                Effect(value: .gallery(.receiveCollections(result: .success(collections)))),
-                Effect(value: .search(.receiveCollections(result: .success(collections))))
-            )
             
         case let .didSelectTab(tag):
             var effects: [Effect<AppAction, Never>] = []
@@ -159,17 +134,18 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             if let persistentId = persistentId {
                 return environment
                     .libraryService
-                    .fetchCollection(for: persistentId, of: type)
+                    .fetchCollection(for: persistentId, of: type.serviceResult)
                     .catchToEffect(AppAction.fetchCollectionResponse)
             }
             return .none
             
-        case let .fetchCollectionResponse(.success(collection)):
+        case let .fetchCollectionResponse(.success(result)):
+            let collection = result.collections.first
             switch state.selectedTab {
             case 0:
                 return .concatenate(
                     Effect(value: .gallery(.dismiss)),
-                    Effect(value: .gallery(.setItemNavigation(selection: collection?.id)))
+                    Effect(value: .gallery(.openCollection(collection)))
                     // Introduces a delay, so that the dismissal of the navigation stack runs smoothly.
                         .delay(for: 0.55, scheduler: environment.mainQueue)
                         .eraseToEffect()
@@ -177,7 +153,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             case 1:
                 return .concatenate(
                     Effect(value: .library(.dismiss)),
-                    Effect(value: .library(.setItemNavigation(selection: collection?.id)))
+                    Effect(value: .library(.openCollection(collection)))
                     // Introduces a delay, so that the dismissal of the navigation stack runs smoothly.
                         .delay(for: 0.55, scheduler: environment.mainQueue)
                         .eraseToEffect()

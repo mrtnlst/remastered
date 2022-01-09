@@ -11,6 +11,6 @@ import ComposableArchitecture
 
 struct GalleryEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
-    var fetch: () -> Effect<[LibraryCollection], Never>
     var uuid: () -> UUID
+    var fetch: (GalleryServiceResult) -> Effect<GalleryServiceResult, Never>
 }

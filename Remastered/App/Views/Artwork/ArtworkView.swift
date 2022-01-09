@@ -120,8 +120,7 @@ struct ArtworkView_Previews: PreviewProvider {
                     LibraryCollection(
                         type: .genre,
                         title: "",
-                        subtitle: "",
-                        dateAdded: Date()
+                        subtitle: ""
                     )
                 ),
                 cornerRadius: 8

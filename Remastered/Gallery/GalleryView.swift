@@ -30,6 +30,7 @@ struct GalleryView: View {
                     .padding(.horizontal)
                     .navigationBarTitle("Gallery")
                 }
+                .onAppear { viewStore.send(.onAppear) }
             }
         }
     }
@@ -66,8 +67,8 @@ struct GalleryView_Previews: PreviewProvider {
                 reducer: galleryReducer,
                 environment: GalleryEnvironment(
                     mainQueue: .main,
-                    fetch: { return .none },
-                    uuid: { UUID.init() }
+                    uuid: { UUID.init() },
+                    fetch: { _ in return .none }
                 )
             )
         )

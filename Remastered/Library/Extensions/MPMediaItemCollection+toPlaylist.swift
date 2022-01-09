@@ -14,8 +14,7 @@ extension MPMediaItemCollection {
         guard let playlistSelf = self as? MPMediaPlaylist,
               let id = playlistSelf.value(forProperty: idProperty) as? NSNumber,
               let libraryId = LibraryId(id.stringValue),
-              let title = playlistSelf.name,
-              let dateAdded = value(forProperty: "dateModified") as? Date
+              let title = playlistSelf.name
         else {
             return nil
         }
@@ -24,8 +23,6 @@ extension MPMediaItemCollection {
             libraryId: libraryId,
             title: title,
             subtitle: numberOfItems,
-            dateAdded: dateAdded,
-            lastPlayed: lastPlayed ?? Date(timeIntervalSince1970: 0),
             isFavorite: isFavorite,
             isCloudItem: items.first(where: { $0.isCloudItem })?.isCloudItem ?? false,
             artwork: { self.catalogArtwork },
