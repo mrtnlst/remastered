@@ -34,6 +34,6 @@ extension MPMediaItem {
         return LibraryAlbum(id: id, title: title)
     }
     var itemArtwork: UIImage? {
-        return artwork?.image(at: CGSize(width: 180, height: 180))
+        return artwork?.image(at: CGSize(width: 300, height: 300))
     }
 }

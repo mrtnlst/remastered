@@ -10,54 +10,66 @@ import ComposableArchitecture
 
 struct LibraryItemView: View {
     let store: Store<LibraryItemState, LibraryItemAction>
-    
+        
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView(.vertical, showsIndicators: true) {
-                headerView(for: viewStore.collection)
-                playButton {
+                headerView(for: viewStore.collection) {
                     viewStore.send(.didSelectItem(id: viewStore.collection.libraryId.persistentId, type: viewStore.collection.type))
                 }
                 trackList(for: viewStore.collection.items(), in: viewStore.collection)
             }
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                if viewStore.collection.isCloudItem {
+                    Image(systemName: "cloud")
+                }
+            }
         }
     }
 }
 
 extension LibraryItemView {
-    @ViewBuilder func playButton(_ action: @escaping () -> Void) -> some View {
-        Button(action: action) {
+    @ViewBuilder func headerView(for collection: LibraryCollection, action: @escaping () -> Void) -> some View {
+        ZStack {
+            ArtworkView(with: .collection(collection), cornerRadius: 0, shadowRadius: 0)
             HStack {
-                Image(systemName: "play.fill")
-                Text("Play")
-                    .bold()
+                VStack {
+                    Spacer()
+                    Button(action: action) {
+                        ZStack {
+                            Image(systemName: "circle.fill")
+                                .font(.title)
+                                .foregroundColor(.primary)
+                                .padding()
+                            Image(systemName: "play.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.primary)
+                                .colorInvert()
+                                .padding()
+                        }
+                    }
+                    .shadow(radius: 8)
+                }
+                Spacer()
             }
-            .foregroundColor(.primary)
-            .padding()
-        }
-    }
-    @ViewBuilder func headerView(for collection: LibraryCollection) -> some View {
-        VStack {
-            Text(collection.title)
-                .font(.title3)
-                .bold()
-                .foregroundColor(.primary)
-                .padding(.horizontal, 16)
-                .multilineTextAlignment(.center)
-            Text(collection.type == .album ? "by \(collection.subtitle)" : "\(collection.subtitle)")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            ArtworkView(with: .collection(collection), cornerRadius: 8, shadowRadius: 3)
-                .frame(maxHeight: 180)
-                .reflection(offsetY: 10)
         }
     }
     
     @ViewBuilder func trackList(for items: [LibraryItem], in collection: LibraryCollection) -> some View {
-        VStack {
-            cloudItemRow(collection.isCloudItem)
+        VStack(alignment: .leading) {
+            Text(collection.title)
+                .font(.title2)
+                .bold()
+                .foregroundColor(.primary)
+                .padding(.horizontal, 24)
+                .multilineTextAlignment(.leading)
+            Text(collection.type == .album ? "by \(collection.subtitle)" : "\(collection.subtitle)")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 24)
             Divider()
+                .padding(.leading , 24)
             LazyVStack {
                 ForEach(items) { item in
                     switch collection.type {
@@ -68,23 +80,11 @@ extension LibraryItemView {
                     }
                 }
             }
+            .padding(.leading , 24)
         }
-        .padding(.leading , 24)
         .padding(.bottom, 80)
     }
-    
-    @ViewBuilder func cloudItemRow(_ isCloudItem: Bool) -> some View {
-        if isCloudItem {
-            HStack {
-                Spacer()
-                Image(systemName: "cloud")
-                    .foregroundColor(.secondary)
-                    .padding(.trailing, 16)
-                    .padding(.bottom, 8)
-            }
-        }
-    }
-    
+
     @ViewBuilder func genericRow(for item: LibraryItem, in collection: LibraryCollection) -> some View {
         VStack(spacing: 4) {
             Button {
@@ -179,6 +179,7 @@ struct LibraryItemView_Previews: PreviewProvider {
                     environment: LibraryItemEnvironment()
                 )
             )
+                .navigationTitle("The Navigation Bar")
         }
     }
 }

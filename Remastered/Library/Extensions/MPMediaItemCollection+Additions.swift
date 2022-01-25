@@ -34,7 +34,7 @@ extension MPMediaItemCollection {
     
     var artwork: UIImage? {
         let image = representativeItem?.artwork
-        return image?.image(at: CGSize(width: 100, height: 100))
+        return image?.image(at: CGSize(width: 500, height: 500))
     }
     
     var catalogArtwork: UIImage? {
