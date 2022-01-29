@@ -11,4 +11,5 @@ import ComposableArchitecture
 struct SearchEnvironment {
     var mainQueue: AnySchedulerOf<DispatchQueue>
     var uuid: () -> UUID
+    var fetch: (String) -> Effect<[LibraryServiceResult], Never>
 }

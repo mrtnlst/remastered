@@ -28,7 +28,7 @@ struct CategoryToolbar: ToolbarContent {
                 ZStack {
                     Image(systemName: "circle.fill")
                         .font(Font.title2)
-                Image(systemName: displayStyle.icon)
+                    Image(systemName: displayStyle.icon)
                         .font(.caption.weight(displayStyle == .list ? .bold : .thin))
                         .foregroundColor(.primary)
                         .colorInvert()

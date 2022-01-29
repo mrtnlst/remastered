@@ -54,13 +54,12 @@ struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             store: Store(
-                initialState: SearchState(
-                    searchResults: LibraryCategoryState.exampleLibraryAlbums
-                ),
+                initialState: SearchState(searchSections: SearchState.previewSections),
                 reducer: searchReducer,
                 environment: SearchEnvironment(
                     mainQueue: .main,
-                    uuid: { UUID.init() }
+                    uuid: { UUID.init() },
+                    fetch: { _ in return .none }
                 )
             )
         )

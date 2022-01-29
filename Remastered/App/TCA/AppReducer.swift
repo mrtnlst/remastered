@@ -43,7 +43,8 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
             environment: {
                 SearchEnvironment(
                     mainQueue: $0.mainQueue,
-                    uuid: { UUID.init() }
+                    uuid: { UUID.init() },
+                    fetch: $0.libraryService.fetchCollections
                 )
             }
         ),
@@ -159,8 +160,13 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
                         .eraseToEffect()
                 )
             case 2:
-                state.search?.selectedItem = nil
-                return Effect(value: .search(.setItemNavigation(selection: collection?.id)))
+                return .concatenate(
+                    Effect(value: .search(.dismiss)),
+                    Effect(value: .search(.openCollection(collection)))
+                    // Introduces a delay, so that the dismissal of the navigation stack runs smoothly.
+                        .delay(for: 0.55, scheduler: environment.mainQueue)
+                        .eraseToEffect()
+                )
             default:
                 return .none
             }

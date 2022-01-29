@@ -25,7 +25,6 @@ struct AppState: Equatable {
 }
 
 extension AppState {
-    
     static var previewState: Self {
         AppState(
             library: LibraryState(

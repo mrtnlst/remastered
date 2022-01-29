@@ -84,6 +84,66 @@ extension DefaultLibraryService: LibraryService {
         .eraseToAnyPublisher()
         .eraseToEffect()
     }
+    
+    func fetchCollections(for queryString: String) -> Effect<[LibraryServiceResult], Never> {
+        Future { promise in
+            var results: [LibraryServiceResult] = []
+            results.append(
+                .albums(
+                    self.mediaQuery(
+                        for: MPMediaItemPropertyAlbumTitle,
+                           grouping: .album,
+                           transformer: { $0.toAlbum() },
+                           queryString: queryString
+                    )
+                )
+            )
+            results.append(
+                .playlists(
+                    self.mediaQuery(
+                        for: MPMediaPlaylistPropertyName,
+                           grouping: .playlist,
+                           transformer: { $0.toPlaylist() },
+                           queryString: queryString
+                    )
+                )
+            )
+            results.append(
+                .artists(
+                    self.mediaQuery(
+                        for: MPMediaItemPropertyArtist,
+                           grouping: .artist,
+                           transformer: { $0.toArtist() },
+                           queryString: queryString
+                    )
+                )
+            )
+            // TODO: Songs
+            promise(.success(results))
+        }
+        .eraseToAnyPublisher()
+        .eraseToEffect()
+    }
+}
+
+private extension DefaultLibraryService {
+    func mediaQuery(
+        for property: String,
+        grouping: MPMediaGrouping,
+        transformer: ((MPMediaItemCollection) -> LibraryCollection?),
+        limit: Int = 5,
+        queryString: String
+    ) -> [LibraryCollection] {
+        let predicate = MPMediaPropertyPredicate(
+            value: queryString,
+            forProperty: property,
+            comparisonType: MPMediaPredicateComparison.contains
+        )
+        let filter: Set<MPMediaPropertyPredicate> = [predicate]
+        let query = MPMediaQuery(filterPredicates: filter)
+        query.groupingType = grouping
+        return query.collections?.compactMap(transformer).prefix(limit).uniques() ?? []
+    }
 }
 #endif
 
@@ -111,6 +171,15 @@ extension DefaultLibraryService: LibraryService {
     
     func fetchCollection(for id: String, of type: LibraryServiceResult) -> Effect<LibraryServiceResult, Never> {
         return Just(.albums([LibraryCollection.exampleAlbums.first!])).eraseToAnyPublisher().eraseToEffect()
+    }
+    
+    func fetchCollections(for query: String) -> Effect<[LibraryServiceResult], Never> {
+        let results: [LibraryServiceResult] = [
+            .albums(LibraryCollection.exampleAlbums.filter({ $0.title.contains(query) })),
+            .playlists(LibraryCollection.examplePlaylists.filter({ $0.title.contains(query) })),
+            .artists(LibraryCollection.exampleArtists.filter({ $0.title.contains(query) }))
+        ]
+        return Just(results).eraseToAnyPublisher().eraseToEffect()
     }
 }
 #endif

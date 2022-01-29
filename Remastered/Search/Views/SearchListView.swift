@@ -18,6 +18,7 @@ struct SearchListView: View {
                 LazyVStack {
                     searchListView()
                 }
+                .padding(.bottom, 80)
             }
         } else {
             HStack {
@@ -33,22 +34,31 @@ struct SearchListView: View {
 extension SearchListView {
     @ViewBuilder func searchListView() -> some View {
         WithViewStore(store) { viewStore in
-            ForEach(viewStore.searchResults) { searchResult in
-                NavigationLink(
-                    destination: IfLetStore(
-                        store.scope(
-                            state: { $0.selectedItem?.value },
-                            action: SearchAction.libraryItem
+            ForEach(viewStore.searchSections) { section in
+                HStack {
+                    Text(section.type.text)
+                        .font(.callout)
+                        .foregroundColor(.primary)
+                    Spacer()
+                }
+                Divider()
+                ForEach(section.items) { searchResult in
+                    NavigationLink(
+                        destination: IfLetStore(
+                            store.scope(
+                                state: { $0.selectedItem?.value },
+                                action: SearchAction.libraryItem
+                            ),
+                            then: LibraryItemView.init(store:)
                         ),
-                        then: LibraryItemView.init(store:)
-                    ),
-                    tag: searchResult.id,
-                    selection: viewStore.binding(
-                        get: { $0.selectedItem?.id },
-                        send: SearchAction.setItemNavigation(selection:)
-                    )
-                ) {
-                    LibraryCategoryItemRow(collection: searchResult.collection)
+                        tag: searchResult.id,
+                        selection: viewStore.binding(
+                            get: { $0.selectedItem?.id },
+                            send: SearchAction.setItemNavigation(selection:)
+                        )
+                    ) {
+                        LibraryCategoryItemRow(collection: searchResult.collection)
+                    }
                 }
             }
         }
@@ -60,15 +70,15 @@ struct SearchListView_Previews: PreviewProvider {
     static var previews: some View {
         SearchListView(
             store: Store(
-                initialState: SearchState(
-                    searchResults: LibraryCategoryState.exampleLibraryAlbums
-                ),
+                initialState: SearchState(searchSections: SearchState.previewSections),
                 reducer: searchReducer,
                 environment: SearchEnvironment(
                     mainQueue: .main,
-                    uuid: { UUID.init() }
+                    uuid: { UUID.init() },
+                    fetch: { _ in return .none }
                 )
             )
         )
+            .padding(.horizontal)
     }
 }

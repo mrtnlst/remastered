@@ -8,8 +8,10 @@
 import ComposableArchitecture
 
 enum SearchAction: Equatable, BindableAction {
-    case receiveCollections(result: Result<[LibraryCollection], Never>)
+    case receiveCollections(result: Result<[LibraryServiceResult], Never>)
     case libraryItem(LibraryItemAction)
     case binding(BindingAction<SearchState>)
     case setItemNavigation(selection: UUID?)
+    case dismiss
+    case openCollection(LibraryCollection?)
 }

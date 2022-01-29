@@ -26,6 +26,7 @@ struct LibraryCategoryView: View {
                     gridView()
                 }
             }
+            .padding(.bottom, 80)
             .navigationBarTitle(viewStore.name)
             .toolbar { CategoryToolbar(displayStyle: $displayStyle) }
         }

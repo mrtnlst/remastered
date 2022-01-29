@@ -9,44 +9,57 @@ import ComposableArchitecture
 
 let searchReducer = Reducer<SearchState, SearchAction, SearchEnvironment> { state, action, environment in
     switch action {
-    case let .receiveCollections(.success(collections)):
-        state.collections = collections
+    case let .receiveCollections(.success(result)):
+        let sections = result.compactMap { result -> SearchState.Section? in
+            guard !result.collections.isEmpty else { return nil }
+            return SearchState.Section(
+                type: result.categoryType,
+                items: .init(uniqueElements: result.collections.map { LibraryItemState(collection: $0, id: $0.id) })
+            )
+        }
+        state.searchSections = .init(uniqueElements: sections)
         return .none
         
     case .binding(\.$searchText):
-        guard !state.searchText.isEmpty else {
-            state.searchResults = []
+        guard !state.searchText.isEmpty, state.searchText.count > 2 else {
+            state.searchSections = []
             return .none
         }
-        let items = state.collections.map { LibraryItemState(collection: $0, id: $0.id) }
-        let result = items.filter {
-            $0.collection.title.lowercased().contains(state.searchText.lowercased()) ||
-            $0.collection.subtitle.lowercased().contains(state.searchText.lowercased())
-        }
-        state.searchResults = IdentifiedArrayOf<LibraryItemState>(uniqueElements: result)
-        return .none
-        
-    case .binding:
-        return .none
-        
+        return environment
+            .fetch(state.searchText)
+            .receive(on: environment.mainQueue)
+            .catchToEffect(SearchAction.receiveCollections)
+         
     case let .setItemNavigation(id):
         guard let id = id else {
             state.selectedItem = nil
             return .none
         }
-        if let collection = state.searchResults.first(where: { $0.id == id }) {
+        let itemStates = state.searchSections.map { $0.items }.reduce([], +)
+        if let itemState = itemStates.first(where: { $0.id == id }) {
             state.selectedItem = Identified(
-                collection,
+                itemState,
                 id: id
-            )
-        } else if let collection = state.collections.first(where: { $0.id == id }) {
-            state.selectedItem = Identified(
-                LibraryItemState(collection: collection, id: collection.id),
-                id: state.emptyNavigationLinkId
             )
         }
         return .none
         
+    case let .openCollection(collection):
+        guard let collection = collection else {
+            state.selectedItem = nil
+            return .none
+        }
+        let itemState = LibraryItemState(collection: collection, id: collection.id)
+        state.selectedItem = Identified(itemState, id: state.emptyNavigationLinkId)
+        return .none
+    
+    case .dismiss:
+        state.selectedItem = nil
+        return .none
+        
+    case .binding:
+        return .none
+       
     case let .libraryItem(action):
         return .none
     }
